@@ -1,0 +1,24 @@
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.lxy</groupId>
+        <artifactId>lublog</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.lublog</groupId>
+    <artifactId>rpc-interface</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>rpc-interface Tapestry 5 Application</name>
+    <dependencies>
+        <dependency>
+            <groupId>com.lublog</groupId>
+            <artifactId>pojo</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+
+
+</project>

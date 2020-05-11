@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="provider"/>
+    <!-- 注册中心的ip地址 -->
+    <dubbo:registry address="zookeeper://116.62.180.224:2181" timeout="60000"/>
+    <!-- use dubbo protocol to export service on port 20880 -->
+    <dubbo:protocol name="dubbo" port="20881"/>
+    <!--如果你的服务需要Warmup时间，比如初始化缓存，等待相关资源就位等，可以使用delay进行延迟暴露。-->
+    <dubbo:provider delay="-1" timeout="12000" retries="0"/>
+    <!-- 使用xml配置方式申明暴露一个接口服务，在程序启动的时候会自动注册到zookeeper。
+         等同于在类上打@service注解，打了注解就必须要用annotation指定启动扫描路径，使用这种方式，就不需要指定annotation了-->
+    <dubbo:service interface="com.lublog.service.BookService" ref="bookService"/>
+    <dubbo:service interface="com.lublog.service.BorrowService" ref="borrowService"/>
+    <dubbo:service interface="com.lublog.service.CartService" ref="cartService"/>
+    <dubbo:service interface="com.lublog.service.CommentService" ref="commentService"/>
+    <dubbo:service interface="com.lublog.service.ReplayService" ref="replayService"/>
+    <dubbo:service interface="com.lublog.service.UserService" ref="userService"/>
+    <!-- 服务实现，与普通的本地bean一样-->
+    <bean id="bookService" class="com.lublog.provider.serviceimpl.BookServiceImpl"/>
+    <bean id="borrowService" class="com.lublog.provider.serviceimpl.BorrowServiceImpl"/>
+    <bean id="cartService" class="com.lublog.provider.serviceimpl.CartServiceImpl"/>
+    <bean id="commentService" class="com.lublog.provider.serviceimpl.CommentServiceImpl"/>
+    <bean id="replayService" class="com.lublog.provider.serviceimpl.ReplayServiceImpl"/>
+    <bean id="userService" class="com.lublog.provider.serviceimpl.UserServiceImpl"/>
+</beans>

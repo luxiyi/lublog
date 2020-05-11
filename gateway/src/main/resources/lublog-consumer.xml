@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 消费方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="consumer"/>
+    <!--zookeeper注册中心 -->
+    <dubbo:registry  protocol="zookeeper" address="116.62.180.224:2181" timeout="60000"/>
+    <!--关闭服务消费方所有服务的启动检查。dubbo缺省会在启动时检查依赖的服务是否可用，不可用时会抛出异常，阻止Spring初始化完成。-->
+    <dubbo:consumer check="false" />
+    <!-- 使用xml配置方式创建远程服务代理，id即为provider.xml中暴露的服务的id-->
+    <dubbo:reference id="userService" check="false" interface="com.lublog.service.UserService"/>
+    <dubbo:reference id="bookService" check="false" interface="com.lublog.service.BookService"/>
+    <dubbo:reference id="borrowService" check="false" interface="com.lublog.service.BorrowService"/>
+    <dubbo:reference id="commentService" check="false" interface="com.lublog.service.CommentService"/>
+    <dubbo:reference id="cartService" check="false" interface="com.lublog.service.CartService"/>
+    <dubbo:reference id="replayService" check="false" interface="com.lublog.service.ReplayService"/>
+</beans>

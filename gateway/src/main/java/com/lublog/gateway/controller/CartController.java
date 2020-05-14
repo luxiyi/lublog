@@ -1,9 +1,9 @@
 package com.lublog.gateway.controller;
 
-import com.lublog.pojo.Book;
-import com.lublog.pojo.BookCart;
-import com.lublog.pojo.Cart;
-import com.lublog.pojo.LoginUser;
+import com.lublog.po.BlogContent;
+import com.lublog.po.BookCart;
+import com.lublog.vo.Cart;
+import com.lublog.po.LoginUser;
 import com.lublog.service.BookService;
 import com.lublog.service.BorrowService;
 import com.lublog.service.CartService;
@@ -69,7 +69,7 @@ public class CartController {
     // 添加书到书架中,用map方法 直接添加到视图中是不行的,借书
     @RequestMapping(value = "/addCart")
     @ResponseBody
-    public Map<String, Object> addCart(HttpSession session, Book book, LoginUser user, Cart cart, BookCart bookCart) {
+    public Map<String, Object> addCart(HttpSession session, BlogContent blogContent, LoginUser user, Cart cart, BookCart bookCart) {
         Map<String, Object> reslut = new HashMap<>();
         String msg = "请联系帅气的管理员";
                 // 判断操作类型,新增还是修改
@@ -132,10 +132,10 @@ public class CartController {
     // 书架中减少图书，到最后为0删除图书，还书
     @RequestMapping("reCartBook")
     @ResponseBody
-    public String reCartBook(HttpSession session, Book book, BookCart bookCart) {
+    public String reCartBook(HttpSession session, BlogContent blogContent, BookCart bookCart) {
         LoginUser user = (LoginUser) session.getAttribute("user");
         String msg = "请联系帅气的管理员";
-        int bid = book.getBid();
+        int bid = blogContent.getBlogid();
         int ccount = bookCart.getCcount();
         int count = cartService.cartccountByBid(user.getLuser(), bid);
         // 如果书架中书数量大于0

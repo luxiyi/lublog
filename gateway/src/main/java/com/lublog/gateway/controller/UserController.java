@@ -1,8 +1,8 @@
 package com.lublog.gateway.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.lublog.pojo.LoginUser;
-import com.lublog.pojo.User;
+import com.lublog.po.LoginUser;
+import com.lublog.po.User;
 import com.lublog.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

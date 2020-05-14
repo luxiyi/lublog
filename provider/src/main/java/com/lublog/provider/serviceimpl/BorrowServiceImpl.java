@@ -1,7 +1,7 @@
 package com.lublog.provider.serviceimpl;
 
 import com.lublog.provider.dao.BorrowMapper;
-import com.lublog.pojo.Order;
+import com.lublog.po.Order;
 import com.lublog.service.BorrowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

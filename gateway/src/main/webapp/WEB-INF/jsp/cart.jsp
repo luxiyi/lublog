@@ -12,13 +12,7 @@
 <script src="../../static/js/cart.js"></script>
 <script src="../../static/js/login.js"></script>
 <style>
-/* 1.页面框架 
-	2.导航框架
-	3.搜索框架
-	4.轮播图框架
-	5.商品图片框架
 
-*/
 
 /* 页面框架 */
 body {

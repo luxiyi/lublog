@@ -1,8 +1,8 @@
 package com.lublog.provider.dao;
 
-import com.lublog.pojo.Book;
-import com.lublog.pojo.Cart;
-import com.lublog.pojo.LoginUser;
+import com.lublog.po.BlogContent;
+import com.lublog.vo.Cart;
+import com.lublog.po.LoginUser;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -31,7 +31,7 @@ public interface CartMapper {
     void updateCart(LoginUser loginUser);
     //通过bid查看书架中是否有这个bid书
     @Select("select * from vi_cart where bid=#{bid}")
-    Cart findCarByBid(Book book);
+    Cart findCarByBid(BlogContent blogContent);
     @Select("select count(bid) from bookcart where bid = #{bid}")
     int findBookInCartNumByid(int bid);
     //添加书架图书数量

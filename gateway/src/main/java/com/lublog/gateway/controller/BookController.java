@@ -1,10 +1,11 @@
 package com.lublog.gateway.controller;
 
-import com.lublog.pojo.Book;
-import com.lublog.pojo.Cart;
-import com.lublog.pojo.LoginUser;
+import com.alibaba.dubbo.common.utils.StringUtils;
+import com.lublog.po.BlogContent;
+import com.lublog.po.LoginUser;
 import com.lublog.service.BookService;
 import com.lublog.service.CartService;
+import com.lublog.service.CommentService;
 import com.lublog.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,13 +38,13 @@ public class BookController {
     private UserService userService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private CommentService commentService;
 
-    @RequestMapping("allBooks")
+    @RequestMapping("findAllBlog")
     @ResponseBody
-    public Map<String, Object> allBooks(HttpSession session, Integer page, Integer totalPage, Book book, String bbid) {
+    public Map<String, Object> findAllBlog(HttpSession session, Integer page, Integer totalPage, BlogContent findBlogContent, String bbid) {
         Map<String, Object> result = new HashMap<String, Object>();
-        List<Book> books = new ArrayList<>();
-
         session.setAttribute("page", page);
         session.setAttribute("totalPage", totalPage);
         // 获取页码、总页码
@@ -51,27 +52,27 @@ public class BookController {
         totalPage = bookService.findTotalPage();
         // 得到每一页所有书
         int index = (page - 1) * 12;
-        books = bookService.findAllByIndex(index, 12);
-        book = bookService.findAllById(book);
-        LOG.info("totalPage = {}, page = {}, books = {}", totalPage, page, books.toString());
+        List<BlogContent> blogContents = bookService.findAllByIndex(index, 12);
+        BlogContent blogContent = bookService.findAllById(findBlogContent);
+        LOG.info("totalPage = {}, page = {}, books = {}", totalPage, page, blogContents.toString());
         // 将所有书放入session
-        session.setAttribute("books", books);
-        session.setAttribute("book", book);
+        session.setAttribute("blogContents", blogContents);
+        session.setAttribute("blogContent", blogContent);
         session.setAttribute("bbid", bbid);
-        result.put("books", books);
+        result.put("blogContents", blogContents);
         result.put("totalPage", totalPage);
         return result;
     }
 
     // 传入参数并跳转页面
     @RequestMapping("sendDatil")
-    public ModelAndView sendDatil(Book book) {
+    public ModelAndView sendDatil(BlogContent blogContent) {
         ModelAndView mav = new ModelAndView();
         // 要跳转的页面
         mav.setViewName("/detail");
         // 传入对象
-        mav.addObject("book", book);
-        LOG.info("sendDetail，bookid = {}", book.getBid());
+        mav.addObject("blogContent", blogContent);
+        LOG.info("sendDetail，bookid = {}", blogContent.getBlogid());
         return mav;
 
     }
@@ -80,96 +81,99 @@ public class BookController {
     // 采用超链接跳转传参到商品详情页面，最主要是获取传过去对象bid的值
     @RequestMapping("findOneBook")
     @ResponseBody
-    public Book findOneBook(Book book, HttpSession session, HttpServletRequest request) {
+    public BlogContent findOneBook(HttpSession session, HttpServletRequest request) {
         LOG.info("------findOneBook------");
-        int bid = Integer.parseInt(request.getParameter("bid"));
-        book = bookService.findBookById(bid);
-        return book;
+        int bid = Integer.parseInt(request.getParameter("blogid"));
+        BlogContent blogContent = bookService.findBookById(bid);
+        return blogContent;
     }
 
     // 搜索商品
-    @RequestMapping("likeBook")
+    @RequestMapping("findBlog")
     @ResponseBody
-    public List<Book> likeBook(HttpSession session, String lbname) {
-        session.setAttribute("lbname", lbname);
-        List<Book> books = new ArrayList<>();
-        books = bookService.findlikeBook(lbname);
-        LOG.info("likeBook, bookname = {}", lbname);
-        return books;
+    public List<BlogContent> findBlog(HttpSession session, String findTitle) {
+        session.setAttribute("findTitle", findTitle);
+        List<BlogContent> BlogContents = new ArrayList<>();
+        BlogContents = bookService.findlikeBook(findTitle);
+        LOG.info("findBlog, title = {}", findTitle);
+        return BlogContents;
     }
 
     @RequestMapping("addBooks")
     @ResponseBody
-    public String addBooks(LoginUser user, Book book, HttpSession session, String info) {
+    public String addBooks(LoginUser user, BlogContent newBlog, HttpSession session, String info) {
         // 判断非空
         user = (LoginUser) session.getAttribute("user");
-        LoginUser rootuser = userService.findRootByluser(user);
-        if (rootuser == null) {
-            info = "你不是管理员，无法操作";
-            LOG.info("you are not rootuser, can't add books");
+        if (user == null) {
+            info = "请先登录";
+            LOG.error("you are not login");
             return info;
         }
-        if (null == book.getBname() || book.getBcount() == 0 || null == book.getImg() || book.getPrice() == 0
-                || null == book.getAuthor() || null == book.getPress()) {
+        if (StringUtils.isEmpty(newBlog.getTitle()) || StringUtils.isEmpty(newBlog.getBlogcover())
+                || StringUtils.isEmpty(newBlog.getAuthor()) || StringUtils.isEmpty(newBlog.getPress())
+                || newBlog.getBcount() == 0 || newBlog.getPrice() == 0) {
             LOG.error("add books failed, some fileds is null");
-            info = "添加图书失败，字段不能为空";
+            info = "添加博客失败，字段不能为空";
+            return info;
+        }
+        BlogContent isTitleExist = bookService.findAllById(newBlog);// 判断是否存在
+        if (null == isTitleExist) {
+            bookService.insertBook(newBlog);
+            LOG.info("add books success");
+            info = "添加成功";
             return info;
         } else {
-            Book isexit = bookService.findAllById(book);// 判断是否存在
-            if (isexit == null) {
-                bookService.insertBook(book);
-                LOG.info("add books success");
-                info = "添加成功";
-                return info;
-            } else {
-                LOG.error("add books failed, some fileds is error");
-                info = "添加图书失败，请输入正确字段";
-                return info;
-            }
+            LOG.error("add books failed, some fileds is error");
+            info = "添加图书失败，请输入正确字段";
+            return info;
         }
-
     }
 
     // 通过找到bid删除一本书籍
     @RequestMapping("deleteBooks")
     @ResponseBody
-    public String deleteBooks(HttpSession session, Book book, String info) {
-        Object obj = session.getAttribute("user");
-        if (obj == null) {
+    public String deleteBooks(HttpSession session, BlogContent deleteBlogContent) {
+        String info = "删除失败，请联系管理员";
+
+        Object user = session.getAttribute("user");
+        if (user == null) {
             info = "请先登录";
-            LOG.error("you are not login");
+            LOG.error("not login, please login first");
             return info;
-        } else {
-            LoginUser rootuser = userService.findRootByluser((LoginUser) obj);
-            if (rootuser == null) {
-                info = "你不是管理员，无法操作";
-                LOG.error("you are not rootuser");
-                return info;
-            } else {
-                LOG.info("bookid = {}", book.getBid());
-                book = bookService.findAllById(book);
-//                Cart cart = cartService.findCarByBid(book);
-                int cartBookNum = cartService.findBookInCartNumByid(book.getBid());
-                LOG.info("数量 = {}",cartBookNum);
-                //TODO 还有异常判断 小于0
-                if (cartBookNum > 1 ) {
-                    //TODO 已被点赞是否还要删除
-                    LOG.info("该博客已被点赞");
-                    info = "该博客已被点赞,不能被删除";
-                    return info;
-                }
-                cartService.decartById(book.getBid());
-                bookService.deleteById(book);
-                info = "删除成功";
-                return info;
-            }
         }
+        if (null == deleteBlogContent) {
+            LOG.error("deleteBlogContent is null");
+            return info;
+        }
+        String title = deleteBlogContent.getTitle();
+        if (StringUtils.isEmpty(title)){
+            LOG.error("this {} title is null", deleteBlogContent.getBlogid());
+            return info;
+        }
+        LOG.info("this title = {}", title);
+        BlogContent findBlogContent = bookService.findAllById(deleteBlogContent);
+        if (null == findBlogContent) {
+            LOG.error("this blog is not exist, delete blog failed");
+            return info;
+        }
+        //删除博客，先删除评论表中的
+        int blogId = findBlogContent.getBlogid();
+        int commentNum = commentService.findBidNum(blogId);
+        LOG.info("this {} commentNum is {}", findBlogContent.getTitle(), commentNum);
+        if (commentNum > 0) {
+            commentService.deleteCommentsOfBlog(blogId);
+            return info;
+        }
+        //todo 删除失败抛异常
+        bookService.deleteById(blogId);
+        info = "删除成功";
+        return info;
     }
 
     // 修改书籍首先找到书籍的内容
     @RequestMapping("queryBooks")
     @ResponseBody
-    public Map<String, Object> queryBooks(HttpSession session, String info, Book book) {
+    public Map<String, Object> queryBooks(HttpSession session, String info, BlogContent blogContent) {
         Map<String, Object> result = new HashMap<String, Object>();
         Object obj = session.getAttribute("user");
         if (obj == null) {
@@ -177,36 +181,29 @@ public class BookController {
             result.put("info", info);
             LOG.info("you are not login");
             return result;
-        } else {
-            LoginUser rootuser = userService.findRootByluser((LoginUser) obj);
-            if (rootuser == null) {
-                LOG.info("you are not rootuser, can't modify book");
-                info = "你不是管理员，无法操作";
-                result.put("info", info);
-                return result;
-            } else {
-                LOG.info("bookid = {}", book.getBid());
-                book= bookService.findAllById(book);
-                result.put("book", book);
-                return result;
-            }
         }
+        LOG.info("bookid = {}", blogContent.getBlogid());
+        blogContent = bookService.findAllById(blogContent);
+        result.put("book", blogContent);
+        return result;
+
+
     }
 
     // 修改书籍内容
     @RequestMapping("updateBooks")
     @ResponseBody
-    public String updateBooks(Book book, String info) {
-        if (book == null) {
+    public String updateBooks(BlogContent blogContent, String info) {
+        if (blogContent == null) {
             LOG.error("modify book failed");
             info = "更新图书失败，请重新输入字段";
             return info;
         }
         // 通过传过来的bid判断需要更新的书籍是否存在
-        Book isexit = bookService.findAllById(book);
+        BlogContent isexit = bookService.findAllById(blogContent);
         // 不存在新的书，就更新
         if (isexit != null) {
-            bookService.updateById(book);
+            bookService.updateById(blogContent);
             info = "修改成功";
             return info;
         } else {

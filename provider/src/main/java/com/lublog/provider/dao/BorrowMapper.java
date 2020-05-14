@@ -1,6 +1,6 @@
 package com.lublog.provider.dao;
 
-import com.lublog.pojo.Order;
+import com.lublog.po.Order;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 

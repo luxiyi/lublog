@@ -1,7 +1,7 @@
 package com.lublog.provider.serviceimpl;
 
 import com.lublog.provider.dao.ReplayMapper;
-import com.lublog.pojo.Orderre;
+import com.lublog.po.Orderre;
 import com.lublog.service.ReplayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

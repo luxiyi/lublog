@@ -1,14 +1,14 @@
 var url =window.location.href;
-var id=url.split("?bid=")[1];
+var id=url.split("?blogid=")[1];
 
 function findonebook() {
-	var url =window.location.href;
-	var id=url.split("?bid=")[1];
+	// var url =window.location.href;
+	// var id=url.split("?bid=")[1];
 		$.ajax({
 				url : "findOneBook",
 				type : "post",	
 				data : {
-					"bid" : id
+					"blogid" : id
 				},
 				dataType : 'json',
 				success : function(data) {
@@ -17,21 +17,21 @@ function findonebook() {
 								+ "<div class='panel-body'>"
 								+ "<div id=image>"
 								+ "<img src='"
-								+ data.img
+								+ data.blogcover
 								+ "' class='img-responsive'>"
 								+ "</div>"
 								+ "<div id='tother'>"
-								+ "<h3>&nbsp;&nbsp;&nbsp;&nbsp;书名："
-								+ data.bname
+								+ "<h3>&nbsp;&nbsp;&nbsp;&nbsp;标题："
+								+ data.title
 								+ " &nbsp;</h3>"
 								+ "<h3>&nbsp;&nbsp;&nbsp;&nbsp;评论数量："
-								+ data.comcount
+								+ data.commentcount
 								+ "&nbsp;&nbsp;&nbsp;&nbsp;<img class='addimg' src='../../static/img/喜欢.png' width='40px' onclick='addcart("
-								+ data.bid
+								+ data.blogid
 								+ ",\""
-								+ data.bname
+								+ data.title
 								+ "\",\""
-								+ data.img
+								+ data.blogcover
 								+ "\","
 								+ data.price
 								+ ")'/>&nbsp;&nbsp;点个赞吧"
@@ -55,7 +55,7 @@ function findcommets(){
 		url:"findComments",
 		type:"post",
 		data : {
-			"bid" : id
+			"blogid" : id
 		},
 		dataType:'json',
 		success:function(data){
@@ -63,9 +63,9 @@ function findcommets(){
 			for(var i=0; i< data.length; i++){
 				var po=data[i];
 				content+="<tr>"				
-					+"<td class='infor1' style='padding-left: 100px'>"+po.luser+"</td>"
-					+"<td class='infor2' style='padding-left: 120px'>"+po.cdate+"</td>"
-					+"<td class='infor3' style='padding-left: 100px'>"+po.ccont+"</td>"
+					+"<td class='infor1' style='padding-left: 100px'>"+po.user+"</td>"
+					+"<td class='infor2' style='padding-left: 120px'>"+po.commentdate+"</td>"
+					+"<td class='infor3' style='padding-left: 100px'>"+po.commentcontent+"</td>"
 										
 					+"</tr>";
 			}

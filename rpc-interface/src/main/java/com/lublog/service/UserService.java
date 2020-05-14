@@ -1,7 +1,7 @@
 package com.lublog.service;
 
-import com.lublog.pojo.LoginUser;
-import com.lublog.pojo.User;
+import com.lublog.po.LoginUser;
+import com.lublog.po.User;
 
 /**
  * @Description: UserServicejava类作用描述
@@ -10,7 +10,6 @@ import com.lublog.pojo.User;
  */
 
 public interface UserService {
-    LoginUser findRootByluser(LoginUser loginuser);
     LoginUser findLoginByluser(LoginUser loginuser);
     void updateData(LoginUser loginuser);
     void insertUser(String luser);

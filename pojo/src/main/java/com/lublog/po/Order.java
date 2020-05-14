@@ -1,4 +1,4 @@
-package com.lublog.pojo;
+package com.lublog.po;
 
 import lombok.Data;
 

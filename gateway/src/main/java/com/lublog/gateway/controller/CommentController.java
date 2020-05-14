@@ -1,10 +1,13 @@
 package com.lublog.gateway.controller;
 
-import com.lublog.pojo.Book;
-import com.lublog.pojo.Comment;
-import com.lublog.pojo.LoginUser;
+import com.alibaba.dubbo.common.utils.StringUtils;
+import com.alibaba.fastjson.JSON;
+import com.lublog.po.BlogContent;
+import com.lublog.po.Comment;
+import com.lublog.po.LoginUser;
 import com.lublog.service.BookService;
 import com.lublog.service.CommentService;
+import org.apache.zookeeper.Login;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,32 +35,28 @@ public class CommentController {
     //展现评论,list不能作为参数
     @RequestMapping("/findComments")
     @ResponseBody
-    public List<Comment> findComments(LoginUser user, Book book, HttpSession session){
-        List<Comment> comments = commentService.allCommentsById(book.getBid());
+    public List<Comment> findComments(LoginUser user, BlogContent book, HttpSession session){
+        List<Comment> comments = commentService.allCommentsById(book.getBlogid());
         System.out.println(comments);
         return comments;
     }
     //插入评论
     @RequestMapping("/insertComment")
     @ResponseBody
-    public String insertComment(String info, LoginUser user, Book book, Comment comment, HttpSession session){
-        user=(LoginUser)session.getAttribute("user");
+    public String insertComment(BlogContent blogContent, Comment comment, HttpSession session) {
+        String info = "评价失败";
+        LoginUser user = (LoginUser) session.getAttribute("user");
         if (user == null) {
-            info="评价失败，请先登录";
+            info = "请先登录";
             return info;
-        }else {
-            if (comment.getCcont()=="") {
-                info="请输入评价";
-                return info;
-            }else {
-                commentService.insertCommentByid(user.getLuser(), book.getBid(), comment.getCcont());
-                bookService.updateComcount(book.getBid());
-                info="评价成功";
-                return info;
-            }
-
         }
-
+        if (StringUtils.isEmpty(comment.getCommentcontent())) {
+            return info;
+        }
+        commentService.insertCommentById(user.getLuser(), blogContent.getBlogid(), comment.getCommentcontent());
+        bookService.updateComcount(blogContent.getBlogid());
+        info = "评价成功";
+        return info;
 
 
     }

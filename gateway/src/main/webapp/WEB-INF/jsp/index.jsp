@@ -176,7 +176,7 @@ body {
 					</div>
 					<div class="butto" style="width: 70px;height:50px;float:left; padding-top:2px;">
 					<span><button class=" btn btn-primary btn-lg" 
-							style="color: white; font-size: 16px; background: orangered;" type="submit" onclick="findbook()">搜索</button></span>
+							style="color: white; font-size: 16px; background: orangered;" type="submit" onclick="findBlog()">搜索</button></span>
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -439,7 +439,7 @@ body {
 
 		<!-- 商品图片容器 -->
 		<div  class="container" id="booksbox" style="height:2500px;width:1000px;margin: 40px auto;float:none; ">
-			<div  class="row" id="books" style="transition: all 1s;width:1000px;height:130px;float:none;">
+			<div  class="row" id="blogContents" style="transition: all 1s;width:1000px;height:130px;float:none;">
 			</div>
 		</div>
 
@@ -448,7 +448,7 @@ body {
 		<div class="container" id="totalpagebox" style="margin: 0 auto;width: 700px;height: 200px;">
 			<div class="row" id="pagerow" style="padding-left: 150px;">
 				<ul class="pagination pagination-lg" id="pagebox">
-					<li id="first" onclick="showBooks(1)"><span>首页</span></li>
+					<li id="first" onclick="findAllBlog(1)"><span>首页</span></li>
 					<li id="top" onclick="prepage()"><span>上一页</span></li>
 					<li class="xifenye" id="xifenye"><span><span
 							id="currentpage">1</span>/ <span id="totalpage">1</span></span></li>

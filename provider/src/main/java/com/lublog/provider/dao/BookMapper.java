@@ -1,6 +1,6 @@
 package com.lublog.provider.dao;
 
-import com.lublog.pojo.Book;
+import com.lublog.po.BlogContent;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -15,32 +15,35 @@ import java.util.List;
  */
 public interface BookMapper {
     //根据页码查找全部书
-    @Select("SELECT bid,bname,author,price,bcount,pubdate,press,img,intro,flag,comcount FROM books limit #{param1},#{param2}")
-    List<Book> findALLByIndex(int index, int count);
+    @Select("SELECT blogid,title,author,price,bcount,pubdate,press,blogcover,introduce,flag,commentcount,likes FROM blogContent limit #{param1},#{param2}")
+    List<BlogContent> findALLByIndex(int index, int count);
     //查询总条数
-    @Select("SELECT COUNT(*) total FROM books")
+    @Select("SELECT COUNT(*) total FROM blogContent")
     int findTotalPage();
     //增加新书
-    @Insert("insert into books (bname,author,price,bcount,pubdate,press,img,intro) values (#{bname},#{author},#{price},#{bcount},#{pubdate},#{press},#{img},#{intro})")
-    void insertBook(Book book);
-    //根据bid查找书
-    @Select("select * from books where bid=#{bid}")
-    Book findAllById(Book book);
-    @Select("select * from books where bid=#{bid}")
-    Book findBookById(int bid);
+    @Insert("insert into blogContent (title,author,price,bcount,pubdate,press,blogcover,introduce) values (#{title},#{author},#{price},#{bcount},#{pubdate},#{press},#{blogcover},#{introduce})")
+    void insertBook(BlogContent blogContent);
+    //根据blogid查找书
+    @Select("select * from blogContent where blogid=#{blogid}")
+    BlogContent findAllById(BlogContent blogContent);
+    @Select("select * from blogContent where blogid=#{blogid}")
+    BlogContent findBookById(int blogId);
+    //根据博客标题判断是否存在
+    @Select("select title from blogContent where title=#{title}")
+    BlogContent findSameTitle(String newTitle);
     //删除书
-    @Delete("delete from books where bid = #{bid}")
-    void deletById(Book book);
+    @Delete("delete from blogContent where blogid = #{blogid}")
+    void deletById(int blogId);
     //查询全部的书
-    @Select("select * from books")
-    List<Book> findAllBook();
+    @Select("select * from blogContent")
+    List<BlogContent> findAllBook();
     //修改书信息
-    @Update("update books set bname=#{bname},author=#{author},press=#{press},intro=#{intro},bcount=#{bcount},price=#{price},img=#{img} ,pubdate=#{pubdate}  where bid=#{bid}")
-    void updateById(Book book);
+    @Update("update blogContent set title=#{title},author=#{author},press=#{press},introduce=#{introduce},bcount=#{bcount},price=#{price},blogcover=#{blogcover} ,pubdate=#{pubdate}  where blogid=#{blogid}")
+    void updateById(BlogContent blogContent);
     //模糊查询
-    @Select("SELECT * FROM books WHERE bname LIKE CONCAT('%',#{param1},'%')")
-    List<Book> findlikeBook(String bname);
+    @Select("SELECT * FROM blogContent WHERE title LIKE CONCAT('%',#{param1},'%')")
+    List<BlogContent> findlikeBook(String title);
     //增加评论数
-    @Update("update books set comcount = comcount+1 where bid=#{param1}")
-    void updateComcount(int bid);
+    @Update("update blogContent set commentcount = commentcount+1 where blogid=#{param1}")
+    void updateComcount(int blogId);
 }

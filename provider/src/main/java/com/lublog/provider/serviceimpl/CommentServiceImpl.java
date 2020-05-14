@@ -1,7 +1,7 @@
 package com.lublog.provider.serviceimpl;
 
 import com.lublog.provider.dao.CommentMapper;
-import com.lublog.pojo.Comment;
+import com.lublog.po.Comment;
 import com.lublog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,17 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void insertCommentByid(String luser, int bid, String ccont) {
+    public void insertCommentById(String luser, int bid, String ccont) {
         commentMapper.insertCommentByid(luser, bid, ccont);
+    }
+
+    @Override
+    public int findBidNum(int bid) {
+        return commentMapper.findBlogNum(bid);
+    }
+
+    @Override
+    public void deleteCommentsOfBlog(int bid) {
+        commentMapper.deleteCommentsOfBlog(bid);
     }
 }

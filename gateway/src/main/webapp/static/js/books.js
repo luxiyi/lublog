@@ -1,13 +1,13 @@
-function showBooks(ppage) {
+function findAllBlog(ppage) {
 		$.ajax({
-				url : "allBooks",
+				url : "findAllBlog",
 				type : "post",
 				data : {
 					page : ppage
 				},
 				dataType : 'json', // 期待的响应数据类型
 				success : function(data) {
-					var arr = data.books;
+					var arr = data.blogContents;
 					var content = "";
 					for (var i = 0; i < arr.length; i++) {
 						var po = arr[i];
@@ -15,49 +15,51 @@ function showBooks(ppage) {
 								+ "<div class='panel-body'>"
 								+ "<div id=image>"
 								+ "<img src='"
-								+ po.img
+								+ po.blogcover
 								+ "' class='img-responsive'>"
 								+ "</div>"
-								+ "<div id='tother'><a href='sendDatil?bid="
-								+ po.bid
+								+ "<div id='tother'><a href='sendDatil?blogid="
+								+ po.blogid
 								+ "' style='text-decoration:none;'><font color='#cd5c5c'>"
 								+ "<h2>"
-								+ po.bname
+								+ po.title
 								+ " &nbsp;</h2></font></a>"
 								+ "<h5><img src='../../static/img/人物.png' width='20px'/>&nbsp;"
 								+ po.author
 								+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src='../../static/img/短信.png' width='20px'/>&nbsp;"
-								+ po.comcount
+								+ po.commentcount
 								+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src='../../static/img/原创.png' width='20px'/>&nbsp;"
 							    + "原创"
 								+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src='../../static/img/时间.png' width='20px'/>&nbsp;"
 								+ po.pubdate
+								+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src='../../static/img/喜欢.png' width='26px'/>&nbsp;"
+							    + po.likes
 								+ "</h5>"
 								+ "<h5>"
-								+ po.intro
+								+ po.introduce
 								+ "</h5>"
 								+ "</div>"
 								+ "<div id='operate'>"
-								+ "<div id='addimg'><img class='addimg' src='../../static/img/喜欢.png' width='25px' onclick='addcart("
-								+ po.bid
+								+ "<div id='addimg'><img class='addimg' src='../../static/img/爱你.png' width='25px' onclick='addcart("
+								+ po.blogid
 								+ ",\""
-								+ po.bname
+								+ po.title
 								+ "\",\""
-								+ po.img
+								+ po.blogcover
 								+ "\","
 								+ po.price
 								+ ")'/>&nbsp;&nbsp;推荐</div>"
 								+ "<div id='deletebook'>"
 								+ "<img class='deletebook' src='../../static/img/删除.png' width='25px' onclick='removebook("
-								+ po.bid
+								+ po.blogid
 								+ ")'/>&nbsp;&nbsp;删除</div>"
 								+ "<div id='alterbook'>"
 								+ "&nbsp;<img class='alterbook' src='../../static/img/修改.png' width='20px' onclick='querybook("
-								+ po.bid
+								+ po.blogid
 								+ ")'/>&nbsp;&nbsp;修改</div>"
 								+ "</div>" + "</div>" + "</div>";
 					}
-					$("#books").html(content);
+					$("#blogContents").html(content);
 					$("#currentpage").html(ppage);
 					$("#totalpage").html(data.totalPage);
 					
@@ -65,12 +67,12 @@ function showBooks(ppage) {
 			});
 }
 
-showBooks(1);
+findAllBlog(1);
 function prepage() {
 	// 获取当前页码
 	var current = parseInt($("#currentpage").html());
 	if (current > 1) {
-		showBooks(current - 1);
+		findAllBlog(current - 1);
 	}
 }
 function nextpage() {
@@ -79,14 +81,14 @@ function nextpage() {
 	// 获取总页码
 	var totalpage = parseInt($("#totalpage").html());
 	if (current < totalpage) {
-		showBooks(current + 1);
+		findAllBlog(current + 1);
 	}
 }
 function endpage() {
 	// 获取总页码
 //	alert("已经是最后一页");
 	var totalpage = parseInt($("#totalpage").html());
-	showBooks(totalpage);
+	findAllBlog(totalpage);
 }
 
 // 添加新书
@@ -95,14 +97,14 @@ function addbook() {
 		url : "addBooks",
 		type : "post",
 		data : {
-			"bname" : $("#bname").val(),
+			"title" : $("#bname").val(),
 			"author" : $("#author").val(),
 			"price" : $("#price").val(),
 			"bcount" : $("#bcount").val(),
 			"pubdate" : $("#pubdate").val(),
 			"press" : $("#press").val(),
-			"img" : $("#img").val(),
-			"intro" : $("#intro").val()
+			"blogcover" : $("#img").val(),
+			"introduce" : $("#intro").val()
 		},
 		dataType : "text",
 		success : function(data) {
@@ -249,12 +251,12 @@ function addcart(pgid, pgname, pimg, pprice) {
 	});
 }
 
-function findbook() {
+function findBlog() {
 		$.ajax({
-				url : "likeBook",
+				url : "findBlog",
 				type : "post",
 				data : {
-					lbname : $("#find").val(),
+					findTitle : $("#find").val(),
 				},
 				dataType : 'json',
 				success : function(data) {
@@ -264,56 +266,54 @@ function findbook() {
 					for (var i = 0; i < arr.length; i++) {
 						var po = arr[i];
 						content += "<div class='panel panel-default'>"
-								+ "<div class='panel-body'>"
-								+ "<div id=image><a href='/detail?gid="
-								+ po.bid
-								+ "'>"
-								+ "<img src='"
-								+ po.img
-								+ "' class='img-responsive'></a>"
-								+ "</div>"
-								+ "<div id='tother'>"
-								+ "<h4>书名："
-								+ po.bname
-								+ " &nbsp;</h4>"
-								+ "<h4>作者："
-								+ po.author
-								+ "&nbsp;&nbsp;&nbsp;出版社："
-								+ po.press
-								+ "&nbsp;&nbsp;&nbsp;评论数量："
-								+ po.comcount
-								+ "</h4>"
-								+ "<h4>出版日期："
-								+ po.pubdate
-								+ "&nbsp;&nbsp;&nbsp;&nbsp;当前库存："
-								+ po.bcount
-								+ "本&nbsp;&nbsp;&nbsp;&nbsp;订阅价："
-								+ po.price
-								+ "元</h4>"
-								+ "<h5>"
-								+ po.intro
-								+ "</h5>"
-								+ "</div>"
-								+ "<div id='operate'>"
-								+ "<div id='addimg'><img class='addimg' src='../../static/img/jiahao.png' width='25px' onclick='addcart("
-								+ po.bid
-								+ ",\""
-								+ po.bname
-								+ "\",\""
-								+ po.img
-								+ "\","
-								+ po.price
-								+ ")'/>&nbsp;&nbsp;加入书架</div>"
-								+ "<div id='deletebook'><img class='deletebook' src='../../static/img/delete.png' width='25px' onclick='removebook("
-								+ po.bid
-								+ ")'/>&nbsp;&nbsp;删除书籍</div>"
-								+ "<div id='alterbook'>"
-								+ "<img class='alterbook' src='../../static/img/xiugai.png' width='23px' onclick='querybook("
-								+ po.bid
-								+ ")'/>&nbsp;&nbsp;修改书籍</div>"
-								+ "</div>" + "</div>" + "</div>";
+							+ "<div class='panel-body'>"
+							+ "<div id=image>"
+							+ "<img src='"
+							+ po.blogcover
+							+ "' class='img-responsive'>"
+							+ "</div>"
+							+ "<div id='tother'><a href='sendDatil?bid="
+							+ po.blogid
+							+ "' style='text-decoration:none;'><font color='#cd5c5c'>"
+							+ "<h2>"
+							+ po.title
+							+ " &nbsp;</h2></font></a>"
+							+ "<h5><img src='../../static/img/人物.png' width='20px'/>&nbsp;"
+							+ po.author
+							+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src='../../static/img/短信.png' width='20px'/>&nbsp;"
+							+ po.commentcount
+							+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src='../../static/img/原创.png' width='20px'/>&nbsp;"
+							+ "原创"
+							+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src='../../static/img/时间.png' width='20px'/>&nbsp;"
+							+ po.pubdate
+							+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src='../../static/img/喜欢.png' width='26px'/>&nbsp;"
+							+ po.likes
+							+ "</h5>"
+							+ "<h5>"
+							+ po.introduce
+							+ "</h5>"
+							+ "</div>"
+							+ "<div id='operate'>"
+							+ "<div id='addimg'><img class='addimg' src='../../static/img/爱你.png' width='25px' onclick='addcart("
+							+ po.blogid
+							+ ",\""
+							+ po.title
+							+ "\",\""
+							+ po.blogcover
+							+ "\","
+							+ po.price
+							+ ")'/>&nbsp;&nbsp;推荐</div>"
+							+ "<div id='deletebook'>"
+							+ "<img class='deletebook' src='../../static/img/删除.png' width='25px' onclick='removebook("
+							+ po.blogid
+							+ ")'/>&nbsp;&nbsp;删除</div>"
+							+ "<div id='alterbook'>"
+							+ "&nbsp;<img class='alterbook' src='../../static/img/修改.png' width='20px' onclick='querybook("
+							+ po.blogid
+							+ ")'/>&nbsp;&nbsp;修改</div>"
+							+ "</div>" + "</div>" + "</div>";
 					}
-					$("#books").html(content);
+					$("#blogContents").html(content);
 
 				}
 			});

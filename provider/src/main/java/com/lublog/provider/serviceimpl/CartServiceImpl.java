@@ -1,9 +1,9 @@
 package com.lublog.provider.serviceimpl;
 
 import com.lublog.provider.dao.CartMapper;
-import com.lublog.pojo.Book;
-import com.lublog.pojo.Cart;
-import com.lublog.pojo.LoginUser;
+import com.lublog.po.BlogContent;
+import com.lublog.vo.Cart;
+import com.lublog.po.LoginUser;
 import com.lublog.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,8 +34,8 @@ public class CartServiceImpl implements CartService {
         cartMapper.updateCart(user);
     }
     @Override
-    public Cart findCarByBid(Book book) {
-        return cartMapper.findCarByBid(book);
+    public Cart findCarByBid(BlogContent blogContent) {
+        return cartMapper.findCarByBid(blogContent);
     }
 
 

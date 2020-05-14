@@ -1,7 +1,7 @@
 package com.lublog.provider.serviceimpl;
 
 import com.lublog.provider.dao.BookMapper;
-import com.lublog.pojo.Book;
+import com.lublog.po.BlogContent;
 import com.lublog.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ public class BookServiceImpl implements BookService {
     @Autowired
     private BookMapper bookMapper;
     @Override
-    public List<Book> findAllByIndex(int index, int count) {
+    public List<BlogContent> findAllByIndex(int index, int count) {
         return bookMapper.findALLByIndex(index, count);
 
     }
@@ -31,37 +31,37 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void insertBook(Book book) {
-        bookMapper.insertBook(book);
+    public void insertBook(BlogContent blogContent) {
+        bookMapper.insertBook(blogContent);
     }
 
     @Override
-    public Book findAllById(Book book) {
-        return bookMapper.findAllById(book);
+    public BlogContent findAllById(BlogContent blogContent) {
+        return bookMapper.findAllById(blogContent);
     }
 
     @Override
-    public Book findBookById(int bid) {
+    public BlogContent findBookById(int bid) {
         return bookMapper.findBookById(bid);
     }
 
     @Override
-    public void deleteById(Book book) {
-        bookMapper.deletById(book);
+    public void deleteById(int blogId) {
+        bookMapper.deletById(blogId);
     }
 
     @Override
-    public List<Book> findAllBook() {
+    public List<BlogContent> findAllBook() {
         return bookMapper.findAllBook();
     }
 
     @Override
-    public void updateById(Book book) {
-        bookMapper.updateById(book);
+    public void updateById(BlogContent blogContent) {
+        bookMapper.updateById(blogContent);
     }
 
     @Override
-    public List<Book> findlikeBook(String bname) {
+    public List<BlogContent> findlikeBook(String bname) {
         return bookMapper.findlikeBook(bname);
     }
 

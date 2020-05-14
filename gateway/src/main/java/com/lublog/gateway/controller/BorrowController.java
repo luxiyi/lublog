@@ -1,7 +1,7 @@
 package com.lublog.gateway.controller;
 
-import com.lublog.pojo.LoginUser;
-import com.lublog.pojo.Order;
+import com.lublog.po.LoginUser;
+import com.lublog.po.Order;
 import com.lublog.service.BorrowService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

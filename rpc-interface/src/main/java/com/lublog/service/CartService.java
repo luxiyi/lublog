@@ -1,8 +1,8 @@
 package com.lublog.service;
 
-import com.lublog.pojo.Book;
-import com.lublog.pojo.Cart;
-import com.lublog.pojo.LoginUser;
+import com.lublog.po.BlogContent;
+import com.lublog.vo.Cart;
+import com.lublog.po.LoginUser;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface CartService {
    Cart oneCartBybid(String luser, int bid);
    void addCart(String luser, int bid, int ccount);
    void updateCart(LoginUser loginUser);
-   Cart findCarByBid(Book book);
+   Cart findCarByBid(BlogContent blogContent);
    void upCartCount(String luser, int bid);
    void reBookCount(int count, int bid);
    int bookcountByBid(int bid);

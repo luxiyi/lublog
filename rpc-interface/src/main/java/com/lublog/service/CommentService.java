@@ -1,6 +1,6 @@
 package com.lublog.service;
 
-import com.lublog.pojo.Comment;
+import com.lublog.po.Comment;
 
 import java.util.List;
 
@@ -10,6 +10,11 @@ import java.util.List;
  * @time: 2020/4/6 21:58
  */
 public interface CommentService {
-    List<Comment> allCommentsById(int bid);
-    void insertCommentByid(String luser, int bid, String ccont);
+    List<Comment> allCommentsById(int blogId);
+
+    void insertCommentById(String user, int blogId, String ccont);
+
+    int findBidNum(int blogId);
+
+    void deleteCommentsOfBlog(int blogId);
 }

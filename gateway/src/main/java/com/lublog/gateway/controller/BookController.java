@@ -69,7 +69,7 @@ public class BookController {
     public ModelAndView sendDatil(BlogContent blogContent) {
         ModelAndView mav = new ModelAndView();
         // 要跳转的页面
-        mav.setViewName("/detail");
+        mav.setViewName("front/detail");
         // 传入对象
         mav.addObject("blogContent", blogContent);
         LOG.info("sendDetail，bookid = {}", blogContent.getBlogid());
@@ -103,7 +103,7 @@ public class BookController {
     @ResponseBody
     public String addBooks(LoginUser user, BlogContent newBlog, HttpSession session, String info) {
         // 判断非空
-        user = (LoginUser) session.getAttribute("user");
+        user = (LoginUser) session.getAttribute("admin");
         if (user == null) {
             info = "请先登录";
             LOG.error("you are not login");
@@ -135,7 +135,7 @@ public class BookController {
     public String deleteBooks(HttpSession session, BlogContent deleteBlogContent) {
         String info = "删除失败，请联系管理员";
 
-        Object user = session.getAttribute("user");
+        Object user = session.getAttribute("admin");
         if (user == null) {
             info = "请先登录";
             LOG.error("not login, please login first");
@@ -175,7 +175,7 @@ public class BookController {
     @ResponseBody
     public Map<String, Object> queryBooks(HttpSession session, String info, BlogContent blogContent) {
         Map<String, Object> result = new HashMap<String, Object>();
-        Object obj = session.getAttribute("user");
+        Object obj = session.getAttribute("admin");
         if (obj == null) {
             info = "请先登录";
             result.put("info", info);

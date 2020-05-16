@@ -28,7 +28,7 @@ import java.util.UUID;
 @SuppressWarnings("all")
 @Controller
 public class UserController {
-    private Logger logger = LoggerFactory.getLogger(UserController.class);
+    private Logger LOG = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
@@ -37,69 +37,57 @@ public class UserController {
     @ResponseBody
     public String login(HttpSession session, String info, LoginUser user, User userinfo){
 
-        logger.info("user = {}, luser = {}, pass = {}", JSON.toJSON(user), user.getLuser() ,user.getPass());
-        logger.info("---------------------");
+        LOG.info("admin = {}, luser = {}, pass = {}", JSON.toJSON(user), user.getLuser() ,user.getPass());
+        LOG.info("---------------------");
         user = userService.findLoginByluser(user);
         session.setAttribute("info", info);
         if (user != null) {
-            logger.info("登陆成功");
+            LOG.info("登陆成功");
             userinfo = userService.findUserByluser(user.getLuser());
             session.setAttribute("user", user);
             session.setAttribute("userinfo", userinfo);
-            logger.info("session.userinfo = {}", session.getAttribute("userinfo"));
+            LOG.info("session.userinfo = {}", session.getAttribute("userinfo"));
             info = "登录成功";
             return info;
         } else {
             info = "提示：输入的字段有误，请输入正确字段";
-            logger.info("登录失败");
+            LOG.info("登录失败");
             return info;
         }
     }
 
-    // 注销功能
-    @RequestMapping(value ="/loginout", method = RequestMethod.GET)
-    public void loginout(HttpSession session, HttpServletResponse res) throws Exception {
-        Object obj=session.getAttribute("user");
-        if (obj == null) {
-            res.sendRedirect("index");
-            return;
-        }else {
-            session.invalidate();
-            logger.info("注销成功");
-            res.sendRedirect("index");
-        }
-    }
+
 
     // 注册功能
     @RequestMapping(value ="/register", method = RequestMethod.POST)
     @ResponseBody
     public String register(HttpSession session, String info, LoginUser user) {
-        logger.info("user = {}", JSON.toJSONString(user));
+        LOG.info("admin = {}", JSON.toJSONString(user));
         if (user.getLuser()==null || user.getConfirm()==null || user.getPass()==null) {
-            logger.info("不能为空");
+            LOG.info("不能为空");
             info="注册失败,请重新输入";
             return info;
         }
 
         // 确认密码
         if (!user.getConfirm().equals(user.getPass()) ) {
-            logger.info("注册失败，密码不一样");
+            LOG.info("注册失败，密码不一样");
             info="注册失败,请重新输入";
             return info;
         }
         // 如果已经存在
         LoginUser isexit = userService.findLoginByluser(user);
-        logger.info("isexit = {}", isexit);
+        LOG.info("isexit = {}", isexit);
         if (isexit == null) {
-            logger.info("user = {}", user);
+            LOG.info("admin = {}", user);
             userService.updateData(user);
             userService.insertUser(user.getLuser());
             session.setAttribute("user", user);
-            logger.info("注册成功");
+            LOG.info("注册成功");
             info="注册成功";
             return info;
         } else {
-            logger.info("注册失败");
+            LOG.info("注册失败");
             info="注册失败,请重新输入";
             return info;
         }
@@ -110,11 +98,11 @@ public class UserController {
     @RequestMapping(value = "queryUser", method = RequestMethod.POST)
     @ResponseBody
     public User queryUser(HttpSession session, LoginUser user, User userinfo) {
-        user = (LoginUser) session.getAttribute("user");
-        logger.info("user = {}", user);
+        user = (LoginUser) session.getAttribute("admin");
+        LOG.info("admin = {}", user);
         userinfo = userService.findUserByluser(user.getLuser());
         session.setAttribute("userinfo", userinfo);
-        logger.info("userinfo= {}", JSON.toJSONString(userinfo));
+        LOG.info("userinfo= {}", JSON.toJSONString(userinfo));
         return userinfo;
     }
 
@@ -126,7 +114,7 @@ public class UserController {
         // 得到已经修改的信息
         // 判断非空
         if (userinfo == null) {
-            logger.info("不能为空");
+            LOG.info("不能为空");
             info="修改失败,请重新输入";
             return info;
         }
@@ -134,13 +122,13 @@ public class UserController {
         String fileName = userhead.getOriginalFilename();
         //获取文件类型
         String filetype=userhead.getContentType();
-        logger.info("fileName endsWith jpg is {}", fileName.endsWith(".jpg"));
-        logger.info("fileName = {}, filetype = {}", fileName, filetype);
+        LOG.info("fileName endsWith jpg is {}", fileName.endsWith(".jpg"));
+        LOG.info("fileName = {}, filetype = {}", fileName, filetype);
         //获取本地保存文件的路径,保存到eclipse的项目中图片文件夹里
-        String path = request.getServletContext().getRealPath("/static/img");
+        String path = request.getServletContext().getRealPath("/img");
         //保存在D:\ruanjiananzhuang\eclipse\workspace\.metadata\.plugins
         //  \org.eclipse.wst.server.core\tmp0\wtpwebapps\books\
-        logger.info("path = {}", path);
+        LOG.info("path = {}", path);
         File file = new File(path);
         if (!file.exists()) {
             file.mkdirs();
@@ -157,8 +145,9 @@ public class UserController {
         }
         //自动创建文件img、写入数据
         //将用户头像的名字更新成此次创建的文件名字
-        user=(LoginUser)session.getAttribute("user");
-        userService.updataUsericon(fileName, user.getLuser());
+        //todo 将路径加上 filename改为path，就不在前端显示路径
+        user=(LoginUser)session.getAttribute("admin");
+        userService.updataUsericon(path, user.getLuser());
         // 通过传过来的bid判断需要更新的信息是否存在
         User isexit = userService.findUserByluser(user.getLuser());
         // 不存在，就更新
@@ -172,7 +161,7 @@ public class UserController {
             return info;
         } else {
             info="修改失败,请重新输入";
-            logger.info("失败");
+            LOG.info("失败");
             return info;
         }
     }
@@ -182,17 +171,13 @@ public class UserController {
 
 
 
-    @RequestMapping("/index")
-    public String index(){
-        logger.info("-------进入首页-------");
-        return  "index";
-    }
+
 
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     @ResponseBody
     public LoginUser testUser (String luser){
         LoginUser user = userService.testUser(luser);
-        logger.info("user = {}, luser = {}", JSON.toJSON(user), luser);
+        LOG.info("admin = {}, luser = {}", JSON.toJSON(user), luser);
         if(user == null){
             user = new LoginUser();
         }
@@ -201,5 +186,37 @@ public class UserController {
 
 
 
+
+    @RequestMapping(value = "index",method = RequestMethod.GET)
+    public String frontIndex() {
+        LOG.info("-------front-index------");
+        return "front/index";
+    }
+
+    @RequestMapping("/loginPage")
+    public String loginPage(){
+        LOG.info("-------loginPage-------");
+        return  "/admin/login";
+    }
+
+    // 注销功能
+    @RequestMapping(value ="/loginout", method = RequestMethod.GET)
+    public String loginout(HttpSession session) throws Exception {
+        LOG.info("loginout");
+        Object obj=session.getAttribute("admin");
+        if (obj == null) {
+            return "admin/login";
+        }else {
+            session.invalidate();
+            LOG.info("注销成功");
+            return  "admin/login";
+        }
+    }
+
+    @RequestMapping("/articleList")
+    public String articleList(){
+        LOG.info("-------文章管理界面-------");
+        return  "admin/article_list";
+    }
 
 }

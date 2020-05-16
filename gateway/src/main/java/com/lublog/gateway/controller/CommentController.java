@@ -45,7 +45,7 @@ public class CommentController {
     @ResponseBody
     public String insertComment(BlogContent blogContent, Comment comment, HttpSession session) {
         String info = "评价失败";
-        LoginUser user = (LoginUser) session.getAttribute("user");
+        LoginUser user = (LoginUser) session.getAttribute("admin");
         if (user == null) {
             info = "请先登录";
             return info;

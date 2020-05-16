@@ -33,7 +33,7 @@ public class BorrowController {
     @RequestMapping(value = "/showOrder")
     @ResponseBody
     public List<Order> showOrder(HttpSession session){
-        LoginUser user = (LoginUser) session.getAttribute("user");
+        LoginUser user = (LoginUser) session.getAttribute("admin");
         List<Order> borrows = borrowService.findAllOrder(user.getLuser());
         LOG.info("book showOrder");
         return borrows;

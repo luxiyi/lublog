@@ -27,7 +27,7 @@ public class ReplayController {
     @RequestMapping("showOrderre")
     @ResponseBody
     public List<Orderre> showOrderre(HttpSession session){
-        LoginUser user = (LoginUser) session.getAttribute("user");
+        LoginUser user = (LoginUser) session.getAttribute("admin");
         List<Orderre> replaies = replayService.findAllOrderre(user.getLuser());
         return replaies;
     }

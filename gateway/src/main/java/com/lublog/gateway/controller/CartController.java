@@ -51,7 +51,7 @@ public class CartController {
     @ResponseBody
     public Map<String, Object> allCarts(HttpSession session, String msg) {
         Map<String, Object> result = new HashMap<String, Object>();
-        LoginUser user = (LoginUser) session.getAttribute("user");
+        LoginUser user = (LoginUser) session.getAttribute("admin");
         // 判断是否登录
         if (user == null) {
             // 没有登录，创建HashMap
@@ -74,7 +74,7 @@ public class CartController {
         String msg = "请联系帅气的管理员";
                 // 判断操作类型,新增还是修改
         // 通过网页中传过来的bid查看书架中是否有书
-        user = (LoginUser) session.getAttribute("user");
+        user = (LoginUser) session.getAttribute("admin");
         if (user == null) {
             // 没有登录，创建HashMap
             msg = "请先登录";
@@ -133,7 +133,7 @@ public class CartController {
     @RequestMapping("reCartBook")
     @ResponseBody
     public String reCartBook(HttpSession session, BlogContent blogContent, BookCart bookCart) {
-        LoginUser user = (LoginUser) session.getAttribute("user");
+        LoginUser user = (LoginUser) session.getAttribute("admin");
         String msg = "请联系帅气的管理员";
         int bid = blogContent.getBlogid();
         int ccount = bookCart.getCcount();

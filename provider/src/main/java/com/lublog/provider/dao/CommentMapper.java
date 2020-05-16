@@ -18,7 +18,7 @@ public interface CommentMapper {
     List<Comment> allCommentsById(int blogId);
 
     //插入评论
-    @Insert("insert into comment (user,blogid,commentcontent) value (#{param1},#{param2},#{param3})")
+    @Insert("insert into comment (admin,blogid,commentcontent) value (#{param1},#{param2},#{param3})")
     void insertCommentByid(String user, int blogId, String commentContent);
 
     //查找评论过的博客数量

@@ -5,6 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
+
 public class BlogContent implements Serializable {
 
     private static final long serialVersionUID = -1229668087587325869L;
@@ -27,7 +28,11 @@ public class BlogContent implements Serializable {
 
     private String introduce;
 
+    private String tag;
+
     private int likes;
+
+    private int views;
 
     private int commentcount;
 

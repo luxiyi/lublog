@@ -1,4 +1,4 @@
-function showCart(ppage) {
+function artilcleList(ppage) {
     $.ajax({
         url : "findAllBlog",
         type : "post",
@@ -38,12 +38,12 @@ function showCart(ppage) {
     });
 }
 
-showCart(1);
+artilcleList(1);
 function prepage() {
     // 获取当前页码
     var current = parseInt($("#currentpage").html());
     if (current > 1) {
-        showCart(current - 1);
+        artilcleList(current - 1);
     }
 }
 function nextpage() {
@@ -52,14 +52,14 @@ function nextpage() {
     // 获取总页码
     var totalpage = parseInt($("#totalpage").html());
     if (current < totalpage) {
-        showCart(current + 1);
+        artilcleList(current + 1);
     }
 }
 function endpage() {
     // 获取总页码
 //	alert("已经是最后一页");
     var totalpage = parseInt($("#totalpage").html());
-    showCart(totalpage);
+    artilcleList(totalpage);
 }
 
 

@@ -1,5 +1,4 @@
 function login(){	
-	// alert("你好");
 	$.ajax({
 		url:"login",
 		type:"post",

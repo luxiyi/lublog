@@ -9,7 +9,7 @@
           href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="/js/plugin/jquery2.1.4.min.js"></script>
     <script src="/js/plugin/bootstrap.min.js"></script>
-    <script src="/js/front/detailbook.js"></script>
+    <script src="/js/front/detailBlog.js"></script>
     <!--<script src="/js/login.js"></script>-->
     <style>
         /* 1.页面框架
@@ -115,7 +115,24 @@
 </div>
 
 
-<div style="height: 250px; width: 200px; overflow: auto; position: relative; margin: 0 auto; font-size: 30px; padding-top: 200px">书籍评价</div>
+<div style="height: 250px; width: 200px; overflow: auto; position: relative; margin: 0 auto; font-size: 30px; padding-top: 200px">评论</div>
+
+<div style="height: 300px; width: 800px; margin: 0 auto; font-size: 15px; padding-top: 10px; padding-left: 20px;">
+    评论一下：
+    <div style="height: 220px; width: 700px; position: relative; margin: 0 70px;">
+			<textarea class="form-control" style="width: 600px; height: 200px; padding-bottom: 160px;"
+                      id="ccont" type="text" placeholder="评论内容"></textarea>
+    </div>
+    <div style="width: 500px; margin: 0 400px;">
+        <button class="btn btn-primary" type="submit"
+                onclick="insertcomment()">发表评论
+        </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="/index">
+            <button class="btn btn-danger">返回主界面</button>
+        </a>
+    </div>
+</div>
 <div style="height: 100px; width: 1000px; margin: 0 auto; font-size: 20px; padding-top: 60px">
     <div class="row">
         <table class="table table-hover text-center">
@@ -127,8 +144,6 @@
         </table>
     </div>
 </div>
-
-
 <div data-spy="scroll" data-target="#navbar-example" data-offset="0"
      style="height: 500px; width: 1000px; overflow: auto; position: relative; margin: 0 auto;">
     <div class="container" style="margin-top: 20px;height: 600px;" id="commentbox" >
@@ -139,24 +154,9 @@
         </div>
     </div>
 </div>
-<div style="height: 300px; width: 800px; margin: 0 auto; font-size: 15px; padding-top: 10px; padding-left: 20px;">
-    评价内容：
-    <div style="height: 220px; width: 700px; position: relative; margin: 0 70px;">
-			<textarea class="form-control" style="width: 600px; height: 200px; padding-bottom: 160px;"
-                      id="ccont" type="text" placeholder="评论内容"></textarea>
-    </div>
-    <div style="width: 500px; margin: 0 400px;">
-        <button class="btn btn-primary" type="submit"
-                onclick="insertcomment()">评价
-        </button>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="/index">
-            <button class="btn btn-danger">返回主界面</button>
-        </a>
-    </div>
-</div>
 
-<!--<div th:replace="/front/header::header"></div>-->
+
+<div th:replace="/common/footer::footer"></div>
 
 </body>
 </html>

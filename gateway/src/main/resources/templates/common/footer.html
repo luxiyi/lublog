@@ -2,19 +2,51 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="footer" xmlns="http://www.w3.org/1999/html">
 <body>
 <footer>
-<!-- 底部 -->
-<div id="downbox"
-	style="width: 100%; height: 120px; float: left; background: url(/img/24-2.jpg); background-size: 150%; text-align: center; font-size: 15px;color: mediumpurple;">
-<div style="padding-top: 30px">
-		<h4>©2020-YouLu <a href="http://icp.chinaz.com/info?q=luxiyi.top" target="_blank"
-						 style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
-			蜀ICP备20008951号</a></h4>
-	<h4></h4><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51012402000457"
-			   style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
-				<img src="img/beian.png" style="float:left;"/>
-				川公网安备51012402000457号</a></h4>
-</div>
-</div>
+    <!-- 底部 -->
+    <div id="downbox"
+         style="width: 100%; height: 270px; float: left; background-color: #1a2942; background-size: 150%; text-align: center; font-size: 12px;color: mediumpurple">
+        <div style="height: 220px;color: #eea236">
+            <div style="width: 50%;height: 220px;float: left;padding-left: 150px;padding-top: 50px">
+                <table style="width: 400px;height: 120px;">
+                    <tr style="width: 35px;font-size: 20px">
+                        <th>资源</th>
+                        <th>社交媒体</th>
+                        <th>友情链接</th>
+                    </tr>
+                    <tr style="font-size: 13px;">
+                        <th><img th:src="@{/img/github_icon.jpg}" style="width: 12px"/><a th:href="@{https://github.com/luxiyi}" style="text-decoration:none;color: #eea236">Github</a></th>
+                        <th><img th:src="@{/img/csdn-logo.jpg}" style="width: 12px"/><a th:href="@{https://blog.csdn.net/weixin_44594203}" style="text-decoration:none;color: #eea236">CSDN</a></th>
+                        <th>欢迎互链</th>
+                    </tr>
+                    <tr style="font-size: 13px;">
+                        <th><img th:src="@{/img/gitee_icon.jpg}" style="width: 12px"/><a th:href="@{https://gitee.com/luxiyi}" style="text-decoration:none;color: #eea236">Gitee</a></th>
+                        <th><img th:src="@{/img/logo_oschina.jpg}" style="width: 12px"/><a th:href="@{https://my.oschina.net/luxiyi}" style="text-decoration:none;color: #eea236">OSCHINA</a></th>
+                        <th>欢迎关注微信公众号：路边生活</th>
+                    </tr>
+                </table>
+            </div>
+            <div style="width: 50%;height: 220px;float: left">
+                <div style="padding-top: 30px;float: left;width: 50%">
+                <img th:src="@{/img/lxy_wx.png}" style="width: 150px;">
+                    <h5><img th:src="@{/img/weixin.png}" style="height: 20px">&nbsp;&nbsp;lxyT_T982946720</h5>
+                </div>
+                <div style="padding-top: 30px;float: left;width: 50%">
+                <img th:src="@{/img/lxy_qq.png}" style="width: 159px;">
+                    <h5><img th:src="@{/img/QQ.png}" style="height: 20px">&nbsp;&nbsp;982946720</h5>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h5>©2020-YouLu <a href="http://icp.chinaz.com/info?q=luxiyi.top" target="_blank"
+                               style="display:inline-block;text-decoration:none;height:20px;line-height:20px;color: mediumpurple">
+                蜀ICP备20008951号</a>
+                <a target="_blank"
+                        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51012402000457"
+                        style="display:inline-block;text-decoration:none;height:20px;line-height:20px;color: mediumpurple">
+            <img src="img/beian.png" style="float:left;"/>
+            川公网安备51012402000457号</a></h5>
+        </div>
+    </div>
 </footer>
 </body>
 </html>

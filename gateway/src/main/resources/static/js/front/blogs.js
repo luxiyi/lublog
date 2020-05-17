@@ -35,29 +35,11 @@ function findAllBlog(ppage) {
 								+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src='../../img/喜欢.png' width='26px'/>&nbsp;"
 							    + po.likes
 								+ "</h5>"
-								+ "<h5>"
+								+ "<h5 style='overflow:hidden;'>"
 								+ po.introduce
 								+ "</h5>"
 								+ "</div>"
-								+ "<div id='operate'>"
-								+ "<div id='addimg'><img class='addimg' src='../../img/爱你.png' width='25px' onclick='addcart("
-								+ po.blogid
-								+ ",\""
-								+ po.title
-								+ "\",\""
-								+ po.blogcover
-								+ "\","
-								+ po.price
-								+ ")'/>&nbsp;&nbsp;推荐</div>"
-								+ "<div id='deletebook'>"
-								+ "<img class='deletebook' src='../../img/删除.png' width='25px' onclick='removebook("
-								+ po.blogid
-								+ ")'/>&nbsp;&nbsp;删除</div>"
-								+ "<div id='alterbook'>"
-								+ "&nbsp;<img class='alterbook' src='../../img/修改.png' width='20px' onclick='querybook("
-								+ po.blogid
-								+ ")'/>&nbsp;&nbsp;修改</div>"
-								+ "</div>" + "</div>" + "</div>";
+								+ "</div>" + "</div>";
 					}
 					$("#blogContents").html(content);
 					$("#currentpage").html(ppage);
@@ -86,7 +68,6 @@ function nextpage() {
 }
 function endpage() {
 	// 获取总页码
-//	alert("已经是最后一页");
 	var totalpage = parseInt($("#totalpage").html());
 	findAllBlog(totalpage);
 }

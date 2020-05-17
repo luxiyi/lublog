@@ -1,13 +1,11 @@
 package com.lublog.gateway.controller;
 
 import com.alibaba.dubbo.common.utils.StringUtils;
-import com.alibaba.fastjson.JSON;
 import com.lublog.po.BlogContent;
 import com.lublog.po.Comment;
 import com.lublog.po.LoginUser;
-import com.lublog.service.BookService;
+import com.lublog.service.BlogService;
 import com.lublog.service.CommentService;
-import org.apache.zookeeper.Login;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +28,7 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
     @Autowired
-    private BookService bookService;
+    private BlogService blogService;
 
     //展现评论,list不能作为参数
     @RequestMapping("/findComments")
@@ -54,7 +52,7 @@ public class CommentController {
             return info;
         }
         commentService.insertCommentById(user.getLuser(), blogContent.getBlogid(), comment.getCommentcontent());
-        bookService.updateComcount(blogContent.getBlogid());
+        blogService.updateComcount(blogContent.getBlogid());
         info = "评价成功";
         return info;
 

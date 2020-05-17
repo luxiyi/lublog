@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="header">
 <body>
-
+<style>
+    #example-navbar-collapse li {
+        padding-right: 50px;
+    }
+    #full_text_search:hover {
+        cursor: pointer;
+    }
+</style>
 <header>
     <!-- 头部导航栏 -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container-fluid">
+        <div class="container-fluid" style="border: 1px red solid">
             <div class="navbar-header">
                 <a class="navbar-brand" th:href="@{/index}" style="font-size: 30px;">YouLu</a>
             </div>
             <div class="collapse navbar-collapse" id="example-navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <ul class="nav navbar-nav navbar-header">
-                        <li><a th:href="@{/index}"><span>技术</span></a></li>
-                        <li><a th:href="@{/tags}"><span>标签</span></a></li>
-                        <li><a th:href="@{/life}"><span>生活</span></a></li>
-                        <li><a th:href="@{/about}"><span>关于我</span></a></li>
-                        <li><a><span>欢迎来到YouLu</span></a></li>
-                        <li id="logoutbox"><a th:href="@{/loginPage}"><span
-                                class="glyphicon glyphicon-off"></span> In my heart</a></li>
-                    </ul>
+                    <li><a th:href="@{/index}"><span>技术</span></a></li>
+                    <li><a th:href="@{/tags}"><span>标签</span></a></li>
+                    <li><a th:href="@{/life}"><span>生活</span></a></li>
+                    <li><a th:href="@{/about}"><span>关于我</span></a></li>
+                    <li style="padding-top: 12px;padding-left:10px">
+                        <input  id="find" type="text" style="height: 30px;width: 190px;border-radius: 15px;font-size: 10px;border: none;outline: none;padding-left:20px;" placeholder="请输入要搜索的关键词 ">
+                        <div style="padding-left: 160px;width: 20px;float: left;">
+                            <img src="img/搜索.png"  id="full_text_search" style="height: 30px;padding-top:2px;position: absolute" onclick="findBlog()">
+                        </div>
+                    </li>
+                    <li id="logoutbox"><a th:href="@{/loginPage} " style="vertical-align:middle"><span
+                            class="glyphicon glyphicon-off" style="vertical-align:middle;"></span> In my heart</a></li>
+                    </ul>l
                 </ul>
             </div>
         </div>
@@ -48,131 +60,7 @@
         </div>
     </div>
 
-    <!-- 注册窗口    modal fade模态框 -->
-    <!--<div id="registerform" class="modal fade" tabindex="-1">-->
-        <!--<div class="modal-dialog">-->
-            <!--<div class="modal-content">-->
-                <!--<div class="modal-body">-->
-                    <!--<button class="close" data-dismiss="modal">-->
-                        <!--<span>&times;</span>-->
-                    <!--</button>-->
-                <!--</div>-->
-                <!--<div class="modal-title">-->
-                    <!--<h1 class="text-center">注册</h1>-->
-                <!--</div>-->
-                <!--<div class="modal-body">-->
-                    <!--<div class="form-group">-->
-                        <!--<label>用户名</label> <input class="form-control"-->
-                                                  <!--id="registerphone" type="text" placeholder="首字母为英文字母">-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
-                        <!--<label>密码</label> <input class="form-control"-->
-                                                 <!--id="registerpass" type="password"-->
-                                                 <!--placeholder="首字母大写，6-18位包含字母和数字">-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
-                        <!--<label>再次输入密码</label> <input class="form-control"-->
-                                                     <!--id="scomfirm" type="password" placeholder="首字母大写，6-18位包含字母和数字">-->
-                    <!--</div>-->
-                    <!-- 							<div class="form-group"> -->
-                    <!-- 							<label>验证码</label><br /> <input type="text" id="checkcode"> -->
-                    <!-- 							<img id="code" src="checkcode" onclick="getCode()" /> -->
-                    <!-- 							</div> -->
-                    <!--<div id="reginfo" style="width: 270px;height: 50px;margin: 0 auto;color: red;"></div>-->
-                    <!--<div class="text-right">-->
-                        <!--<button class="btn btn-primary" type="submit" onclick="register()">提交</button>-->
-                        <!--<button class="btn btn-danger" data-dismiss="modal">取消</button>-->
-                    <!--</div>-->
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- 登录窗口 -->
-    <div id="loginform" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button class="close" data-dismiss="modal">
-                        <span>&times;</span>
-                    </button>
-                </div>
-                <div class="modal-title">
-                    <h1 class="text-center">登录</h1>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>用户名</label> <input class="form-control" type="text"
-                                                  id="luser" placeholder="请输入账号">
-                    </div>
-                    <div class="form-group">
-                        <label>密码</label> <input class="form-control" type="password"
-                                                 id="pass" placeholder="请输入密码">
-                    </div>
-                    <!-- 						<div class="form-group"> -->
-                    <!-- 							<label>验证码</label><br/> <input type="text" id="checkcode"> -->
-                    <!-- 							<img id="code" src="checkcode" onclick="getCode()" /> -->
-                    <!-- 						</div> -->
-                    <div id="info"
-                         style="width: 270px;height: 50px;margin: 0 auto;color: red;text-align: center;font-size: 15px;"></div>
-                    <div class="text-right">
-                        <button class="btn btn-primary" type="submit" onclick="login()">登录</button>
-                        <button class="btn btn-danger" data-dismiss="modal">取消</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 个人信息 -->
-    <div id="userinfoform" class="modal fade" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button class="close" data-dismiss="modal">
-                        <span>&times;</span>
-                    </button>
-                </div>
-                <div class="modal-title">
-                    <h1 class="text-center">个人信息</h1>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>更改头像</label><input id="userhead" type="file" name="userhead"/>
-                    </div>
-                    <div class="form-group">
-                        <label>用户名</label> <input class="form-control"
-                                                  id="userinfo" type="text">
-                    </div>
-                    <div class="form-group">
-                        <label>姓名</label> <input class="form-control"
-                                                 id="uname" type="text">
-                    </div>
-                    <div class="form-group">
-                        <label>手机号</label> <input class="form-control"
-                                                  id="phone" type="text">
-                    </div>
-                    <div class="form-group">
-                        <label>年龄</label> <input class="form-control"
-                                                 id="age" type="text">
-                    </div>
-                    <div class="form-group">
-                        <label>性别</label> <input class="form-control"
-                                                 id="sex" type="text">
-                    </div>
-                    <div class="form-group">
-                        <label>住址</label> <input class="form-control"
-                                                 id="addr" type="text">
-                    </div>
-                    <div id="queryuserinfo" style="width: 270px;height: 50px;margin: 0 auto;color: red;"></div>
-                    <div class="text-right">
-                        <button class="btn btn-primary" type="submit" onclick="updateuser()">提交</button>
-                        <button class="btn btn-danger" data-dismiss="modal">取消</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </header>
 </body>
 </html>

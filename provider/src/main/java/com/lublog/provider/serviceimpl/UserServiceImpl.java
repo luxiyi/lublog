@@ -4,6 +4,7 @@ import com.lublog.provider.dao.UserMapper;
 import com.lublog.po.LoginUser;
 import com.lublog.po.User;
 import com.lublog.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,8 @@ import org.springframework.stereotype.Component;
  */
 @SuppressWarnings("all")
 @Component
+@Slf4j
 public class UserServiceImpl implements UserService {
-    private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-
     @Autowired
     private UserMapper userMapper;
 

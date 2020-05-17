@@ -14,7 +14,7 @@
 	<script th:src="@{https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js}"></script>
 	<!-- 移动设备优先 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<script th:src="@{js/admin/login.js}"></script>
+	<script th:src="@{/admin/js/login.js}"></script>
 
 	<style type="text/css">
 		body {
@@ -22,6 +22,7 @@
 			text-align: center;
 			background-image: url(img/background.jpg);
 			background-size: cover;
+			overflow:hidden;
 		}
 		.middle {
 			margin-top: 50px;
@@ -65,7 +66,7 @@
 
 </head>
 <body>
-<div class="container">
+<div class="container" id="outer">
 	<div class="middle mx-auto h-75 w-75">
 		<div class="row">
 			<div class="col col-12 col-md-6">
@@ -87,7 +88,6 @@
 							<label for="pass" class="sr-only">密码</label>
 							<input class="form-control" type="password" id="pass" placeholder="Password">
 						</div>
-
 						<div class="xuan custom-control custom-checkbox">
 							<input type="checkbox"  id="customCheck" name="example1">
 							<label for="customCheck">记住我</label>
@@ -120,5 +120,5 @@
 	</footer>
 </div>
 </body>
-<script th:src="@{js/admin/love-move.js}"></script>
+<script th:src="@{/admin/js/love-move.js}"></script>
 </html>

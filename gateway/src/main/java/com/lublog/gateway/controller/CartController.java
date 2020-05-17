@@ -4,7 +4,7 @@ import com.lublog.po.BlogContent;
 import com.lublog.po.BookCart;
 import com.lublog.vo.Cart;
 import com.lublog.po.LoginUser;
-import com.lublog.service.BookService;
+import com.lublog.service.BlogService;
 import com.lublog.service.BorrowService;
 import com.lublog.service.CartService;
 import com.lublog.service.ReplayService;
@@ -38,7 +38,7 @@ public class CartController {
     @Autowired
     private CartService cartService;
     @Autowired
-    private BookService bookService;
+    private BlogService blogService;
 
     @RequestMapping(value = "/cart")
     public String Cart(HttpSession session) {

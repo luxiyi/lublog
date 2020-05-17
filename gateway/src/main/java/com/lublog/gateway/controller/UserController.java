@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -187,7 +186,7 @@ public class UserController {
 
 
 
-    @RequestMapping(value = "index",method = RequestMethod.GET)
+    @RequestMapping(value = "/index",method = RequestMethod.GET)
     public String frontIndex() {
         LOG.info("-------front-index------");
         return "front/index";
@@ -213,10 +212,23 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/articleList")
+    @RequestMapping("/admin/articleList")
     public String articleList(){
         LOG.info("-------文章管理界面-------");
         return  "admin/article_list";
+    }
+
+
+    @RequestMapping(value = "/admin/index",method = RequestMethod.GET)
+    public String adminIndex() {
+        LOG.info("-------admin-index------");
+        return "admin/index";
+    }
+
+    @RequestMapping(value = "/admin/articleEdit",method = RequestMethod.GET)
+    public String articleEdit() {
+        LOG.info("-------admin-articleEdit------");
+        return "/admin/article_edit";
     }
 
 }

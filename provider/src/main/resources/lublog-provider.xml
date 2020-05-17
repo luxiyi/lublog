@@ -16,17 +16,21 @@
     <dubbo:provider delay="-1" timeout="12000" retries="0"/>
     <!-- 使用xml配置方式申明暴露一个接口服务，在程序启动的时候会自动注册到zookeeper。
          等同于在类上打@service注解，打了注解就必须要用annotation指定启动扫描路径，使用这种方式，就不需要指定annotation了-->
-    <dubbo:service interface="com.lublog.service.BookService" ref="bookService"/>
+    <dubbo:service interface="com.lublog.service.BlogService" ref="bookService"/>
     <dubbo:service interface="com.lublog.service.BorrowService" ref="borrowService"/>
     <dubbo:service interface="com.lublog.service.CartService" ref="cartService"/>
     <dubbo:service interface="com.lublog.service.CommentService" ref="commentService"/>
     <dubbo:service interface="com.lublog.service.ReplayService" ref="replayService"/>
     <dubbo:service interface="com.lublog.service.UserService" ref="userService"/>
+    <dubbo:service interface="com.lublog.service.TagService" ref="tagService"/>
+    <dubbo:service interface="com.lublog.service.CategoryService" ref="categoryService"/>
     <!-- 服务实现，与普通的本地bean一样-->
-    <bean id="bookService" class="com.lublog.provider.serviceimpl.BookServiceImpl"/>
+    <bean id="bookService" class="com.lublog.provider.serviceimpl.BlogServiceImpl"/>
     <bean id="borrowService" class="com.lublog.provider.serviceimpl.BorrowServiceImpl"/>
     <bean id="cartService" class="com.lublog.provider.serviceimpl.CartServiceImpl"/>
     <bean id="commentService" class="com.lublog.provider.serviceimpl.CommentServiceImpl"/>
     <bean id="replayService" class="com.lublog.provider.serviceimpl.ReplayServiceImpl"/>
     <bean id="userService" class="com.lublog.provider.serviceimpl.UserServiceImpl"/>
+    <bean id="tagService" class="com.lublog.provider.serviceimpl.TagServiceImpl"/>
+    <bean id="categoryService" class="com.lublog.provider.serviceimpl.CategoryServiceImpl"/>
 </beans>

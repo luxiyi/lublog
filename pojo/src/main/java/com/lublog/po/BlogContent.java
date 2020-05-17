@@ -3,6 +3,7 @@ package com.lublog.po;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 
@@ -16,11 +17,13 @@ public class BlogContent implements Serializable {
 
     private String author;
 
+    private String content;
+
     private Double price;
 
     private int bcount;
 
-    private String pubdate;
+    private Date pubdate;
 
     private String press;
 
@@ -28,13 +31,15 @@ public class BlogContent implements Serializable {
 
     private String introduce;
 
-    private String tag;
-
-    private int likes;
+    private int tagid;
 
     private int views;
 
+    private int likes;
+
     private int commentcount;
+
+    private int typeid;
 
     private int flag;
 

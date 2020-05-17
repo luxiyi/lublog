@@ -15,9 +15,11 @@
     <dubbo:consumer check="false" />
     <!-- 使用xml配置方式创建远程服务代理，id即为provider.xml中暴露的服务的id-->
     <dubbo:reference id="userService" check="false" interface="com.lublog.service.UserService"/>
-    <dubbo:reference id="bookService" check="false" interface="com.lublog.service.BookService"/>
+    <dubbo:reference id="bookService" check="false" interface="com.lublog.service.BlogService"/>
     <dubbo:reference id="borrowService" check="false" interface="com.lublog.service.BorrowService"/>
     <dubbo:reference id="commentService" check="false" interface="com.lublog.service.CommentService"/>
     <dubbo:reference id="cartService" check="false" interface="com.lublog.service.CartService"/>
     <dubbo:reference id="replayService" check="false" interface="com.lublog.service.ReplayService"/>
+    <dubbo:reference id="tagService" check="false" interface="com.lublog.service.TagService"/>
+    <dubbo:reference id="categoryService" check="false" interface="com.lublog.service.CategoryService"/>
 </beans>

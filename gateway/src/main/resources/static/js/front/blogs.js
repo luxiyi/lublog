@@ -11,7 +11,7 @@ function findAllBlog(ppage) {
 					var content = "";
 					for (var i = 0; i < arr.length; i++) {
 						var po = arr[i];
-						content += "<div class='panel panel-default'>"
+						content += "<div class='panel'style='background-color:transparent'>"
 								+ "<div class='panel-body'>"
 								+ "<div id=image>"
 								+ "<img src='"
@@ -35,7 +35,7 @@ function findAllBlog(ppage) {
 								+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src='../../img/喜欢.png' width='26px'/>&nbsp;"
 							    + po.likes
 								+ "</h5>"
-								+ "<h5 style='overflow:hidden;'>"
+								+ "<h5 class='blogContentLimit'>"
 								+ po.introduce
 								+ "</h5>"
 								+ "</div>"

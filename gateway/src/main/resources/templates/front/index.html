@@ -12,12 +12,15 @@
     <!--<script th:src="@{js/login.js}"></script>-->
     <!--<script th:src="@{js/register.js}"></script>-->
     <script th:src="@{js/front/blogs.js}"></script>
+    <script th:src="@{js/front/jquery.jqlouds.min.js}"></script>
 
     <style type="text/css">
 
         body {
             padding-top: 70px;
             background: url("/img/bg.png");
+            background-size: cover;
+            background-repeat: repeat-x;
         }
 
         /* 导航中的注册,登录,在线人数 */
@@ -25,7 +28,7 @@
             padding-right: 50px;
         }
 
-        /*  商品图片div */
+        /*  博客图片div */
         #image {
             width: 140px;
             height: 150px;
@@ -33,17 +36,29 @@
             padding-top: 10px;
         }
 
+        /*  博客内容div */
         #tother {
             width: 520px;
-            height: 130px;
+            height: 145px;
             float: left;
             padding-left: 30px;
+        }
+
+        /*博客介绍使用省略号隐藏多余的行数*/
+        .blogContentLimit {
+            display: -webkit-box; /** 对象作为伸缩盒子模型显示 **/
+            -webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+            overflow: hidden; /** 隐藏超出的内容 **/
+            text-overflow: ellipsis; /** 省略号 **/
+            -webkit-line-clamp: 2; /** 显示的行数 **/
+            width: 450px;
         }
 
         /*  每个商品图片    */
         .img-responsive {
             transition: all 1s;
             height: 130px;
+            cursor: pointer;
         }
 
         .img-responsive:hover {
@@ -63,7 +78,7 @@
 </head>
 
 <body>
-<div id="outer" style="width: 100%;height: 3000px;float: none;margin: 0 auto;">
+<div id="outer" style="width: 100%;height: 3000px;float: none;margin: 0 auto">
     <!-- 头部导航栏 -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container-fluid">
@@ -85,7 +100,9 @@
             </div>
         </div>
     </nav>
-    <div class="container">
+    <!--白云动画效果层-->
+    <div id="secondOuter">
+    <div class="container" >
         <div class="row">
             <div class="col-md-4">
                 <div class="indeximg" style="width: 200px;height: 100px;">
@@ -117,22 +134,22 @@
 
 
     <!-- 商品图片容器 -->
-    <div class="container" id="booksbox" style="height:2500px;width:1000px;margin: 40px auto;float:none; ">
-        <div class="row" id="blogContents" style="transition: all 1s;width:1000px;height:130px;float:none;">
+    <div class="container" id="booksbox" style="height:2500px;width:700px;margin: 0 auto;float:none;">
+        <div class="row" id="blogContents" style="transition: all 1s;width:700px;height:130px;float:none">
         </div>
     </div>
-
+    </div>
 
     <!-- 页码 -->
-    <div class="container" id="totalpagebox" style="margin: 0 auto;width: 700px;height: 100px;">
-        <div class="row" id="pagerow" style="padding-left: 150px;">
-            <ul class="pagination pagination-lg" id="pagebox">
-                <li id="first" onclick="findAllBlog(1)"><span>首页</span></li>
-                <li id="top" onclick="prepage()"><span>上一页</span></li>
-                <li class="xifenye" id="xifenye"><span><span
+    <div class="container" id="totalpagebox" style="margin: 0 auto;width: 700px;height: 100px">
+        <div class="row" id="pagerow" style="padding-left: 150px">
+            <ul class="pagination pagination-lg" id="pagebox" >
+                <li id="first" onclick="findAllBlog(1)" ><span style=" background-color:transparent">首页</span></li>
+                <li id="top" onclick="prepage()"><span style=" background-color:transparent">上一页</span></li>
+                <li class="xifenye" id="xifenye"><span style=" background-color:transparent"><span
                         id="currentpage">1</span>/ <span id="totalpage">1</span></span></li>
-                <li id="down" onclick="nextpage()"><span>下一页</span></li>
-                <li id="last" onclick="endpage()"><span>末页</span></li>
+                <li id="down" onclick="nextpage()"><span style=" background-color:transparent">下一页</span></li>
+                <li id="last" onclick="endpage()"><span style=" background-color:transparent">末页</span></li>
             </ul>
         </div>
     </div>
@@ -140,5 +157,11 @@
     <div th:replace="/common/footer::footer"></div>
 </div>
 </body>
-
+<script>
+    jQuery(function($) {
+        $('#secondOuter').jQlouds({
+            wind: true
+        });
+    });
+</script>
 </html>

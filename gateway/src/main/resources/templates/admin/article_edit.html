@@ -109,7 +109,7 @@
                     <div style="height: 60px;padding-left: 100px;">
                              <textarea
                                      style="height: 60px;width: 90%;resize: none;border-radius: 25px;border:2px solid #a1a1a1;padding-left: 20px;padding-top: 18px"
-                                     autocomplete="off" id="text"
+                                     autocomplete="off" id="articleIntroduce"
                                      name="text"
                                      class="markdown-textarea" placeholder="输入文章简介"></textarea>
                     </div>
@@ -117,6 +117,8 @@
                         分类：<select id="articleCategory"></select>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         标签：<select id="articleTag"></select>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        署名：<input type="text" id="articleAuthor" placeholder="输入作者名字">
                     </div>
 
                     <div id="test-editormd">
@@ -189,8 +191,8 @@
         buildOption: function (data) {//构建下拉框数据
             var optionStr = "";
             for (var i = 0; i < data.length; i++) {
-                optionStr += "<option value=" + data[i].typeid + ">";
-                optionStr += data[i].typename;
+                optionStr += "<option value=" + data[i].categoryid + ">";
+                optionStr += data[i].categoryname;
                 optionStr += "</option>";
             }
             $("#articleCategory").append(optionStr);
@@ -203,14 +205,20 @@
                 //debugger;
                 var title = $("#articleTitle").val();
                 var content = $("#articleContent").val();
-                var typeId = $("#articleCategory").val();
+                var tagId = $("#articleTag").val();
+                var categoryId = $("#articleCategory").val();
+                var author = $("#articleAuthor").val();
+                var introduce = $("#articleIntroduce").val();
                 $.ajax({
                     type: "POST",
-                    url: '/pushBlog',
+                    url: '/admin/pushArticle',
                     data: {
                         'title': title,
                         'content': content,
-                        'typeId': typeId
+                        'tagId': tagId,
+                        'categoryId':categoryId,
+                        'author':author,
+                        'introduce':introduce
                     },
                     dataType: 'json',
                     //contentType:"application/json",
@@ -219,9 +227,7 @@
                         //debugger;
                         if ("success" == data.result) {
                             alert("保存成功!");
-                            setTimeout(function () {
-                                window.close();
-                            }, 3000);
+                            location.reload();
                         }
                     }
                 });
@@ -231,6 +237,8 @@
             //debugger;
             var title = $("#articleTitle").val();
             var content = $("#articleContent").val();
+            var author = $("#articleAuthor").val();
+            var introduce = $("#articleIntroduce").val();
             if (typeof (title) == undefined || title == null || title == "") {
                 alert("请填写文章标题!");
                 return false;
@@ -238,6 +246,21 @@
 
             if (typeof (content) == undefined || content == null || content == "") {
                 alert("请填写文章内容!");
+                return false;
+            }
+
+            if (typeof (author) == undefined || author == null || author == "") {
+                alert("请填写文章作者署名!");
+                return false;
+            }
+
+            if (typeof (author) == undefined || author == null || author == "") {
+                alert("请填写文章作者署名!");
+                return false;
+            }
+
+            if (typeof (introduce) == undefined || introduce == null || introduce == "") {
+                alert("请填写文章简介!");
                 return false;
             }
 

@@ -223,13 +223,13 @@ public class BlogController {
      */
     @RequestMapping(value = "/pushBlog", method = RequestMethod.POST)
     public String saveOrUpdateBlog(@RequestParam("title") String title, @RequestParam("content") String content,
-                                   @RequestParam("typeId") String typeIdStr) {
-        int typeId = Integer.parseInt(typeIdStr);
+                                   @RequestParam("categoryId") String categoryIdStr) {
+        int categoryId = Integer.parseInt(categoryIdStr);
         BlogContent blogContent = new BlogContent();
         blogContent.setTitle(title);
         blogContent.setContent(content);
         blogContent.setPubdate(new Date());
-        blogContent.setTypeid(typeId);
+        blogContent.setCategoryid(categoryId);
         JSONObject result = new JSONObject();
         try {
             this.blogService.insertBlog(blogContent);

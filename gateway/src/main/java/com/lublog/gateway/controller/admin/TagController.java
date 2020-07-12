@@ -27,8 +27,8 @@ public class TagController {
     @Autowired
     private TagService tagService;
     /**
-     * 加载所有的博客类别
-     * @return
+     * 加载所有的博客标签
+     * @return tagJsonString
      */
     @RequestMapping(value = "/listArticleTag" ,method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
@@ -36,6 +36,7 @@ public class TagController {
         List<Tag> tags = tagService.findAllTags();
         log.info("tagList.size is {}",tags.size());
         String tagJsonString = JSON.toJSONString(tags, SerializerFeature.DisableCircularReferenceDetect);
+        log.info("tagJsonString is {}", tagJsonString);
         return tagJsonString;
     }
 }

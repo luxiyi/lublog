@@ -13,15 +13,15 @@ import java.io.Serializable;
 public class Category implements Serializable {
     private static final long serialVersionUID = -7935402875349092275L;
 
-    private int typeid;
+    private int categoryid;
 
-    private String typename;
+    private String categoryname;
 
     public Category() {
     }
 
-    public Category(int typeid, String typename) {
-        this.typeid = typeid;
-        this.typename = typename;
+    public Category(int categoryid, String categoryname) {
+        this.categoryid = categoryid;
+        this.categoryname = categoryname;
     }
 }

@@ -26,7 +26,7 @@ public interface BlogMapper {
     int findTotalPage();
 
     //增加新书
-    @Insert("insert into blogContent (title,author,pubdate,blogcover,introduce,content,typeId) values (#{title},#{author},#{pubdate},#{blogcover},#{introduce},#{content},#{typeId})")
+    @Insert("insert into blogContent (title,author,pubdate,blogcover,introduce,content,tagid,categoryid) values (#{title},#{author},#{pubdate},#{blogcover},#{introduce},#{content},#{tagid},#{categoryid})")
     void insertBook(BlogContent blogContent);
 
     //根据blogid查找书

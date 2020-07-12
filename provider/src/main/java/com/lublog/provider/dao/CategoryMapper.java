@@ -11,6 +11,6 @@ import java.util.List;
  * @time: 2020/5/26 1:57
  */
 public interface CategoryMapper {
-    @Select("select typeid, typename from category")
+    @Select("select categoryid, categoryname from category")
     List<Category> findAllCategories();
 }

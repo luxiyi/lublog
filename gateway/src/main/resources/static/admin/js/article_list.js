@@ -19,7 +19,7 @@ function artilcleList(ppage) {
                         + "<td class='text-center'>" + po.title + "</td>"
                         + "<td class='infor'>" + po.pubdate + "</td>"
                         + "<td class='infor'>" + po.views + "</td>"
-                        + "<td class='infor'>" + po.tag + "</td>"
+                        + "<td class='infor'>" + po.categoryname + "</td>"
                         + "<td class='infor'>"
                         + "<img class='deletebook' src='../../img/删除.png' width='25px' onclick='removebook("
                         + po.bid

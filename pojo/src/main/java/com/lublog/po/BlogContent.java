@@ -39,7 +39,7 @@ public class BlogContent implements Serializable {
 
     private int commentcount;
 
-    private int typeid;
+    private int categoryid;
 
     private int flag;
 

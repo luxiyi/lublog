@@ -24,7 +24,11 @@ function findonebook() {
                 + data.categoryname
                 + "</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-heart'>&nbsp;"
                 + data.likes
-                + "</i></div>";
+                + "</i><blockquote style='padding-top: 50px'><p>"
+                + data.introduce
+                + "</p></blockquote><img src='"
+                + data.blogcover
+                + "' class='img-responsive' alt='' data-action='zoom'></div>";
 
             $("#blogIntroduce").html(content);
 

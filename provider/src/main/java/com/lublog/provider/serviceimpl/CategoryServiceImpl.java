@@ -21,4 +21,24 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> findAllCategories() {
         return categoryMapper.findAllCategories();
     }
+
+    @Override
+    public void addCategory(String categoryName) {
+        categoryMapper.addCategory(categoryName);
+    }
+
+    @Override
+    public void deleteCategoryByName(String categoryName) {
+        categoryMapper.deleteCategoryByName(categoryName);
+    }
+
+    @Override
+    public Category findOneCategoryById(int categoryId) {
+        return categoryMapper.findOneCategoryById(categoryId);
+    }
+
+    @Override
+    public Category findOneCategoryByName(String categoryName) {
+        return categoryMapper.findOneCategoryByName(categoryName);
+    }
 }

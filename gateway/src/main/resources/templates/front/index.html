@@ -7,12 +7,7 @@
     <link rel='shortcut icon' type='image/x-icon' th:href="@{/img/logo.jpg}"/>
     <link rel="stylesheet"
           th:href="@{https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css}">
-    <script th:src="@{/plugin/js/jquery2.1.4.min.js}"></script>
-    <script th:src="@{/plugin/js/bootstrap.min.js}"></script>
-    <!--<script th:src="@{js/login.js}"></script>-->
-    <!--<script th:src="@{js/register.js}"></script>-->
-    <script th:src="@{/front/js/blogs.js}"></script>
-    <script th:src="@{/front/js/jquery.jqlouds.min.js}"></script>
+
 
     <style type="text/css">
 
@@ -21,6 +16,7 @@
             background: url("/img/bg.png");
             background-size: cover;
             background-repeat: repeat-x;
+            overflow-x: hidden;
         }
 
         /* 导航中的注册,登录,在线人数 */
@@ -76,37 +72,53 @@
         #full_text_search:hover {
             cursor: pointer;
         }
+
+        /* 下拉按钮样式 */
+        .dropbtn {
+            color: #b52a1d;
+            padding: 13px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        /* 容器 <div> - 需要定位下拉内容 */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            padding-top: 15px;
+        }
+
+        /* 下拉内容 (默认隐藏) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        }
+
+        /* 下拉菜单的链接 */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* 鼠标移上去后修改下拉菜单链接颜色 */
+        .dropdown-content a:hover {background-color: #f1f1f1}
+
+        /* 在鼠标移上去后显示下拉菜单 */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
     </style>
 </head>
 
 <body>
 <div id="outer" style="width: 100%;height: 3000px;float: none;margin: 0 auto">
     <!-- 头部导航栏 -->
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" th:href="@{/index}" style="font-size: 30px;">YouLu</a>
-            </div>
-            <div class="collapse navbar-collapse" id="example-navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <ul class="nav navbar-nav navbar-header">
-                        <li><a th:href="@{/index}"><span>技术</span></a></li>
-                        <li><a th:href="@{/tags}"><span>标签</span></a></li>
-                        <li><a th:href="@{/life}"><span>生活</span></a></li>
-                        <li><a th:href="@{/about}"><span>关于我</span></a></li>
-                        <li style="padding-top: 12px;padding-left:10px">
-                            <input  id="find" type="text" style="height: 30px;width: 190px;border-radius: 15px;font-size: 10px;border: none;outline: none;padding-left:20px;" placeholder="请输入要搜索的关键词 ">
-                            <div style="padding-left: 160px;width: 20px;float: left;">
-                                <img src="img/搜索.png"  id="full_text_search" style="height: 30px;padding-top:2px;position: absolute" onclick="findBlog()">
-                            </div>
-                        </li>
-                        <li id="logoutbox"><a th:href="@{/loginPage} " style="vertical-align:middle"><span
-                                class="glyphicon glyphicon-off" style="vertical-align:middle;"></span> In my heart</a></li>
-                    </ul>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div th:replace="/front/header::header(title='首页',keywords=null)"></div>
     <!--白云动画效果层-->
     <div id="secondOuter">
     <div class="container" >
@@ -116,17 +128,7 @@
                     <a th:href="@{/index}"><img th:src="@{img/书logo.jpg}" height="100px"/></a>
                 </div>
             </div>
-            <!--<div class="col-md-4" id="inputbig" style="width: 370px;height:50px;margin-top:30px;">-->
-                <!--&lt;!&ndash; 搜索框 input-lg是框的大小 &ndash;&gt;-->
-                <!--<div class="input-group" style="width: 250px;float:left;">-->
-                    <!--<input type="text" class="form-control input-lg " id="find" placeholder="休息一下，找点书看 ">-->
-                <!--</div>-->
-                <!--<div class="butto" style="width: 70px;height:50px;float:left; padding-top:2px;">-->
-					<!--<span><button class=" btn btn-primary btn-lg"-->
-                                  <!--style="color: white; font-size: 16px; background: orangered;" type="submit"-->
-                                  <!--onclick="findBlog()">搜索</button></span>-->
-                <!--</div>-->
-            <!--</div>-->
+
             <div class="col-md-4">
                 <div class="shopcar"
                      style="height: 100px;width: 300px;margin: 30px;margin-left: 100px;padding-left: 10px;">
@@ -140,7 +142,7 @@
     </div>
 
 
-    <!-- 商品图片容器 -->
+    <!-- 文章列表 -->
     <div class="container" id="booksbox" style="height:2500px;width:700px;margin: 0 auto;float:none;">
         <div class="row" id="blogContents" style="transition: all 1s;width:700px;height:130px;float:none">
         </div>
@@ -164,6 +166,11 @@
     <div th:replace="/common/footer::footer"></div>
 </div>
 </body>
+<script th:src="@{/plugin/js/jquery2.1.4.min.js}"></script>
+<script th:src="@{/plugin/js/bootstrap.min.js}"></script>
+<script th:src="@{/front/js/index.js}"></script>
+<script th:src="@{/front/js/header.js}"></script>
+<script th:src="@{/front/js/jquery.jqlouds.min.js}"></script>
 <script>
     jQuery(function($) {
         $('#secondOuter').jQlouds({

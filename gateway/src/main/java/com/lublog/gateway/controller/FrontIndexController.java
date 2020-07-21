@@ -1,22 +1,16 @@
 package com.lublog.gateway.controller;
 
 import com.alibaba.dubbo.common.utils.StringUtils;
-import com.alibaba.fastjson.JSONObject;
+import com.lublog.dto.BlogCategory;
 import com.lublog.po.BlogContent;
-import com.lublog.po.LoginUser;
 import com.lublog.service.BlogService;
 import com.lublog.service.CartService;
 import com.lublog.service.CommentService;
 import com.lublog.service.UserService;
 import com.lublog.vo.BlogShow;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +25,7 @@ import java.util.*;
 @SuppressWarnings("all")
 @Slf4j
 @RestController
-public class BlogController {
+public class FrontIndexController {
 //    private Logger LOG = LoggerFactory.getLogger(BlogController.class);
 
     @Autowired
@@ -212,33 +206,7 @@ public class BlogController {
 //        }
 //    }
 
-    @RequestMapping(value = "/detail")
-    public String bookDetail() {
-        log.info("-------------books detail-------------");
-        return "detail";
-    }
 
-    /**
-     * 保存发布文章
-     */
-    @RequestMapping(value = "/pushBlog", method = RequestMethod.POST)
-    public String saveOrUpdateBlog(@RequestParam("title") String title, @RequestParam("content") String content,
-                                   @RequestParam("categoryId") String categoryIdStr) {
-        int categoryId = Integer.parseInt(categoryIdStr);
-        BlogContent blogContent = new BlogContent();
-        blogContent.setTitle(title);
-        blogContent.setContent(content);
-        blogContent.setPubdate(new Date());
-        blogContent.setCategoryid(categoryId);
-        JSONObject result = new JSONObject();
-        try {
-            this.blogService.insertBlog(blogContent);
-            result.put("result", "success");
-            return result.toJSONString();
-        } catch (Exception e) {
-            log.error("blog push failed is {}", e);
-            result.put("result", "error");
-            return result.toJSONString();
-        }
-    }
+
+
 }

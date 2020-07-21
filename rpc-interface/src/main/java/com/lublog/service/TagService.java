@@ -12,4 +12,10 @@ import java.util.List;
 public interface TagService {
 
     List<Tag> findAllTags();
+
+    void addTag(String tagName);
+
+    void deleteTagByName(String tagName);
+
+    Tag findOneTagByName(String tagName);
 }

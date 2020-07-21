@@ -1,114 +1,69 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<header th:replace="admin/header::headerFragment(null)"></header>
+<header th:replace="admin/header::headerFragment(${title},${active})"></header>
+
+<style>
+    .blogInroduceLimit {
+        height: 40px;
+        display: -webkit-box; /** 对象作为伸缩盒子模型显示 **/
+        -webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+        overflow: hidden; /** 隐藏超出的内容 **/
+        text-overflow: ellipsis; /** 省略号 **/
+        -webkit-line-clamp: 2; /** 显示的行数 **/
+        font-size: 15px;
+        float: left;
+        padding-left: 30px;
+    }
+</style>
 <body class="fixed-left">
 <div id="wrapper">
     <div th:replace="admin/header::header-body"></div>
     <div class="content-page">
         <div class="content">
             <div class="container">
-                <div class="row">
-                    <div class="row">
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="mini-stat clearfix bx-shadow bg-info">
-                                <span class="mini-stat-icon"><i class="fa fa-quote-right" aria-hidden="true"></i></span>
-                                <div class="mini-stat-info text-right">
-                                    发表了<span class="counter" 5></span>篇文章
-                                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>数据情况</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td style="text-align: left">截止目前统计您一共发表博客399篇，删除40篇博客，首页展示有354篇博客</td></tr>
+                    <tr><td style="text-align: left">截止目前统计您的博客访问量为399</td></tr>
+                    <tr><td style="text-align: left">截止目前统计您的博客评论数为399</td></tr>
+                    <tr><td style="text-align: left">截止目前统计您的博客点赞数为399</td></tr>
+                    </tbody>
+                </table>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th style="height: 50px;line-height: 50px" colspan="4">
+                            <div style="float: left">近期发布文章</div>
+                            <div style="float: left;padding-left: 925px">
+                                <a th:href="@{/admin/articleList}">更多</a>
                             </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="mini-stat clearfix bg-purple bx-shadow">
-                                <span class="mini-stat-icon"><i class="fa fa-comments-o" aria-hidden="true"></i></span>
-                                <div class="mini-stat-info text-right">
-                                    收到了<span class="counter" 5></span>条留言
-                                </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody id="lastArticleList">
+                    </tbody>
+                </table>
+
+                <table class="table">
+                    <thead >
+                    <tr >
+                        <th style="height: 50px;line-height: 50px">
+                            <div style="float: left">近期评论</div>
+                            <div style="float: left;padding-left: 960px">
+                                <a th:href="@{/admin/commentList}">更多</a>
                             </div>
-                        </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody id="lastCommentList">
 
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="mini-stat clearfix bg-success bx-shadow">
-                                <span class="mini-stat-icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></span>
-                                <div class="mini-stat-info text-right">
-                                    上传了<span class="counter" 6></span>个附件
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">最新文章</h4>
-                                </div>
-                                <div class="panel-body">
-                                    <ul class="list-group">
-                                        <li class="list-group-item" th:each="article : ${articles}">
-                                            <span class="badge badge-primary" th:title="${article.commentsNum}+'条评论'" th:text="${article.commentsNum}"></span>
-                                            <a target="_blank" th:href="${commons.site_url('/article/')}+${article.cid}+'/1'" th:text="${article.title}"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">最新留言</h4>
-                                </div>
-
-                                <div class="panel-body">
-
-                                    <div th:if="${comments}== null and ${#lists.size(comments)}==0">
-                                        <div class="alert alert-warning">
-                                            还没有收到留言.
-                                        </div>
-                                    </div>
-
-                                    <ul class="list-group"  th:unless="${comments}==null and ${#lists.size(comments)}==0">
-                                        <li class="list-group-item" th:each="comment : ${comments}">
-                                            <div th:if="${comment.url}!=null and ${comment.url}!=''">
-                                                <a th:href="@{${comment.url}}" target="_blank" th:text="${comment.author}"></a>
-                                            </div>
-                                            <th:block th:unless="${comment.url}!=null and ${comment.url}!=''" th:text="${comment.author}"/>于
-                                            <th:block th:text="${commons.fmtdate(comment.created,'MM月dd日HH:mm')}"/>:
-                                            <a th:href="${commons.site_url('/article/')}+${comment.cid}+'#comments'"
-                                               target="_blank" th:utext="${commons.article(comment.content)}">
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">系统日志</h4>
-                                </div>
-                                <div class="panel-body">
-                                    <ul class="list-group">
-                                        <li class="list-group-item">
-                                            <span>系统日志1</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span>系统日志2</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span>系统日志3</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span>系统日志4</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -116,6 +71,8 @@
 
 </div>
 </body>
+<script th:src="@{/plugin/js/jquery2.1.4.min.js}"></script>
+<script th:src="@{/admin/js/index.js}"></script>
 </html>
 
 

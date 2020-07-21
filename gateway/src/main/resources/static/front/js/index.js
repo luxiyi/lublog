@@ -72,6 +72,10 @@ function endpage() {
 	findAllBlog(totalpage);
 }
 
+
+
+
+
 // 添加新书
 function addbook() {
 	$.ajax({

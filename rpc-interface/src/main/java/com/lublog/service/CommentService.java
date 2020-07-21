@@ -1,6 +1,8 @@
 package com.lublog.service;
 
 import com.lublog.po.Comment;
+import com.lublog.vo.BlogShow;
+import com.lublog.vo.CommentShow;
 
 import java.util.List;
 
@@ -17,4 +19,12 @@ public interface CommentService {
     int findBidNum(int blogId);
 
     void deleteCommentsOfBlog(int blogId);
+
+    List<CommentShow> showLastComment(int index, int count);
+
+    Integer findTotalPage();
+
+    List<CommentShow> findAllByIndex(int index, int i);
+
+    CommentShow findAllById(CommentShow commentShow);
 }

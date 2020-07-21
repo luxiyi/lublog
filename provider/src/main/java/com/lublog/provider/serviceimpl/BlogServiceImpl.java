@@ -1,12 +1,22 @@
 package com.lublog.provider.serviceimpl;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
+import com.lublog.dto.BlogCategory;
+import com.lublog.utils.DateUtils;
 import com.lublog.provider.dao.BlogMapper;
 import com.lublog.po.BlogContent;
 import com.lublog.service.BlogService;
 import com.lublog.vo.BlogShow;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.xml.crypto.Data;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,6 +25,7 @@ import java.util.List;
  * @time: 2020/4/12 22:20
  */
 @Component
+@Slf4j
 public class BlogServiceImpl implements BlogService {
     @Autowired
     private BlogMapper blogMapper;
@@ -22,6 +33,11 @@ public class BlogServiceImpl implements BlogService {
     public List<BlogShow> findAllByIndex(int index, int count) {
         return blogMapper.findALLByIndex(index, count);
 
+    }
+
+    @Override
+    public List<BlogShow> showLastArticle(int index, int count) {
+        return blogMapper.findALLByIndex(index, count);
     }
 
     @Override
@@ -69,6 +85,26 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public void updateComcount(int bid) {
         blogMapper.updateComcount(bid);
+    }
+
+    @Override
+    public List<BlogContent> findAllByCategoryId(int categoryId) {
+        return blogMapper.findAllByCategoryId(categoryId);
+    }
+
+    @Override
+    public List<BlogContent> findAllByTagId(int tagId) {
+        return blogMapper.findAllByTagId(tagId);
+    }
+
+    @Override
+    public List<BlogCategory> getBlogByCategories(int categoryId) {
+        return blogMapper.findAllBlogs(categoryId);
+    }
+
+    @Override
+    public List<BlogContent> getBlogsByCategories(int categoryId, Date startDate, Date endDate) {
+        return blogMapper.getBlogsByCategories(categoryId, startDate, endDate);
     }
 
 }

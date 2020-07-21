@@ -1,9 +1,11 @@
 package com.lublog.service;
 
 
+import com.lublog.dto.BlogCategory;
 import com.lublog.po.BlogContent;
 import com.lublog.vo.BlogShow;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,6 +15,8 @@ import java.util.List;
  */
 public interface BlogService {
     List<BlogShow> findAllByIndex(int index, int count);
+
+    List<BlogShow> showLastArticle(int index, int count);
 
     int findTotalPage();
 
@@ -32,4 +36,11 @@ public interface BlogService {
 
     void updateComcount(int bid);
 
+    List<BlogContent> findAllByCategoryId(int categoryId);
+
+    List<BlogContent> findAllByTagId(int tagId);
+
+    List<BlogCategory> getBlogByCategories(int categoryId);
+
+    List<BlogContent> getBlogsByCategories(int categoryId, Date startDate, Date endDate);
 }

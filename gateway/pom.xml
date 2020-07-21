@@ -71,6 +71,11 @@
 
         <!--依赖模块-->
         <dependency>
+            <groupId>com.lxy</groupId>
+            <artifactId>basecommon</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>com.lublog</groupId>
             <artifactId>pojo</artifactId>
             <version>0.0.1-SNAPSHOT</version>

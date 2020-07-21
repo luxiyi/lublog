@@ -165,13 +165,6 @@ public class UserController {
         }
     }
 
-
-
-
-
-
-
-
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     @ResponseBody
     public LoginUser testUser (String luser){
@@ -181,21 +174,6 @@ public class UserController {
             user = new LoginUser();
         }
         return user;
-    }
-
-
-
-
-    @RequestMapping(value = "/index",method = RequestMethod.GET)
-    public String frontIndex() {
-        LOG.info("-------front-index------");
-        return "front/index";
-    }
-
-    @RequestMapping("/loginPage")
-    public String loginPage(){
-        LOG.info("-------loginPage-------");
-        return  "/admin/login";
     }
 
     // 注销功能
@@ -212,23 +190,5 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/admin/articleList")
-    public String articleList(){
-        LOG.info("-------文章管理界面-------");
-        return  "admin/article_list";
-    }
-
-
-    @RequestMapping(value = "/admin/index",method = RequestMethod.GET)
-    public String adminIndex() {
-        LOG.info("-------admin-index------");
-        return "admin/index";
-    }
-
-    @RequestMapping(value = "/admin/articleEdit",method = RequestMethod.GET)
-    public String articleEdit() {
-        LOG.info("-------admin-articleEdit------");
-        return "/admin/article_edit";
-    }
 
 }

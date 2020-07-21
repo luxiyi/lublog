@@ -1,6 +1,7 @@
 package com.lublog.provider.dao;
 
 import com.lublog.po.Comment;
+import com.lublog.vo.CommentShow;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -28,4 +29,23 @@ public interface CommentMapper {
     //删除有关该文章的评论
     @Delete("delete from comment where ")
     void deleteCommentsOfBlog(int blogId);
+
+    //展现评论消息
+    @Select("SELECT b.blogid,b.title,c.commentcontent,c.commentid,c.commentdate,c.user " +
+            " FROM blogcontent b INNER JOIN comment c ON b.blogid = c.blogid" +
+            " where b.flag=0 AND c.flag=0 ORDER BY c.commentdate desc LIMIT #{param1},#{param2}")
+    List<CommentShow> showLastComment(int index, int count);
+
+    @Select("SELECT COUNT(*) total FROM comment where flag = 0")
+    int findTotalPage();
+
+    @Select("SELECT b.blogid,b.title,c.commentcontent,c.commentid,c.commentdate,c.user " +
+            " FROM blogcontent b INNER JOIN comment c ON b.blogid = c.blogid" +
+            " where b.flag=0 AND c.flag=0 ORDER BY c.commentdate desc LIMIT #{param1},#{param2}")
+    List<CommentShow> findAllByIndex(int index, int count);
+
+    @Select("SELECT b.blogid,b.title,c.commentcontent,c.commentid,c.commentdate,c.user " +
+            " FROM blogcontent b INNER JOIN comment c ON b.blogid = c.blogid" +
+            " where c.commentid = #{param1} AND b.flag=0 AND c.flag=0 ORDER BY c.commentdate desc")
+    CommentShow findAllById(CommentShow commentShow);
 }

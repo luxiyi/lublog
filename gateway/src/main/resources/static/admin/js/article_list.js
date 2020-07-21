@@ -30,7 +30,7 @@ function artilcleList(ppage) {
                         + "</td>"
                         + "</tr>";
                 }
-                $("#cart").html(content);
+                $("#articleList").html(content);
                 $("#currentpage").html(ppage);
                 $("#totalpage").html(data.totalPage);
             }

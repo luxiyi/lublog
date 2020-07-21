@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+
 <body>
+
 <style>
     #example-navbar-collapse li {
         padding-right: 50px;
@@ -8,19 +10,68 @@
     #full_text_search:hover {
         cursor: pointer;
     }
+    /* 下拉按钮样式 */
+    .dropbtn {
+        color: #b52a1d;
+        padding: 13px;
+        border-radius: 50px;
+        cursor: pointer;
+    }
+
+    /* 容器 <div> - 需要定位下拉内容 */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+        padding-top: 15px;
+    }
+
+    /* 下拉内容 (默认隐藏) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    }
+
+    /* 下拉菜单的链接 */
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    /* 鼠标移上去后修改下拉菜单链接颜色 */
+    .dropdown-content a:hover {background-color: #f1f1f1}
+
+    /* 在鼠标移上去后显示下拉菜单 */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
 </style>
 <header>
     <!-- 头部导航栏 -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container-fluid" style="border: 1px red solid">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" th:href="@{/index}" style="font-size: 30px;">YouLu</a>
             </div>
             <div class="collapse navbar-collapse" id="example-navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <ul class="nav navbar-nav navbar-header">
-                    <li><a th:href="@{/index}"><span>技术</span></a></li>
-                    <li><a th:href="@{/tags}"><span>标签</span></a></li>
+                        <li>
+                            <div class="dropdown">
+                                <span class="dropbtn">分类</span>
+                                <div class="dropdown-content" id="categoryDropdown"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="dropdown">
+                                <span class="dropbtn">标签</span>
+                                <div class="dropdown-content" id="tagDropdown"></div>
+                            </div>
+                        </li>
                     <li><a th:href="@{/life}"><span>生活</span></a></li>
                     <li><a th:href="@{/about}"><span>关于我</span></a></li>
                     <li style="padding-top: 12px;padding-left:10px">
@@ -31,7 +82,7 @@
                     </li>
                     <li id="logoutbox"><a th:href="@{/loginPage} " style="vertical-align:middle"><span
                             class="glyphicon glyphicon-off" style="vertical-align:middle;"></span> In my heart</a></li>
-                    </ul>l
+                    </ul>
                 </ul>
             </div>
         </div>
@@ -63,4 +114,5 @@
 
 </header>
 </body>
+
 </html>

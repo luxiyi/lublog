@@ -4,33 +4,17 @@
     <meta charset=" UTF-8 />">
     <title>YouLu-文章编辑</title>
     <link rel='shortcut icon' type='image/x-icon' th:href="@{img/logo.jpg}"/>
-    <!--<script th:src="@{/admin/js/article_list.js}"></script>-->
-    <!--<script th:src="@{/admin/js/login.js}"></script>-->
 
     <style>
-
 
         /* 页面框架 */
         body {
             padding-top: 70px;
         }
 
-
         /* 导航中的注册,登录,在线人数 */
         #example-navbar-collapse li {
             padding-right: 50px;
-        }
-
-        .cart-img {
-            width: 60px;
-        }
-
-        .alterbook:hover {
-            cursor: pointer;
-        }
-
-        .deletebook:hover {
-            cursor: pointer;
         }
 
         table .infor {
@@ -43,25 +27,6 @@
 
         #pagebox :hover {
             cursor: pointer;
-        }
-
-        .deletecart:hover {
-            width: 30px;
-            cursor: pointer;
-        }
-
-        .titleBox {
-            height: 50px;
-            line-height: 50px;
-            text-align: center;
-            font-size: 30px;
-        }
-
-        .contextBox {
-            height: 300px;
-            line-height: 300px;
-            text-align: center;
-            font-size: 20px;
         }
 
         #articleTitle {
@@ -83,35 +48,46 @@
             position: relative;
             float: right;
             margin-top: 15px;
-            padding-right: 100px;
+            padding-right: 20px;
+        }
+
+        #artileIndex {
+            position: relative;
+            float: right;
+            margin-top: 15px;
+            padding-right: 120px;
         }
 
     </style>
 </head>
-<header th:replace="admin/header::headerFragment(null)"></header>
+<header th:replace="admin/header::headerFragment(${title},${active})"></header>
 <body class="fixed-left">
 <div id="wrapper">
-    <div th:replace="admin/header::header-body"></div>
-    <div class="content-page">
         <div class="content">
             <div class="container">
                 <div id="layout">
                     <div style="line-height: 40px;height: 70px;padding-left: 100px">
                         <input type="text" id="articleTitle" placeholder="输入文章标题"
                                style="border-radius: 25px;border:2px solid #a1a1a1;padding-left: 20px"/>
-
+                        <span id="artileIndex">
+                            <button type="button" class="btn btn-primary">
+                                 <a th:href="@{/admin/index}" style="color: white">文章管理</a>
+                            </button>
+                        </span>
                         <span id="btnList">
-                    <button type="button" class="btn btn-danger" id="publishArticle" onclick="writeArticle.doSubmit();">
-                        发布文章
-                    </button>
-                    </span>
+                            <button type="button" class="btn btn-danger" id="publishArticle" onclick="writeArticle.doSubmit();">
+                                发布文章
+                            </button>
+                        </span>
+
                     </div>
                     <div style="height: 60px;padding-left: 100px;">
-                             <textarea
-                                     style="height: 60px;width: 90%;resize: none;border-radius: 25px;border:2px solid #a1a1a1;padding-left: 20px;padding-top: 18px"
+                             <textarea style="height: 60px;width: 90%;resize: none;
+                                    border-radius: 25px;border:2px solid #a1a1a1;padding-left: 20px;padding-top: 18px"
                                      autocomplete="off" id="articleIntroduce"
                                      name="text"
-                                     class="markdown-textarea" placeholder="输入文章简介"></textarea>
+                                     class="markdown-textarea" placeholder="输入文章简介">
+                             </textarea>
                     </div>
                     <div style="height: 60px;padding-left: 100px">
                         分类：<select id="articleCategory"></select>
@@ -120,14 +96,12 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         署名：<input type="text" id="articleAuthor" placeholder="输入作者名字">
                     </div>
-
                     <div id="test-editormd">
                         <textarea id="articleContent" style="display: none;"></textarea>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </div>
 </div>
 </body>

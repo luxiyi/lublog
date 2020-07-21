@@ -22,4 +22,19 @@ public class TagServiceImpl implements TagService {
     public List<Tag> findAllTags() {
         return tagMapper.findAllTags();
     }
+
+    @Override
+    public void addTag(String tagName) {
+        tagMapper.addTag(tagName);
+    }
+
+    @Override
+    public void deleteTagByName(String tagName) {
+        tagMapper.deleteTagByName(tagName);
+    }
+
+    @Override
+    public Tag findOneTagByName(String tagName) {
+        return tagMapper.findOneTagByName(tagName);
+    }
 }

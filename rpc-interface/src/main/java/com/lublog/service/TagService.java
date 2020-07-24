@@ -18,4 +18,6 @@ public interface TagService {
     void deleteTagByName(String tagName);
 
     Tag findOneTagByName(String tagName);
+
+    String findNameById(int tagId);
 }

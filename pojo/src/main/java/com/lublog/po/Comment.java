@@ -1,5 +1,6 @@
 package com.lublog.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,6 +19,7 @@ public class Comment implements Serializable {
 
     private String commentcontent;
 
+    @JsonFormat(pattern="yyyy年MM月dd日 HH:mm:ss",timezone="GMT+8")
     private Date commentdate;
 
     private Integer flag;

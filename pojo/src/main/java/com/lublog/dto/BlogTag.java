@@ -1,24 +1,17 @@
 package com.lublog.dto;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lublog.po.BlogContent;
-import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**
- * @Description: java类作用描述ArchiveCategory 分类归档
+ * @Description: java类作用描述BlogTag
  * @Author: lxy
- * @time: 2020/7/20 23:25
+ * @time: 2020/7/22 2:33
  */
-@Data
-public class BlogCategory implements Serializable {
-
-    private static final long serialVersionUID = 6419833311169724080L;
+public class BlogTag implements Serializable {
+    private static final long serialVersionUID = 943634519114495651L;
 
     // 文章发布日期
     private String date;
@@ -26,12 +19,12 @@ public class BlogCategory implements Serializable {
     // 文章数量
     private String count;
 
-    private int categoryid;
+    private int tagid;
 
-    // 文章集合
     private List<BlogContent> blogs;
 
-    public BlogCategory() {
+    public BlogTag() {
+
     }
 
     public String getDate() {
@@ -50,12 +43,12 @@ public class BlogCategory implements Serializable {
         this.count = count;
     }
 
-    public int getCategoryid() {
-        return categoryid;
+    public int getTagid() {
+        return tagid;
     }
 
-    public void setCategoryid(int categoryid) {
-        this.categoryid = categoryid;
+    public void setTagid(int tagid) {
+        this.tagid = tagid;
     }
 
     public List<BlogContent> getBlogs() {

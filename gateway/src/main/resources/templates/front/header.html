@@ -49,6 +49,11 @@
     .dropdown:hover .dropdown-content {
         display: block;
     }
+
+
+     input{width:50px;height: 20px;border:1px solid black;}
+    .time1 span{display:inline-block;width:40px;height: 20px;}
+
 </style>
 <header>
     <!-- 头部导航栏 -->
@@ -87,32 +92,73 @@
             </div>
         </div>
     </nav>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="indeximg" style="width: 200px;height: 100px;">
+
+    <div style="height: 200px;padding-top: 30px">
+                <div class="indeximg" style="width: 300px;float: left;">
                     <a th:href="@{/index}"><img th:src="@{/img/书logo.jpg}" height="100px"/></a>
                 </div>
+
+            <div id="inputbig" style="width: 550px;height:50px;margin:30px 0px 0px 80px;float: left">
+                <form>目的日期：
+                    <input type="text" id="year"><span>年</span>
+                    <input type="text" id="month"><span>月</span>
+                    <input type="text" id="day"><span>日</span>
+                    <input type="text" id="hour"><span>时</span>
+                    <input type="text" id="minute"><span>分</span>
+                    <input type="text" id="second"><span>秒</span>
+                    <input type="button" value="确定" onclick="show()">
+                </form>
+                <div class="time1">还剩时间：
+                    <span id="1"></span>天
+                    <span id="2"></span>时
+                    <span id="3"></span>分
+                    <span id="4"></span>秒
+                 </div>
             </div>
-            <div class="col-md-4" id="inputbig" style="width: 370px;height:50px;margin-top:30px;">
-                <div class="butto" style="width: 70px;height:50px;float:left; padding-top:2px;">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <!-- 购物车 -->
                 <div class="shopcar"
-                     style="border: 1px orangered solid;height: 46px;width: 160px;margin-top: 30px;margin-left: 250px;padding-left: 10px;">
-                    <a href="/cart" class="btn btn-group btn-lg"
-                       style="color: orange;"> <span
-                            class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;&nbsp;我的书架
+                     style="height: 100px;width: 250px;margin: 15px 0px 0px 50px;float: left">
+                    <!-- 购物车 -->
+                    <a href="/cart" style="text-decoration:none;font-size: 30px;color: #eea236">
+                        <img src='img/玩具.png' width='70px'/>&nbsp;&nbsp;&nbsp;秘密花园
                     </a>
                 </div>
-            </div>
-        </div>
     </div>
+
 
 
 </header>
 </body>
-
+<script>
+    function show(){
+        //获取目的日期
+        var myyear=document.getElementById("year").value;
+        var mymonth=document.getElementById("month").value-1;
+        var myday=document.getElementById("day").value;
+        var myhour=document.getElementById("hour").value;
+        var myminute=document.getElementById("minute").value;
+        var mysecond=document.getElementById("second").value;
+        var time=Number(new Date(myyear,mymonth,myday,myhour,myminute,mysecond));
+        // var time=new Date(myyear,mymonth,myday,myhour,myminute,mysecond).getTime();
+        //获取当前时间
+        var nowTime=Date.now();
+        // var nowTime=new Date().getTime();
+        //获取时间差
+        var timediff=Math.round((time-nowTime)/1000);
+        //获取还剩多少天
+        var day=parseInt(timediff/3600/24);
+        //获取还剩多少小时
+        var hour=parseInt(timediff/3600%24);
+        //获取还剩多少分钟
+        var minute=parseInt(timediff/60%60);
+        //获取还剩多少秒
+        var second=timediff%60;
+        //输出还剩多少时间
+        document.getElementById("1").innerHTML=day;
+        document.getElementById("2").innerHTML=hour;
+        document.getElementById("3").innerHTML=minute;
+        document.getElementById("4").innerHTML=second;
+        setTimeout(show,1000);
+        if(timediff==0){return;}
+    }
+</script>
 </html>

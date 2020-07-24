@@ -28,4 +28,7 @@ public interface CategoryMapper {
 
     @Select("select categoryid, categoryname from category where categoryname = #{param1} and flag = 0")
     Category findOneCategoryByName(String categoryName);
+
+    @Select("select categoryname from category where categoryid = #{param1} and flag = 0")
+    String findNameById(int categoryId);
 }

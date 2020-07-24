@@ -19,4 +19,6 @@ public interface CategoryService {
     Category findOneCategoryById(int categoryId);
 
     Category findOneCategoryByName(String categoryName);
+
+    String findNameById(int categoryId);
 }

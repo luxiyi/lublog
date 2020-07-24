@@ -1,7 +1,7 @@
 function findAllBlog(ppage) {
 		$.ajax({
 				url : "findAllBlog",
-				type : "post",
+				type : "get",
 				data : {
 					page : ppage
 				},
@@ -18,7 +18,7 @@ function findAllBlog(ppage) {
 								+ po.blogcover
 								+ "' class='img-responsive'>"
 								+ "</div>"
-								+ "<div id='tother'><a href='sendDatil?blogid="
+								+ "<div id='tother'><a href='blog?blogId="
 								+ po.blogid
 								+ "' style='text-decoration:none;'><font color='#cd5c5c'>"
 								+ "<h2>"

@@ -26,7 +26,6 @@ import java.util.*;
 @Slf4j
 @RestController
 public class FrontIndexController {
-//    private Logger LOG = LoggerFactory.getLogger(BlogController.class);
 
     @Autowired
     private BlogService blogService;
@@ -37,7 +36,7 @@ public class FrontIndexController {
     @Autowired
     private CommentService commentService;
 
-    @RequestMapping("findAllBlog")
+    @RequestMapping(value = "findAllBlog", method = RequestMethod.GET)
     public Map<String, Object> findAllBlog(HttpSession session, Integer page, Integer totalPage, BlogShow findBlogContent, String bbid) {
         Map<String, Object> result = new HashMap<String, Object>();
         session.setAttribute("page", page);
@@ -59,44 +58,6 @@ public class FrontIndexController {
         return result;
     }
 
-    // 传入参数并跳转页面
-    @RequestMapping("sendDatil")
-    public ModelAndView sendDatil(BlogContent blogContent, HttpSession session) {
-        ModelAndView mav = new ModelAndView();
-        // 要跳转的页面
-        mav.setViewName("front/detail");
-        // 传入对象
-        mav.addObject("blogContent", blogContent);
-        log.info("sendDetail，bookid = {}", blogContent.getBlogid());
-        BlogShow findBlogContent = blogService.findBookById(blogContent.getBlogid());
-        session.setAttribute("blogContent", findBlogContent);
-        BlogShow com = (BlogShow) session.getAttribute("blogContent");
-        log.info("blogContent = {}",findBlogContent);
-        log.info("blogContent.commentcount = {}",com.getCommentcount());
-        return mav;
-
-    }
-
-
-    // 采用超链接跳转传参到商品详情页面，最主要是获取传过去对象bid的值
-    @RequestMapping("findOneBook")
-    public BlogShow findOneBook(HttpServletRequest request) {
-        log.info("------findOneBook------");
-        int bid = Integer.parseInt(request.getParameter("blogid"));
-        BlogShow blogShow = blogService.findBookById(bid);
-        log.info("blogContent.commentcount = {}",blogShow.getCommentcount());
-        return blogShow;
-    }
-
-    // 搜索商品
-    @RequestMapping("findBlog")
-    public List<BlogShow> findBlog(HttpSession session, String findTitle) {
-        session.setAttribute("findTitle", findTitle);
-        List<BlogShow> BlogContents = new ArrayList<>();
-        BlogContents = blogService.findlikeBook(findTitle);
-        log.info("findBlog, title = {}", findTitle);
-        return BlogContents;
-    }
 
 //    @RequestMapping("addBooks")
 //    public String addBooks(LoginUser user, BlogShow newBlog, HttpSession session, String info) {

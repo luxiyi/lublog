@@ -41,4 +41,9 @@ public class CategoryServiceImpl implements CategoryService {
     public Category findOneCategoryByName(String categoryName) {
         return categoryMapper.findOneCategoryByName(categoryName);
     }
+
+    @Override
+    public String findNameById(int categoryId) {
+        return categoryMapper.findNameById(categoryId);
+    }
 }

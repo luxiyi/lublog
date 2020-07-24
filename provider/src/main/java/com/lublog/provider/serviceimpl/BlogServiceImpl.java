@@ -2,6 +2,7 @@ package com.lublog.provider.serviceimpl;
 
 import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.lublog.dto.BlogCategory;
+import com.lublog.dto.BlogTag;
 import com.lublog.utils.DateUtils;
 import com.lublog.provider.dao.BlogMapper;
 import com.lublog.po.BlogContent;
@@ -99,12 +100,22 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public List<BlogCategory> getBlogByCategories(int categoryId) {
-        return blogMapper.findAllBlogs(categoryId);
+        return blogMapper.showArchiveByCategoryId(categoryId);
     }
 
     @Override
     public List<BlogContent> getBlogsByCategories(int categoryId, Date startDate, Date endDate) {
         return blogMapper.getBlogsByCategories(categoryId, startDate, endDate);
+    }
+
+    @Override
+    public List<BlogTag> getBlogByTags(int tagId) {
+        return blogMapper.showArchiveByTagId(tagId);
+    }
+
+    @Override
+    public List<BlogContent> getBlogsByTags(int tagId, Date startDate, Date endDate) {
+        return blogMapper.getBlogByTags(tagId, startDate, endDate);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.lublog.provider.dao;
 
 import com.lublog.dto.BlogCategory;
+import com.lublog.dto.BlogTag;
 import com.lublog.po.BlogContent;
 import com.lublog.vo.BlogShow;
 import org.apache.ibatis.annotations.Delete;
@@ -82,8 +83,15 @@ public interface BlogMapper {
     List<BlogContent> findAllByTagId(int tagId);
 
     @Select("SELECT DATE_FORMAT(pubdate,'%Y-%m') as date,COUNT(*) as count, categoryid from blogcontent WHERE flag = 0 and categoryid = #{param1} group by date order by date desc")
-    List<BlogCategory> findAllBlogs(int categoryId);
+    List<BlogCategory> showArchiveByCategoryId(int categoryId);
 
     @Select("SELECT blogid,title,pubdate FROM blogcontent WHERE categoryid = #{param1} and flag = 0 and pubdate > #{param2} and pubdate < #{param3} order by pubdate desc")
     List<BlogContent> getBlogsByCategories(int categoryId, Date startDate, Date endDate);
+
+    @Select("SELECT DATE_FORMAT(pubdate,'%Y-%m') as date,COUNT(*) as count, tagid from blogcontent WHERE flag = 0 and tagid = #{param1} group by date order by date desc")
+    List<BlogTag> showArchiveByTagId(int tagId);
+
+    @Select("SELECT blogid,title,pubdate FROM blogcontent WHERE tagid = #{param1} and flag = 0 and pubdate > #{param2} and pubdate < #{param3} order by pubdate desc")
+    List<BlogContent> getBlogByTags(int tagId, Date startDate, Date endDate);
+
 }

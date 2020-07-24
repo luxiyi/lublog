@@ -2,6 +2,7 @@ package com.lublog.service;
 
 
 import com.lublog.dto.BlogCategory;
+import com.lublog.dto.BlogTag;
 import com.lublog.po.BlogContent;
 import com.lublog.vo.BlogShow;
 
@@ -43,4 +44,8 @@ public interface BlogService {
     List<BlogCategory> getBlogByCategories(int categoryId);
 
     List<BlogContent> getBlogsByCategories(int categoryId, Date startDate, Date endDate);
+
+    List<BlogTag> getBlogByTags(int tagId);
+
+    List<BlogContent> getBlogsByTags(int id, Date startDate, Date endDate);
 }

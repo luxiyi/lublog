@@ -25,4 +25,7 @@ public interface TagMapper {
 
     @Select("select tagid,tagname from tag where tagname = #{param1} and flag = 0")
     Tag findOneTagByName(String tagName);
+
+    @Select("select tagname from tag where tagid = #{param1} and flag = 0")
+    String findNameById(int tagId);
 }

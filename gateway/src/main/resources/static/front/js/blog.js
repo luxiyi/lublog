@@ -1,14 +1,12 @@
 var url = window.location.href;
-var id = url.split("?blogid=")[1];
+var id = url.split("?blogId=")[1];
 
-function findonebook() {
-    // var url =window.location.href;
-    // var id=url.split("?bid=")[1];
+function showBlog() {
     $.ajax({
-        url: "findOneBook",
+        url: "showBlog",
         type: "post",
         data: {
-            "blogid": id
+            "blogId": id
         },
         dataType: 'json',
         success: function (data) {
@@ -19,16 +17,21 @@ function findonebook() {
                 + "</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-user'>&nbsp;"
                 + data.author + "</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
                 + "<i class=\"fa fa-tag\"></i>&nbsp;<span class='tags'><a class='tag' href='/tag/"
-                + data.categoryname
+                + data.tagname
                 + "' target='_blank' rel='tag'>"
+                + data.tagname
+                + "</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class=\"fa fa-list\"></i>&nbsp;<span class='categorys'><a class='category' href='/category/"
                 + data.categoryname
-                + "</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-heart'>&nbsp;"
+                + "' target='_blank' rel='category'>"
+                + data.categoryname
+                + "</a></span>"
+                + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-heart'>&nbsp;"
                 + data.likes
-                + "</i><blockquote style='padding-top: 50px'><p>"
+                + "</i><blockquote class='introduce-style' style=''><p>"
                 + data.introduce
                 + "</p></blockquote><img src='"
                 + data.blogcover
-                + "' class='img-responsive' alt='' data-action='zoom'></div>";
+                + "' class='img-responsive' alt='' data-action='zoom' style='height: 400px;margin-left: 200px'></div>";
 
             $("#blogIntroduce").html(content);
 
@@ -39,27 +42,29 @@ function findonebook() {
     });
 }
 
-findonebook();
+showBlog();
 
 
 function findcommets() {
     $.ajax({
         url: "findComments",
-        type: "post",
+        type: "get",
         data: {
-            "blogid": id
+            "blogId": id
         },
         dataType: 'json',
         success: function (data) {
             var content = "";
             for (var i = 0; i < data.length; i++) {
                 var po = data[i];
-                content += "<tr>"
-                    + "<td class='infor1' style='padding-left: 100px'>" + po.user + "</td>"
-                    + "<td class='infor2' style='padding-left: 120px'>" + po.commentdate + "</td>"
-                    + "<td class='infor3' style='padding-left: 100px'>" + po.commentcontent + "</td>"
-
-                    + "</tr>";
+                content += "<div class='comment-inner'><div class='comment-header'><div class='asset-meta'><p><span class='byline'><span class='vcard author'>"
+                        + po.user
+                        + "</span>评论：</span></p></div></div>"
+                        + "<div class='comment-content' id='comment-quote-420375'><p>"
+                        + po.commentcontent
+                        + "</p></div>"
+                        + "<div class='comment-footer'><div class='comment-footer-inner'><p><abbr class='published' title='"
+                        + po.commentdate + "'>" + po.commentdate + "</abbr>| <a href='#'>#</a>| <a href='#comment-text' title='回复' onclick='return CommentQuote('comment-quote-420375','Jack');'>回复</a></p></div></div></div>";
             }
             $("#comment").html(content);
 
@@ -74,7 +79,7 @@ function insertcomment() {
         url: "insertComment",
         type: "post",
         data: {
-            "ccont": $("#ccont").val(),
+            "ccont": $("#comment-author").val(),
             "bid": id
         },
         dataType: "text",

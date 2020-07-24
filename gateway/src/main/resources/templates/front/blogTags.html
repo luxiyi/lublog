@@ -18,19 +18,19 @@
 </head>
 <body>
 <!-- 头部导航栏 -->
-<div th:replace="/front/header::header(title='分类归档',keywords=null)"></div>
+<div th:replace="/front/header::header(title='标签归档',keywords=null)"></div>
 <div class="main-content archive-page clearfix">
     <div style="text-align: center;color: #985f0d">
-        <p style="font-size: 40px;font-weight: bold">
-            <span th:text="${categoryName}"></span>分类
+        <p style="font-size: 40px;font-weight: bold" >
+            <span th:text="${tagName}"></span>标签
         </p>
     </div>
     <div class="categorys-item" style="margin-left: 50px">
-        <th:block th:each="blogCategory : ${blogCategories}">
-            <div style="font-size: 20px" class="categorys-title" th:text="${blogCategory.date}"></div>
+        <th:block th:each="blogTag : ${blogTags}">
+            <div style="font-size: 20px" class="categorys-title" th:text="${blogTag.date}"></div>
             <div class="post-lists">
                 <div class="post-lists-body">
-                    <th:block th:each="blog : ${blogCategory.blogs}">
+                    <th:block th:each="blog : ${blogTag.blogs}">
                         <div class="post-list-item">
                             <div class="post-list-item-container">
                                 <div class="item-label">

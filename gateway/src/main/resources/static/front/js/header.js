@@ -25,7 +25,7 @@ function tagDropdown() {
             var content = "";
             for (var i = 0; i < data.length; i++) {
                 var po = data[i];
-                content += "<a href='#'>" + po.tagname + "</a>";
+                content += "<a href='blogTags?tagId="+po.tagid+"'>" + po.tagname + "</a>";
             }
             $("#tagDropdown").html(content);
         }

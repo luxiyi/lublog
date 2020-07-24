@@ -12,7 +12,7 @@
     <style type="text/css">
 
         body {
-            padding-top: 70px;
+            padding-top: 49px;
             background: url("/img/bg.png");
             background-size: cover;
             background-repeat: repeat-x;
@@ -121,29 +121,10 @@
     <div th:replace="/front/header::header(title='首页',keywords=null)"></div>
     <!--白云动画效果层-->
     <div id="secondOuter">
-    <div class="container" >
-        <div class="row">
-            <div class="col-md-4">
-                <div class="indeximg" style="width: 200px;height: 100px;">
-                    <a th:href="@{/index}"><img th:src="@{img/书logo.jpg}" height="100px"/></a>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="shopcar"
-                     style="height: 100px;width: 300px;margin: 30px;margin-left: 100px;padding-left: 10px;">
-                    <!-- 购物车 -->
-                    <a href="/cart" style="text-decoration:none;font-size: 30px;color: #eea236">
-                        <img src='img/玩具.png' width='70px'/>&nbsp;&nbsp;&nbsp;秘密花园
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
     <!-- 文章列表 -->
-    <div class="container" id="booksbox" style="height:2500px;width:700px;margin: 0 auto;float:none;">
+    <div class="container" id="booksbox" style="height:2500px;width:700px;margin: 0 auto;float:none">
         <div class="row" id="blogContents" style="transition: all 1s;width:700px;height:130px;float:none">
         </div>
     </div>

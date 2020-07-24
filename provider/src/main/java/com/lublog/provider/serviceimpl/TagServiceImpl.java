@@ -37,4 +37,9 @@ public class TagServiceImpl implements TagService {
     public Tag findOneTagByName(String tagName) {
         return tagMapper.findOneTagByName(tagName);
     }
+
+    @Override
+    public String findNameById(int tagId) {
+        return tagMapper.findNameById(tagId);
+    }
 }

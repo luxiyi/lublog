@@ -28,4 +28,12 @@ public interface CommentService {
     List<Comment> queryOneBlogCommentByIndex(Integer blogId, int index, int i);
 
     Integer queryOneBlogCommentTotalPage(int blogId);
+
+    void deleteOneComment(Integer commentId);
+
+    int queryOneBlogOfComment(Integer commentId);
+
+    int queryOneBlogCommentsCount(int blogId);
+
+    int queryCommentAllCount();
 }

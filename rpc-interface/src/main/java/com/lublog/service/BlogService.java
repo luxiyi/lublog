@@ -48,4 +48,7 @@ public interface BlogService {
     List<BlogTag> getBlogByTags(int tagId);
 
     List<BlogContent> getBlogsByTags(int id, Date startDate, Date endDate);
+
+    void reduceCommentCount(Integer blogId);
+
 }

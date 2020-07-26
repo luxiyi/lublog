@@ -94,4 +94,8 @@ public interface BlogMapper {
     @Select("SELECT blogid,title,pubdate FROM blogcontent WHERE tagid = #{param1} and flag = 0 and pubdate > #{param2} and pubdate < #{param3} order by pubdate desc")
     List<BlogContent> getBlogByTags(int tagId, Date startDate, Date endDate);
 
+    @Update("update blogcontent set commentcount = commentcount - 1 where blogid=#{param1} and flag = 0")
+    void reduceCommentCount(Integer blogId);
+
+
 }

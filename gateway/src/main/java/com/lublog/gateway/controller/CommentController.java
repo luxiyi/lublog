@@ -48,11 +48,10 @@ public class CommentController {
         return result;
     }
 
-    //插入评论文章
+    //插入评论
     @RequestMapping(value = "/addBlogComment", method = RequestMethod.POST)
     public String addBlogComment(HttpSession session, String observer, String contact, String commentContent, @RequestParam("blogId") String blogIdStr) {
         String info = "评论成功";
-
 
         if (StringUtils.isEmpty(blogIdStr) || blogIdStr == ""
                 || StringUtils.isEmpty(observer) || observer == ""

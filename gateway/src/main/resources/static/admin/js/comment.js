@@ -17,10 +17,10 @@ function commentList(ppage) {
                     var po = arr[i];
                     content += "<tr>"
                         + "<td class='infor'>"
-                        + "<img class='deletebook' src='../../img/删除.png' width='25px' onclick='removebook("
+                        + "<img id='remove-comment' src='../../img/删除.png' width='25px' onclick='deleteComment("
                         + po.commentid
                         + ")'/>&nbsp;&nbsp;删除&nbsp;&nbsp;"
-                        + "<img class='alterbook' src='../../img/修改.png' width='20px' onclick='querybook("
+                        + "<img id='reply-comment' src='../../img/修改.png' width='20px' onclick='replyComment("
                         + po.commentid
                         + ")'/>&nbsp;&nbsp;回复"
                         + "</td>"
@@ -67,18 +67,21 @@ function endpage() {
 
 
 
-function removecart(pgid) {
-    // alert("删除");
+function deleteComment(commentId) {
+    var status = confirm("是否删除该评论?");
+    if (!status) {
+        return false;
+    }
     $.ajax({
-        url: "reCartBook",
-        type: "post",
+        url: "/admin/deleteComment",
+        type: "delete",
         data: {
-            "bid": pgid,
-            "ccount": 1,
+            "commentId": commentId,
+            "commentCount": 1,
         },
         dataType: "text",  //期待的响应数据类型
         success: function (data) {
-            if (data == "已成功还书1本") {
+            if (data == "删除评论成功") {
                 alert(data);
                 window.location.reload();
             } else {
@@ -112,7 +115,7 @@ function showorder() {
 }
 
 // 删除书籍
-function removebook(pgid) {
+function removeComment(pgid) {
     $.ajax({
         url : "deleteBooks",
         type : "post",

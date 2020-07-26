@@ -5,10 +5,7 @@ import com.lublog.dto.BlogCategory;
 import com.lublog.dto.BlogTag;
 import com.lublog.po.BlogContent;
 import com.lublog.po.Tag;
-import com.lublog.service.BlogService;
-import com.lublog.service.CategoryService;
-import com.lublog.service.TagService;
-import com.lublog.service.UserService;
+import com.lublog.service.*;
 import com.lublog.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +30,8 @@ import java.util.List;
 @Controller
 @Slf4j
 public class BaseController {
-
+    @Autowired
+    private CommentService commentService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String frontIndex() {
@@ -66,7 +64,10 @@ public class BaseController {
     }
 
     @RequestMapping(value = "/admin/commentList")
-    public String commentList() {
+    public String commentList(HttpServletRequest request) {
+        int commentAllCount = commentService.queryCommentAllCount();
+        request.setAttribute("commentAllCount", commentAllCount);
+        log.info("commentAllCount is {}", commentAllCount);
         log.info("-------admin-commentList------");
         return "/admin/comment_list";
     }

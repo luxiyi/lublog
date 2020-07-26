@@ -5,6 +5,7 @@ import com.lublog.vo.CommentShow;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.Date;
 import java.util.List;
@@ -42,5 +43,15 @@ public interface CommentMapper {
     List<Comment> queryOneBlogCommentByIndex(int blogId, int index, int count);
 
     @Select("SELECT COUNT(*) total FROM comment where blogid=#{param1} and flag = 0")
-    int queryOneBlogCommentTotalPage(int blogId);
+    int queryOneBlogCommentsCount(int blogId);
+
+    @Update("update comment set flag = 1 where commentId = #{param1}")
+    void deleteOneComment(int commentId);
+
+    @Select("SELECT blogid FROM comment where commentid=#{param1} and flag = 0")
+    int queryOneBlogOfComment(int commentId);
+
+    @Select("select count(*) from comment where flag = 0")
+    int queryCommentAllCount();
+
 }

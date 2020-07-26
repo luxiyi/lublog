@@ -61,9 +61,28 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Integer queryOneBlogCommentTotalPage(int blogId) {
-        int total = commentMapper.queryOneBlogCommentTotalPage(blogId);
+        int total = commentMapper.queryOneBlogCommentsCount(blogId);
         int totalPage = total % 12 == 0 ? (total / 12) : (total / 12 + 1);
         return totalPage;
     }
 
+    @Override
+    public void deleteOneComment(Integer blogId) {
+        commentMapper.deleteOneComment(blogId);
+    }
+
+    @Override
+    public int queryOneBlogOfComment(Integer commentId) {
+        return commentMapper.queryOneBlogOfComment(commentId);
+    }
+
+    @Override
+    public int queryOneBlogCommentsCount(int blogId) {
+        return commentMapper.queryOneBlogCommentsCount(blogId);
+    }
+
+    @Override
+    public int queryCommentAllCount() {
+        return commentMapper.queryCommentAllCount();
+    }
 }

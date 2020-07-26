@@ -118,4 +118,11 @@ public class BlogServiceImpl implements BlogService {
         return blogMapper.getBlogByTags(tagId, startDate, endDate);
     }
 
+    @Override
+    public void reduceCommentCount(Integer blogId) {
+        blogMapper.reduceCommentCount(blogId);
+    }
+
+
+
 }

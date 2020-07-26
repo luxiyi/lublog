@@ -43,11 +43,11 @@ function showLastComment() {
                     var po = arr[i];
                     content += " <tr>"
                         + "<td><div  style='text-align: left'>"
-                        + po.user
+                        + po.observer
                         + "&nbsp;&nbsp;&nbsp;"
                         + po.commentdate
-                        + "&nbsp;&nbsp;&nbsp;评论了你的文章&nbsp;&nbsp;&nbsp;"
-                        + po.title+" ：</div><div style='padding-right: 800px'>"
+                        + "&nbsp;&nbsp;&nbsp;评论了&nbsp;&nbsp;&nbsp;"
+                        + po.commenter+" ：</div><div style='padding-right: 800px'>"
                         + "“"
                         + po.commentcontent
                         + "”</div></td>"

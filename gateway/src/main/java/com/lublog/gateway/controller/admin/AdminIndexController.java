@@ -2,6 +2,7 @@ package com.lublog.gateway.controller.admin;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lublog.po.BlogContent;
+import com.lublog.po.Comment;
 import com.lublog.service.BlogService;
 import com.lublog.service.CommentService;
 import com.lublog.vo.BlogShow;
@@ -57,7 +58,7 @@ public class AdminIndexController {
         Map<String, Object> result = new HashMap<>();
         int index = 0;
         int count = 3;
-        List<CommentShow> commentShows = commentService.showLastComment(index, count);
+        List<Comment> commentShows = commentService.findAllByIndex(index, count);
         log.info("totalPage = {}, page = {}, blogContents = {}", commentShows.toString());
         result.put("commentShows", commentShows);
         // 将所有书放入session

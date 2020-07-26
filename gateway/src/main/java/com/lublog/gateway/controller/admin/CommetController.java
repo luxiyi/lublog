@@ -1,5 +1,6 @@
 package com.lublog.gateway.controller.admin;
 
+import com.lublog.po.Comment;
 import com.lublog.service.CommentService;
 import com.lublog.utils.DateUtils;
 import com.lublog.vo.BlogShow;
@@ -33,14 +34,11 @@ public class CommetController {
         Map<String, Object> result = new HashMap<String, Object>();
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
-        // 获取页码、总页码
         page = (Integer) request.getAttribute("page");
-        totalPage = commentService.findTotalPage();
-        // 得到每一页所有书
+        totalPage = commentService.queryAllCommentsTotalPage();
         int index = (page - 1) * 12;
-        List<CommentShow> commentShows = commentService.findAllByIndex(index, 12);
+        List<Comment> commentShows = commentService.findAllByIndex(index, 12);
         log.info("totalPage = {}, page = {}, comments = {}", totalPage, page, commentShows.toString());
-        // 将所有书放入session
         request.setAttribute("commentShows", commentShows);
         result.put("commentShows", commentShows);
         result.put("totalPage", totalPage);

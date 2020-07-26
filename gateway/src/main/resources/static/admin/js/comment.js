@@ -24,8 +24,8 @@ function commentList(ppage) {
                         + po.commentid
                         + ")'/>&nbsp;&nbsp;回复"
                         + "</td>"
-                        + "<td class='infor'>" + po.user + "</td>"
-                        + "<td class='infor'>" + po.title + "</td>"
+                        + "<td class='infor'>" + po.observer + "</td>"
+                        + "<td class='infor'>" + po.commenter + "</td>"
                         + "<td class='infor'>" + po.commentdate + "</td>"
                         + "<td class='infor' style='text-align: left;width: 400px'><div>" + po.commentcontent + "</div></td>"
                         + "</tr>";

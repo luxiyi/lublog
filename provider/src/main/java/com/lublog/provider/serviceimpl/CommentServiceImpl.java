@@ -4,9 +4,11 @@ import com.lublog.provider.dao.CommentMapper;
 import com.lublog.po.Comment;
 import com.lublog.service.CommentService;
 import com.lublog.vo.CommentShow;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,6 +17,7 @@ import java.util.List;
  * @time: 2020/4/16 1:21
  */
 @Component
+@Slf4j
 public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentMapper commentMapper;
@@ -24,8 +27,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void insertCommentById(String luser, int bid, String ccont) {
-        commentMapper.insertCommentByid(luser, bid, ccont);
+    public void insertCommentById(int blogId, String observer, String commenter, String contact, String commentContent, Date commentDate) {
+        commentMapper.insertCommentById(blogId, observer, commenter,contact, commentContent, commentDate);
     }
 
     @Override
@@ -38,25 +41,29 @@ public class CommentServiceImpl implements CommentService {
         commentMapper.deleteCommentsOfBlog(bid);
     }
 
-    @Override
-    public List<CommentShow> showLastComment(int index, int count) {
-        return commentMapper.showLastComment(index, count);
-    }
 
     @Override
-    public Integer findTotalPage() {
-        int total = commentMapper.findTotalPage();
+    public Integer queryAllCommentsTotalPage() {
+        int total = commentMapper.queryAllCommentsTotalPage();
         int totalPage = total % 12 == 0 ? (total / 12) : (total / 12 + 1);
         return totalPage;
     }
 
     @Override
-    public List<CommentShow> findAllByIndex(int index, int count) {
+    public List<Comment> findAllByIndex(int index, int count) {
         return commentMapper.findAllByIndex(index, count);
     }
 
     @Override
-    public CommentShow findAllById(CommentShow commentShow) {
-        return commentMapper.findAllById(commentShow);
+    public List<Comment> queryOneBlogCommentByIndex(Integer blogId, int index, int count) {
+        return commentMapper.queryOneBlogCommentByIndex(blogId, index, count);
     }
+
+    @Override
+    public Integer queryOneBlogCommentTotalPage(int blogId) {
+        int total = commentMapper.queryOneBlogCommentTotalPage(blogId);
+        int totalPage = total % 12 == 0 ? (total / 12) : (total / 12 + 1);
+        return totalPage;
+    }
+
 }

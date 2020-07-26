@@ -19,13 +19,13 @@ public interface BlogService {
 
     List<BlogShow> showLastArticle(int index, int count);
 
-    int findTotalPage();
+    int findBlogTotalPage();
 
     void insertBlog(BlogContent blogContent);
 
     BlogShow findAllById(BlogShow blogShow);
 
-    BlogShow findBookById(int bid);
+    BlogShow findBlogById(int bid);
 
     void deleteById(int blogId);
 

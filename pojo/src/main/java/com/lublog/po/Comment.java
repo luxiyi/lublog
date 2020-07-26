@@ -13,14 +13,18 @@ public class Comment implements Serializable {
 
     private Integer commentid;
 
-    private String user;
+    private String observer;
+
+    private String commenter;
 
     private Integer blogid;
 
     private String commentcontent;
 
-    @JsonFormat(pattern="yyyy年MM月dd日 HH:mm:ss",timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy年MM月dd日 HH:mm:ss", timezone = "GMT+8")
     private Date commentdate;
+
+    private String contact;
 
     private Integer flag;
 

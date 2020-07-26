@@ -30,9 +30,9 @@ public interface BlogMapper {
             "ORDER BY b.pubdate desc limit #{param1},#{param2}")
     List<BlogShow> showLastArticle(int index, int count);
 
-    //查询总条数
+    //查询博客总条数
     @Select("SELECT COUNT(*) total FROM blogContent where flag = 0")
-    int findTotalPage();
+    int findBlogTotalPage();
 
     //增加新书
     @Insert("insert into blogContent (title,author,pubdate,blogcover,introduce,content,tagid,categoryid) values (#{title},#{author},#{pubdate},#{blogcover},#{introduce},#{content},#{tagid},#{categoryid})")
@@ -47,7 +47,7 @@ public interface BlogMapper {
     @Select("SELECT b.blogid,b.title,b.author,b.content,b.pubdate,b.blogcover,b.introduce,b.likes,b.views,b.commentcount,t.tagname,c.categoryname " +
             "FROM blogcontent b INNER JOIN tag t ON b.tagid = t.tagid INNER JOIN category c ON b.categoryid = c.categoryid " +
             "where blogid=#{blogid} AND b.flag=0 AND t.flag=0 AND c.flag=0")
-    BlogShow findBookById(int blogId);
+    BlogShow findBlogById(int blogId);
 
     //根据博客标题判断是否存在
     @Select("select title from blogContent where title=#{title}")

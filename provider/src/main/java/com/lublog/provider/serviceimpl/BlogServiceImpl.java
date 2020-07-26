@@ -42,8 +42,8 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public int findTotalPage() {
-        int total = blogMapper.findTotalPage();
+    public int findBlogTotalPage() {
+        int total = blogMapper.findBlogTotalPage();
         int totalPage = total % 12 == 0 ? (total / 12) : (total / 12 + 1);
         return totalPage;
     }
@@ -59,8 +59,8 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public BlogShow findBookById(int bid) {
-        return blogMapper.findBookById(bid);
+    public BlogShow findBlogById(int bid) {
+        return blogMapper.findBlogById(bid);
     }
 
     @Override

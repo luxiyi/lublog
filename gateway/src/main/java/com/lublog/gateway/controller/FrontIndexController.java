@@ -43,7 +43,7 @@ public class FrontIndexController {
         session.setAttribute("totalPage", totalPage);
         // 获取页码、总页码
         page = (int) session.getAttribute("page");
-        totalPage = blogService.findTotalPage();
+        totalPage = blogService.findBlogTotalPage();
         // 得到每一页所有书
         int index = (page - 1) * 12;
         List<BlogShow> blogContents = blogService.findAllByIndex(index, 12);

@@ -47,7 +47,7 @@ public class ArticleListController {
         request.setAttribute("totalPage", totalPage);
         // 获取页码、总页码
         page = (Integer) request.getAttribute("page");
-        totalPage = blogService.findTotalPage();
+        totalPage = blogService.findBlogTotalPage();
         // 得到每一页所有书
         int index = (page - 1) * 12;
         List<BlogShow> blogShowList = blogService.findAllByIndex(index, 12);

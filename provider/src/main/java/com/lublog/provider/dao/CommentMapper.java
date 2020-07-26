@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,37 +16,31 @@ import java.util.List;
  */
 public interface CommentMapper {
     //展现一个评论消息
-    @Select("select * from comment where blogid=#{param2}")
+    @Select("select * from comment where blogid=#{param1} and flag=0")
     List<Comment> allCommentsById(int blogId);
 
     //插入评论
-    @Insert("insert into comment (admin,blogid,commentcontent) value (#{param1},#{param2},#{param3})")
-    void insertCommentByid(String user, int blogId, String commentContent);
+    @Insert("insert into comment (blogid, observer, commenter, contact, commentcontent, commentdate) value (#{param1},#{param2},#{param3},#{param4},#{param5},#{param6})")
+    void insertCommentById(int blogId, String observer, String commenter, String contact, String commentContent, Date commentDate);
 
     //查找评论过的博客数量
-    @Select("select count(blogid) from comment where blogid=#{param1}")
+    @Select("select count(blogid) from comment where blogid=#{param1} and flag=0")
     int findBlogNum(int blogId);
 
     //删除有关该文章的评论
-    @Delete("delete from comment where ")
+    @Delete("delete from comment where blogid=#{param1} and flag=0")
     void deleteCommentsOfBlog(int blogId);
 
-    //展现评论消息
-    @Select("SELECT b.blogid,b.title,c.commentcontent,c.commentid,c.commentdate,c.user " +
-            " FROM blogcontent b INNER JOIN comment c ON b.blogid = c.blogid" +
-            " where b.flag=0 AND c.flag=0 ORDER BY c.commentdate desc LIMIT #{param1},#{param2}")
-    List<CommentShow> showLastComment(int index, int count);
 
     @Select("SELECT COUNT(*) total FROM comment where flag = 0")
-    int findTotalPage();
+    int queryAllCommentsTotalPage();
 
-    @Select("SELECT b.blogid,b.title,c.commentcontent,c.commentid,c.commentdate,c.user " +
-            " FROM blogcontent b INNER JOIN comment c ON b.blogid = c.blogid" +
-            " where b.flag=0 AND c.flag=0 ORDER BY c.commentdate desc LIMIT #{param1},#{param2}")
-    List<CommentShow> findAllByIndex(int index, int count);
+    @Select("select * from comment where flag=0 ORDER BY commentdate desc LIMIT #{param1},#{param2}")
+    List<Comment> findAllByIndex(int index, int count);
 
-    @Select("SELECT b.blogid,b.title,c.commentcontent,c.commentid,c.commentdate,c.user " +
-            " FROM blogcontent b INNER JOIN comment c ON b.blogid = c.blogid" +
-            " where c.commentid = #{param1} AND b.flag=0 AND c.flag=0 ORDER BY c.commentdate desc")
-    CommentShow findAllById(CommentShow commentShow);
+    @Select("select * from comment where blogid=#{param1} and flag=0 ORDER BY commentdate desc LIMIT #{param2},#{param3}")
+    List<Comment> queryOneBlogCommentByIndex(int blogId, int index, int count);
+
+    @Select("SELECT COUNT(*) total FROM comment where blogid=#{param1} and flag = 0")
+    int queryOneBlogCommentTotalPage(int blogId);
 }

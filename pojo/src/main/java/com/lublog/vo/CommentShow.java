@@ -19,7 +19,7 @@ public class CommentShow implements Serializable {
 
     private Integer commentid;
 
-    private String user;
+    private String observer;
 
     private String title;
 

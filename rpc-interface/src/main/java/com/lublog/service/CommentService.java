@@ -4,6 +4,7 @@ import com.lublog.po.Comment;
 import com.lublog.vo.BlogShow;
 import com.lublog.vo.CommentShow;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,17 +15,17 @@ import java.util.List;
 public interface CommentService {
     List<Comment> allCommentsById(int blogId);
 
-    void insertCommentById(String user, int blogId, String ccont);
+    void insertCommentById(int blogId, String observer, String commenter, String contact, String commentContent, Date commentDate);
 
     int findBidNum(int blogId);
 
     void deleteCommentsOfBlog(int blogId);
 
-    List<CommentShow> showLastComment(int index, int count);
+    Integer queryAllCommentsTotalPage();
 
-    Integer findTotalPage();
+    List<Comment> findAllByIndex(int index, int count);
 
-    List<CommentShow> findAllByIndex(int index, int i);
+    List<Comment> queryOneBlogCommentByIndex(Integer blogId, int index, int i);
 
-    CommentShow findAllById(CommentShow commentShow);
+    Integer queryOneBlogCommentTotalPage(int blogId);
 }

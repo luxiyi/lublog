@@ -2,6 +2,7 @@ package com.lublog.gateway.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.lublog.service.BlogService;
+import com.lublog.utils.BlogStringUtils;
 import com.lublog.vo.BlogShow;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,9 @@ public class BlogController {
     private BlogService blogService;
 
     @RequestMapping(value ="blog", method = RequestMethod.GET)
-    public String findBlog(@RequestParam("blogId")Integer blogId, HttpSession session) {
-        BlogShow blogShow = blogService.findBookById(blogId);
+    public String findBlog(@RequestParam("blogId")String blogIdStr, HttpSession session) {
+        Integer blogId = BlogStringUtils.getNum(blogIdStr);
+        BlogShow blogShow = blogService.findBlogById(blogId);
         log.info("blogShow is {}", JSON.toJSONString(blogShow));
         session.setAttribute("blogShow", blogShow);
         return "front/blog";
@@ -30,8 +32,9 @@ public class BlogController {
 
     @RequestMapping(value = "showBlog", method = RequestMethod.POST)
     @ResponseBody
-    public BlogShow showBlog(@RequestParam("blogId")Integer blogId) {
-        BlogShow blogShow = blogService.findBookById(blogId);
+    public BlogShow showBlog(@RequestParam("blogId")String blogIdStr) {
+        Integer blogId = BlogStringUtils.getNum(blogIdStr);
+        BlogShow blogShow = blogService.findBlogById(blogId);
         log.info("blogShow is {}", JSON.toJSONString(blogShow));
         return blogShow;
     }

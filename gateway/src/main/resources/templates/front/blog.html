@@ -35,29 +35,33 @@
             color: #777;
             background-color: rgba(66, 185, 131, .1);
         }
+
         .comment-list {
-            margin: 20px auto;
-            width: 900px;
-            padding-top: 50px;
+            margin: 10px auto;
+            width: 800px;
+            padding-top: 20px;
             padding-bottom: 100px;
+            /*padding-left: 10px;*/
         }
+
         .comment-inner {
             border-bottom: 1px dashed #d3d3d3;
         }
 
-        .comment-header {
-            margin-left: 30px;
-            line-height: 30px;
-        }
+
 
         .comment-content {
-            margin-left: 50px;
+            margin-left: 10px;
             line-height: 20px;
         }
 
         .comment-footer {
             width: 40%;
             margin-left: 70%;
+        }
+
+        #pagebox :hover {
+            cursor: pointer;
         }
     </style>
 </head>
@@ -95,105 +99,60 @@
         </main>
     </div>
 
-    <div style="padding-left: 100px"><h2 class="comments-open-header">评论一下吧</h2></div>
-    <div style="width: 800px; margin: 0 auto; font-size: 15px; padding-top: 10px; padding-left: 100px;font-weight: bolder">
 
-            <textarea class="form-control" style="width: 600px; height: 200px; padding-bottom: 160px;resize: none;"
-                      id="ccont" type="text" placeholder="评论内容"></textarea>
-        <div class="comments-open" id="comments-open" style="padding-top: 50px">
-
+    <div style="width: 1000px; font-size: 15px; padding-top: 50px;padding-left:50px;font-weight: bolder">
+        <div class="comments-open" id="comments-open">
+            <div style="text-align: left;padding-bottom: 20px"><h3 class="comments-open-header">评论一下吧&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;评论（[[${session.blogShow.commentcount}]]条）</h3></div>
             <div class="comments-open-content">
 
-                <div id="comment-greeting"></div>
+                    <div style="float: left;width: 200px;margin-top: 8px">
+                        <label for="comment-observer">昵称：</label>
+                        <input id="comment-observer" size="30" style="width: 100px" type="text" placeholder="必填">
+                    </div>
+                    <div style="float: left;width: 300px;margin-top: 8px">
+                        <label for="comment-contact">微信或QQ：</label>
+                        <input id="comment-contact" size="30" style="width: 150px" type="text" placeholder="必填">
+                    </div>
 
-                <form method="post" action="http://www.ruanyifeng.com/cgi-bin/mtos/mt-comments.cgi" name="comments_form"
-                      id="comments-form" onsubmit="return pleaseWait();">
-                    <input type="hidden" name="static" value="1">
-                    <input type="hidden" name="entry_id" value="2192">
-                    <input type="hidden" name="__lang" value="en">
-                    <input type="hidden" name="parent_id" value="" id="comment-parent-id">
-                    <input type="hidden" name="armor" value="1">
-                    <input type="hidden" name="preview" value="">
-                    <input type="hidden" name="sid" value="">
-                    <div id="comments-open-data" >
-                        <div id="comment-form-name">
-                            <p><label for="comment-author">您的大名：</label></p>
-                            <p><input id="comment-author" name="author" size="30" value=""> <span
-                                    class="hint"> «-必填</span></p>
-                        </div>
-                        <!--<div id="comment-form-email">-->
-                            <!--<p><label for="comment-email">电子邮件：</label></p>-->
-                            <!--<p><input id="comment-email" name="email" size="30" value=""> <span-->
-                                    <!--class="hint"> «-必填，不公开</span></p>-->
-                        <!--</div>-->
-                        <!--<div id="comment-form-url">-->
-                            <!--<p><label for="comment-url">个人网址：</label></p>-->
-                            <!--<p><input id="comment-url" name="url" size="30" value=""> <span class="hint"> «-我信任你，不会填写广告链接</span>-->
-                            <!--</p>-->
-                        <!--</div>-->
-                        <div id="comment-form-remember-me">
-                            <p>
-                                <label for="comment-bake-cookie">记住个人信息？</label><input type="checkbox"
-                                                                                       id="comment-bake-cookie"
-                                                                                       name="bakecookie"
-                                                                                       onclick="!this.checked?forgetMe(document.comments_form):rememberMe(document.comments_form)"
-                                                                                       value="1" accesskey="r"></p>
-                        </div>
+                    <div style="float: left;width: 400px">
+                        <label for="comment-bake-cookie">记住个人信息？</label>
+                        <input type="checkbox" id="comment-bake-cookie" name="bakecookie"
+                               onclick="!this.checked?forgetMe(document.comments_form):rememberMe(document.comments_form)"
+                               value="1" accesskey="r">
                     </div>
-                    <div id="comment-form-reply" style="display:none">
-                        <input type="checkbox" id="comment-reply" name="comment_reply" value=""
-                               onclick="mtSetCommentParentID()">
-                        <label for="comment-reply" id="comment-reply-label"></label>
-                    </div>
-                    <div id="comments-open-captcha"></div>
-                    <div id="comments-open-footer">
-                        <div id="wait" style="display:none;">
-                            <p><strong>正在发表您的评论，请稍候</strong></p>
-                            <p>
-                                <input type="text" name="percent" size="3"
-                                       style="font-family:Arial; color:black;text-align:center; border-width:medium; border-style:none;">
-                                <input type="text" name="chart" size="46"
-                                       style="font-family:Arial;font-weight:bolder; color:black; padding:0px; border-style:none;">
-                            </p>
-                        </div>
-                        <button class="btn btn-primary" type="submit"
-                                onclick="insertcomment()">发表评论
-                        </button>
-                    </div>
-                </form>
+                </div>
+
+                <div style="padding-top: 50px">
+                <textarea class="form-control" style="width: 800px; height: 60px; padding-bottom: 30px;resize: none;"
+                          id="comment-content" type="text" placeholder="评论内容"></textarea>
+                </div>
+                <div style="padding-top: 20px">
+                    <button class="btn btn-primary" type="submit"
+                            onclick="insertComment()">发表评论
+                    </button>
+                </div>
 
 
-            </div>
         </div>
     </div>
 </div>
 <div class="comment-list">
-    <div style="border-bottom: 1px solid #d3d3d3;"><h3>评论（[[${session.blogShow.commentcount}]]条）</h3></div>
-    <div class="comment" id="comment" style="background-color: #eeee88">
+
+    <div class="comment" id="comment" style="background-color: lightblue">
     </div>
 </div>
-
-<!--<div style="height: 100px; width: 1000px; margin: 0 auto; font-size: 20px; padding-top: 60px">-->
-    <!--<div class="row">-->
-        <!--<table class="table table-hover text-center">-->
-            <!--<tr>-->
-                <!--<td class='infor1' style="padding-left: 100px">&nbsp;&nbsp;&nbsp;&nbsp;用户</td>-->
-                <!--<td class='infor2' style="padding-left: 200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;评价时间</td>-->
-                <!--<td class='infor3' style="padding-left: 200px">&nbsp;&nbsp;&nbsp;&nbsp;评价内容</td>-->
-            <!--</tr>-->
-        <!--</table>-->
-    <!--</div>-->
-<!--</div>-->
-<!--<div data-spy="scroll" data-target="#navbar-example" data-offset="0"-->
-     <!--style="height: 500px; width: 1000px; overflow: auto; position: relative; margin: 0 auto;">-->
-    <!--<div class="container" style="margin-top: 20px;height: 600px;" id="commentbox">-->
-        <!--<div class="row">-->
-            <!--<table class="table table-hover text-center">-->
-                <!--<tbody id="comment" style="height: 700px;"></tbody>-->
-            <!--</table>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
+<div class="container" id="totalpagebox" style="margin: 0 auto;width: 700px;height: 100px;" >
+    <div class="row" id="pagerow" style="padding-left: 150px;">
+        <ul class="pagination pagination-lg" id="pagebox">
+            <li id="first" onclick="findcomments(1)"><span>首页</span></li>
+            <li id="top" onclick="prepage()"><span>上一页</span></li>
+            <li class="xifenye" id="xifenye"><span><span
+                    id="currentpage">1</span>/ <span id="totalpage">1</span></span></li>
+            <li id="down" onclick="nextpage()"><span>下一页</span></li>
+            <li id="last" onclick="endpage()"><span>末页</span></li>
+        </ul>
+    </div>
+</div>
 
 
 <div th:replace="/common/footer::footer"></div>
@@ -220,7 +179,6 @@
 <script th:src="@{plugin/editormd/editormd.js}"></script>
 <script th:src="@{/front/js/header.js}"></script>
 <script type="text/javascript">
-
 
 
     $(function () {

@@ -41,7 +41,6 @@
             width: 800px;
             padding-top: 20px;
             padding-bottom: 100px;
-            /*padding-left: 10px;*/
         }
 
         .comment-inner {
@@ -63,6 +62,13 @@
         #pagebox :hover {
             cursor: pointer;
         }
+
+        #test-editormd-view {
+            background-color: white;
+            text-align: left;
+            width: 800px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
@@ -75,14 +81,14 @@
     <div class="ss-layout-container" style='text-align: center;padding-top: 50px'>
         <main class="ss-layout-main -card">
             <div class="ss-meta" id="blogIntroduce"></div>
-            <div class="article" style="padding-top: 100px">
-                <div class="content" id="layer">
-                    <div id="test-editormd-view">
+            <div class="article" style="padding-top: 20px">
+                <!--<div class="content" id="layer" style="border: #d43f3a solid 1px">-->
+                    <div id="test-editormd-view" style="">
                         <textarea id="append-test" style="display:none;">[[${session.blogShow.content}]]</textarea>
                     </div>
-                </div>
+                <!--</div>-->
             </div>
-            <div style="padding-top: 100px">
+            <div style="padding-top: 50px">
                 <nav class="ss-pagination-next">
                     <a class="link-prev" href="/blog/2020/04/28/n1k2gc12.html">
                         <span class="text">上一篇: </span>

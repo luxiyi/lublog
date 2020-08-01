@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<header th:replace="admin/header::headerFragment(${title},${active})"></header>
+<script lanuage="javascript">
+
+    // $("#planValue").val(planValue);
+</script>
+<style>
+    .plan-manager {
+        float: left;
+        width: 800px;
+        padding: 20px;
+        background-color: #eea236;
+        font-size: 15px;
+        border-radius: 50px;
+        margin-left: 150px;
+    }
+
+    .timeDown {
+        width: 70px;
+        border-radius: 30px;
+        padding-left: 10px;
+    }
+
+    #planContent {
+        width: 150px;
+        border-radius: 30px;
+        padding-left: 10px;
+    }
+    .th-planTitle{
+        height: 50px;
+        line-height: 50px
+    }
+    .tbody-content{
+        text-align: left;
+    }
+    .td-content{
+        height: 70px;
+        line-height: 70px
+    }
+
+    .textarea-plan {
+        resize: none;
+        width:400px;
+        border-radius: 30px;
+        padding-left: 20px;
+        margin-left: 10px;
+        height: 60px
+    }
+</style>
+<body class="fixed-left">
+<div id="wrapper">
+    <div th:replace="admin/header::header-body"></div>
+    <div class="content-page">
+        <div class="content">
+            <div class="plan-manager">
+                <div style="padding-right: 480px;padding-bottom: 20px;padding-top: 20px"><label>目标：</label><input
+                        type="text" id="planContent"></div>
+                <div style="padding-bottom: 20px;">
+                    <label>目标日期：</label>
+                    <input type="text" id="year" class="timeDown"><span>年</span>&nbsp;&nbsp;&nbsp;
+                    <input type="text" id="month" class="timeDown"><span>月</span>&nbsp;&nbsp;&nbsp;
+                    <input type="text" id="day" class="timeDown"><span>日</span>&nbsp;&nbsp;&nbsp;
+                    <input type="text" id="hour" class="timeDown"><span>时</span>&nbsp;&nbsp;&nbsp;
+                    <input type="text" id="minute" class="timeDown"><span>分</span>&nbsp;&nbsp;&nbsp;
+                    <input type="text" id="second" class="timeDown"><span>秒</span>&nbsp;&nbsp;&nbsp;
+                </div>
+                <div style="padding-right: 210px;padding-bottom:20px;width: 800px"><label>目标详细内容：</label><textarea id="planDetail" class="textarea-plan"></textarea></div>
+                <div style="padding-right: 210px;padding-bottom:10px;width: 800px"><label>目标实现价值：</label><textarea id="planValue" class="textarea-plan" ></textarea></div>
+                <div>
+                    <button class="btn btn-primary" type="submit" onclick="addPlan()">添加计划</button>
+                </div>
+            </div>
+            <div style="width: 400px;padding-top: 200px"><h2>近三个月目标排版</h2></div>
+            <table class="table">
+                <thead>
+
+                <tr>
+                    <th class="th-planTitle">目标内容</th>
+                    <th class="th-planTitle">截止日期</th>
+                    <th class="th-planTitle">完成状态</th>
+                    <th class="th-planTitle">操作按钮（关乎荣誉，不得作假）</th>
+
+                </tr>
+                </thead>
+                <tbody id="showLastPlan" class="tbody-content">
+                </tbody>
+            </table>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th style="height: 50px;line-height: 50px">
+                        <div style="float: left">近期评论</div>
+                        <div style="float: left;padding-left: 960px">
+                            <a th:href="@{/admin/commentList}">更多</a>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody id="lastCommentList">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+<script th:src="@{/plugin/js/jquery2.1.4.min.js}"></script>
+<script th:src="@{/admin/js/plan.js}"></script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

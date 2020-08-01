@@ -5,6 +5,7 @@ import com.lublog.dto.BlogCategory;
 import com.lublog.dto.BlogTag;
 import com.lublog.po.BlogContent;
 import com.lublog.po.Tag;
+import com.lublog.po.User;
 import com.lublog.service.*;
 import com.lublog.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -80,9 +81,27 @@ public class BaseController {
     }
 
     @RequestMapping(value = "/front/blog")
-    public String bookDetail() {
+    public String blogDetail() {
         log.info("-------------blog detail-------------");
         return "/front/blog";
+    }
+
+    @RequestMapping(value = "/plan")
+    public String myLifeShow() {
+        log.info("-------------into plan-------------");
+        return "/front/plan";
+    }
+
+    @RequestMapping(value = "/admin/plan")
+    public String myLifeManager() {
+        log.info("-------------manager plan-------------");
+        return "/admin/plan";
+    }
+
+    @RequestMapping(value = "/justDoIt")
+    public String justDoIt() {
+        log.info("-------------just do it -------------");
+        return "/front/doPlan";
     }
 
 }

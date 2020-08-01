@@ -1,3 +1,4 @@
+var id;
 function commentList(ppage) {
     $.ajax({
         url : "/admin/showAllComments",
@@ -19,15 +20,14 @@ function commentList(ppage) {
                         + "<td class='infor'>"
                         + "<img id='remove-comment' src='../../img/删除.png' width='25px' onclick='deleteComment("
                         + po.commentid
-                        + ")'/>&nbsp;&nbsp;删除&nbsp;&nbsp;"
-                        + "<img id='reply-comment' src='../../img/修改.png' width='20px' onclick='replyComment("
-                        + po.commentid
-                        + ")'/>&nbsp;&nbsp;回复"
+                        + ")'/>&nbsp;&nbsp;删除&nbsp;&nbsp;<a href='#comment-content' title='回复" + po.observer + "的这条评论' "
+                        + "onclick=\"quote_comment('comment-quote-"+po.commentid+"','"+po.observer+"','"+po.blogid+"')\">"
+                        + "<img id='reply-comment' src='../../img/修改.png' width='20px' /></a>&nbsp;&nbsp;回复"
                         + "</td>"
                         + "<td class='infor'>" + po.observer + "</td>"
                         + "<td class='infor'>" + po.commenter + "</td>"
                         + "<td class='infor'>" + po.commentdate + "</td>"
-                        + "<td class='infor' style='text-align: left;width: 400px'><div>" + po.commentcontent + "</div></td>"
+                        + "<td class='infor' style='text-align: left;width: 400px' id='comment-quote-"+po.commentid+"'><div>" + po.commentcontent + "</div></td>"
                         + "</tr>";
                 }
                 $("#commentList").html(content);
@@ -96,23 +96,47 @@ function deleteComment(commentId) {
 }
 
 
-function showorder() {
-    alert("你好")
+//引用js功能
+function quote_comment(contentDiv, observer, blogId) {
+    id = blogId;
+    var content = $("#"+contentDiv+"").text();
+    var quote_content = '<blockquote><pre>引用' + observer + '的评论：' + content.trim() + '</pre></blockquote>';
+    document.getElementById("comment-content").value = quote_content;
+    document.getElementsByTagName('body')[0].scrollTop=document.getElementsByTagName('body')[0].scrollHeight;
+}
+
+function insertComment() {
+    var commentContent = $("#comment-content").val();
+    if (typeof (commentContent) == undefined || commentContent == null || commentContent == "") {
+        alert("请输入评论内容");
+        return;
+    }
+
     $.ajax({
-        url: "showOrder",
+        url: "/admin/addBlogComment",
         type: "post",
-        dataType: 'json',  //期待的响应数据类型
+        data: {
+            "blogId": id,
+            "observer": adminUser,
+            "contact" : contact,
+            "commentContent": commentContent
+        },
+        dataType: "text",
         success: function (data) {
-            alert(data);
-            var content = "";
-            for (var i = 0; i < data.length; i++) {
-                var po = data[i];
-                content += "<tr><th>订单号：" + po.oname + "，用户：" + po.luser + ",商品数量：" + po.ocount + ",商品id：" + po.bid + "，借书时间：" + po.bdate + "还书时间" + po.gdate + "</th></tr>";
+            if (data == "评论成功") {
+                alert(data);
+                window.location.reload();
+            } else {
+                alert(data);
             }
-            $("#order").html(content);
+        },
+        error: function () {
+            alert("系统问题，请联系帅气的管理员");
         }
     });
+
 }
+
 
 // 删除书籍
 function removeComment(pgid) {

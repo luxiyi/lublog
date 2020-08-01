@@ -106,16 +106,21 @@
 </div>
 </body>
 <script type="text/javascript" th:src="@{/plugin/js/jquery2.1.4.min.js}"></script>
-<script type="text/javascript" th:src="@{/plugin/js/editormd.min.js}"></script>
+<script type="text/javascript" th:src="@{/plugin/editormd/editormd.js}"></script>
 <script type="text/javascript">
     var testEditor;
 
     $(function () {
-        testEditor = editormd("test-editormd", {
-            width: "90%",
+        testEditor = editormd("test-editormd", {//注意1：这里的就是上面的DIV的id属性值
+            width: "96%",
             height: 640,
             syncScrolling: "single",
-            path: "/plugin/editormd/lib/"
+            path: "/plugin/editormd/lib/",//注意2：你的路径
+            saveHTMLToTextarea : true,//注意3：这个配置，方便post提交表单
+            imageUpload : true,
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],//支持接收的图片上传的格式
+            imageUploadURL : "/admin/uploadFile" //你的controller里为上传图片所设计的路径
+
         });
         categorySelect.init();
         tagSelect.init();

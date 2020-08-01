@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset=" UTF-8 />">
+    <title>YouLu</title>
+    <link rel='shortcut icon' type='image/x-icon' th:href="@{/img/logo.jpg}"/>
+    <link rel="stylesheet"
+          th:href="@{https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css}">
+
+
+    <style type="text/css">
+
+        body {
+            padding-top: 49px;
+            background: url("/img/bg.png");
+            background-size: cover;
+            background-repeat: repeat-x;
+            overflow-x: hidden;
+        }
+
+        /* 导航中的注册,登录,在线人数 */
+        #example-navbar-collapse li {
+            padding-right: 50px;
+        }
+
+        /*  博客图片div */
+        #image {
+            width: 140px;
+            height: 150px;
+            float: left;
+            padding-top: 10px;
+        }
+
+        /*  博客内容div */
+        #tother {
+            width: 520px;
+            height: 145px;
+            float: left;
+            padding-left: 30px;
+        }
+
+        /*博客介绍使用省略号隐藏多余的行数*/
+        .blogContentLimit {
+            display: -webkit-box; /** 对象作为伸缩盒子模型显示 **/
+            -webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+            overflow: hidden; /** 隐藏超出的内容 **/
+            text-overflow: ellipsis; /** 省略号 **/
+            -webkit-line-clamp: 2; /** 显示的行数 **/
+            width: 450px;
+        }
+
+        /*  每个商品图片    */
+        .img-responsive {
+            transition: all 1s;
+            height: 130px;
+            cursor: pointer;
+        }
+
+        .img-responsive:hover {
+            transform: scale(1.2);
+        }
+
+        .img-hidden {
+            overflow: hidden;
+        }
+
+
+        #pagebox :hover {
+            cursor: pointer;
+        }
+
+        #full_text_search:hover {
+            cursor: pointer;
+        }
+
+        /* 下拉按钮样式 */
+        .dropbtn {
+            color: #b52a1d;
+            padding: 13px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        /* 容器 <div> - 需要定位下拉内容 */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            padding-top: 15px;
+        }
+
+        /* 下拉内容 (默认隐藏) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 下拉菜单的链接 */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* 鼠标移上去后修改下拉菜单链接颜色 */
+        .dropdown-content a:hover {
+            background-color: #f1f1f1
+        }
+
+        /* 在鼠标移上去后显示下拉菜单 */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+
+        .keleyilcd {
+            background-color: black;
+            color: yellow;
+            font: bold 18px MS Sans Serif;
+            padding: 3px;
+        }
+
+        .keleyilcd sup {
+            font-size: 80%;
+        }
+
+        #planCountDown {
+            font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+            font-size: 17px;
+            font-weight: bold;
+            color: #fd7605;
+            width: 400px;
+            text-align: center;
+
+        }
+
+        #planCountDown span {
+            font-size: 80%;
+        }
+
+        .last-plan-tiTile{
+            padding-left: 13%;
+            background-color: #d43f3a;
+            width: 600px;
+            height: 100px;
+            padding-top: 10px;
+            border-radius: 50%;
+            margin-left: 300px;
+            margin-bottom: 30px;
+        }
+
+        .time-down-td {
+            width: 190px;
+            height: 50px;
+            border-right: solid 1px #d43f3a;
+        }
+
+        .time-down-td-planDetail {
+            width: 320px;
+            font-size: 15px;
+            border-right: solid 1px #d43f3a;
+        }
+
+        .time-down-td-planValue {
+            width: 320px;
+            font-size: 15px;
+            border-right: solid 1px #d43f3a;
+        }
+        .time-down-td-last {
+            width: 150px;
+        }
+
+        .time-down-table {
+            font-size: 18px;
+            background-color: #f7e1b5;
+            color: #d43f3a;
+        }
+
+    </style>
+</head>
+
+<body>
+<div id="outer" style="width: 100%;height: 3000px;float: none;margin: 0 auto">
+    <!-- 头部导航栏 -->
+    <div th:replace="/front/header::header(title='首页',keywords=null)"></div>
+    <!--白云动画效果层-->
+    <div id="secondOuter">
+
+        <div style="padding-top: 30px;">
+            <div style="padding-top: 30px;float: left;">
+                <div class="last-plan-tiTile"><h2>近期计划目标倒计时</h2></div>
+                <div style="float: left">
+
+                    <table class="time-down-table">
+                        <thead>
+                        <tr style="text-align: center;height: 70px">
+                            <td>目标</td>
+                            <td>日期</td>
+                            <td>留给我的时间</td>
+                            <td>具体内容</td>
+                            <td>实现意义</td>
+                            <td>做到了吗</td>
+                        </tr>
+                        </thead>
+                        <tbody id="planCountDown">
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 目标列表 -->
+        <div class="container" id="booksbox"
+             style="height:2500px;width:700px;margin: 0 auto;float:none;padding-left: 250px">
+            <!--<div class="row" id="blogContents" style="transition: all 1s;width:700px;height:130px;float:none">-->
+            <!--</div>-->
+        </div>
+    </div>
+
+    <!--&lt;!&ndash; 页码 &ndash;&gt;-->
+    <!--<div class="container" id="totalpagebox" style="margin: 0 auto;width: 700px;height: 100px">-->
+        <!--<div class="row" id="pagerow" style="padding-left: 150px">-->
+            <!--<ul class="pagination pagination-lg" id="pagebox">-->
+                <!--<li id="first" onclick="findAllBlog(1)"><span style=" background-color:transparent">首页</span></li>-->
+                <!--<li id="top" onclick="prepage()"><span style=" background-color:transparent">上一页</span></li>-->
+                <!--<li class="xifenye" id="xifenye"><span style=" background-color:transparent"><span-->
+                        <!--id="currentpage">1</span>/ <span id="totalpage">1</span></span></li>-->
+                <!--<li id="down" onclick="nextpage()"><span style=" background-color:transparent">下一页</span></li>-->
+                <!--<li id="last" onclick="endpage()"><span style=" background-color:transparent">末页</span></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <div th:replace="/common/footer::footer"></div>
+</div>
+</body>
+<script th:src="@{/plugin/js/jquery2.1.4.min.js}"></script>
+<script th:src="@{/plugin/js/bootstrap.min.js}"></script>
+<script th:src="@{/front/js/index.js}"></script>
+<script th:src="@{/front/js/header.js}"></script>
+<script th:src="@{/front/js/plan.js}"></script>
+<script th:src="@{/front/js/jquery.jqlouds.min.js}"></script>
+<script>
+    jQuery(function ($) {
+        $('#secondOuter').jQlouds({
+            wind: true
+        });
+    });
+
+</script>
+</html>

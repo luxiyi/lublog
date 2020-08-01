@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="header(title,keywords)">
+<head>
+    <meta charset=" UTF-8 />">
+    <title>YouLu</title>
+    <link rel='shortcut icon' type='image/x-icon' th:href="@{/img/logo.jpg}"/>
+    <link th:href="@{/plugin/css/style.min.css}" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css}">
+    <script th:src="@{/plugin/js/jquery.min.js}"></script>
+    <style>
+        body {
+            padding-top: 70px;
+            background: url("/img/Satcbg.jpeg");
+            background-size: cover;
+        }
+
+    </style>
+</head>
+<body>
+<!-- 头部导航栏 -->
+<div th:replace="/front/header::header(title='我的执行力',keywords=null)"></div>
+<div class="main-content">
+    <table>
+        <thead>
+            <tr>
+                <th>部分</th>
+                <th>章数</th>
+                <th>节数</th>
+                <th>题数</th>
+                <th>时间节点</th>
+                <th>完成情况</th>
+                <th>操作按钮</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+<div th:replace="/common/footer::footer"></div>
+</body>
+
+<script th:src="@{/plugin/js/jquery2.1.4.min.js}"></script>
+<script th:src="@{/plugin/js/bootstrap.min.js}"></script>
+<script th:src="@{/front/js/header.js}"></script>
+</html>

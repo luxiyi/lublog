@@ -22,4 +22,5 @@
     <dubbo:reference id="replayService" check="false" interface="com.lublog.service.ReplayService"/>
     <dubbo:reference id="tagService" check="false" interface="com.lublog.service.TagService"/>
     <dubbo:reference id="categoryService" check="false" interface="com.lublog.service.CategoryService"/>
+    <dubbo:reference id="planService" check="false" interface="com.lublog.service.PlanService"/>
 </beans>

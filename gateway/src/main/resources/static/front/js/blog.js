@@ -98,17 +98,7 @@ function endpage() {
 
 //引用js功能
 function quote_comment(contentId, observer) {
-    // var q = document.getElementById("#"+contentId+"");
-    // var w =document.getElementsByTagName("#comment-content-p");
-    // alert(q);
     var content = $("#"+contentId+"").text();
-    // $(document).ready(function()
-    // {
-    //     $("button").click(function()
-    //     {
-    //         $(".o div p:eq(0)").css("background","red");
-    //     });
-    // });
     var quote_content = '<blockquote><pre>引用' + observer + '的评论：' + content.trim() + '</pre></blockquote>';
     document.getElementById("comment-content").value = quote_content;
     document.getElementsByTagName('body')[0].scrollTop=document.getElementsByTagName('body')[0].scrollHeight;

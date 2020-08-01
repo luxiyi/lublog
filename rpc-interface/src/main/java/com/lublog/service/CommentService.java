@@ -21,13 +21,13 @@ public interface CommentService {
 
     void deleteCommentsOfBlog(int blogId);
 
-    Integer queryAllCommentsTotalPage();
+    int queryAllCommentsTotalPage();
 
     List<Comment> findAllByIndex(int index, int count);
 
     List<Comment> queryOneBlogCommentByIndex(Integer blogId, int index, int i);
 
-    Integer queryOneBlogCommentTotalPage(int blogId);
+    int queryOneBlogCommentTotalPage(int blogId);
 
     void deleteOneComment(Integer commentId);
 

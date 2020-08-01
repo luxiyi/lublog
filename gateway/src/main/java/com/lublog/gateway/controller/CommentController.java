@@ -68,7 +68,7 @@ public class CommentController {
             log.error("query blogShow fail，blogShow is {}", blogShow);
             return info;
         }
-        String commenter = "文章 《" + blogShow.getTitle() + "》";
+        String commenter = blogShow.getTitle();
         Date commentDate = new Date();
         log.info("blogId is {}, observer is {}, contact is {}, commentContent is {}, commentDate is {}",
                 blogId, observer, contact, commentContent, commentDate);

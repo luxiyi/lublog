@@ -44,7 +44,8 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public int findBlogTotalPage() {
         int total = blogMapper.findBlogTotalPage();
-        int totalPage = total % 12 == 0 ? (total / 12) : (total / 12 + 1);
+        int var = total % 12 == 0 ? (total / 12) : (total / 12 + 1);
+        int totalPage  = var == 0 ? 1: var;
         return totalPage;
     }
 

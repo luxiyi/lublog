@@ -1,8 +1,10 @@
 package com.lublog.gateway.controller.admin;
 
+import com.alibaba.dubbo.common.utils.StringUtils;
 import com.lublog.po.Comment;
 import com.lublog.service.BlogService;
 import com.lublog.service.CommentService;
+import com.lublog.utils.BlogStringUtils;
 import com.lublog.utils.DateUtils;
 import com.lublog.vo.BlogShow;
 import com.lublog.vo.CommentShow;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,14 +74,7 @@ public class CommetController {
          * 防止评论数量为0，但评论还在
          */
         try {
-
             commentService.deleteOneComment(commentId);
-            int blogCommentsCount = commentService.queryOneBlogCommentsCount(blogId);
-            if (blogCommentsCount == 0 || blogCommentsCount < 0) {
-                log.info("does not reduce comment fail ,blogCommentsCount has already is {}", blogCommentsCount);
-                msg = "删除评论成功";
-                return msg;
-            }
             blogService.reduceCommentCount(blogId);
         } catch (Exception e) {
             log.error("delete comment or reduce commentNum fail is {}", e);
@@ -89,5 +85,40 @@ public class CommetController {
         return msg;
     }
 
+    //插入评论
+    @RequestMapping(value = "/addBlogComment", method = RequestMethod.POST)
+    public String addBlogComment(String observer, String contact, String commentContent, @RequestParam("blogId") String blogIdStr) {
+        String info = "评论成功";
+
+        if (StringUtils.isEmpty(blogIdStr) || blogIdStr == ""
+                || StringUtils.isEmpty(observer) || observer == ""
+                || StringUtils.isEmpty(contact) || contact == ""
+                || StringUtils.isEmpty(commentContent) || commentContent == "") {
+            info = "评论失败，请联系管理员";
+            log.error("comment push fail, blogIdStr is {},observer is {},contact is {},commentContent is {},", blogIdStr,observer,contact,commentContent);
+            return info;
+        }
+        Integer blogId = BlogStringUtils.getNum(blogIdStr);
+        BlogShow blogShow = blogService.findBlogById(blogId);
+        if (blogShow == null || StringUtils.isEmpty(blogShow.getAuthor()) || blogShow.getAuthor() == "") {
+            info = "评论失败，请联系管理员";
+            log.error("query blogShow fail，blogShow is {}", blogShow);
+            return info;
+        }
+        String commenter = blogShow.getTitle();
+        Date commentDate = new Date();
+        log.info("blogId is {}, observer is {}, contact is {}, commentContent is {}, commentDate is {}",
+                blogId, observer, contact, commentContent, commentDate);
+        try {
+            commentService.insertCommentById(blogId, observer, commenter, contact, commentContent, commentDate);
+            blogService.updateComcount(blogId);
+        } catch (Exception e) {
+            info = "评论失败，请联系管理员";
+            log.error("comment push fail is {}", e);
+            return info;
+        }
+        log.info("insert comment success, contact is {}, commentContent is {}", contact, commentContent);
+        return info;
+    }
 
 }

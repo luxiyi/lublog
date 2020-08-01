@@ -43,9 +43,10 @@ public class CommentServiceImpl implements CommentService {
 
 
     @Override
-    public Integer queryAllCommentsTotalPage() {
+    public int queryAllCommentsTotalPage() {
         int total = commentMapper.queryAllCommentsTotalPage();
-        int totalPage = total % 12 == 0 ? (total / 12) : (total / 12 + 1);
+        int var = total % 12 == 0 ? (total / 12) : (total / 12 + 1);
+        int totalPage  = var == 0 ? 1: var;
         return totalPage;
     }
 
@@ -60,9 +61,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Integer queryOneBlogCommentTotalPage(int blogId) {
+    public int queryOneBlogCommentTotalPage(int blogId) {
         int total = commentMapper.queryOneBlogCommentsCount(blogId);
-        int totalPage = total % 12 == 0 ? (total / 12) : (total / 12 + 1);
+        int var = total % 12 == 0 ? (total / 12) : (total / 12 + 1);
+        int totalPage  = var == 0 ? 1: var;
         return totalPage;
     }
 

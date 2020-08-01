@@ -119,10 +119,6 @@
                             <i class="fa fa-list" aria-hidden="true"></i><span> 文章管理 </span></a>
                     </li>
 
-                    <li th:class="${active}=='page'?'active':''">
-                        <a th:href="@{/admin/page}" th:class="${active}=='page'?'waves-effect active':'waves-effect'"><i
-                                class="fa fa-file-text" aria-hidden="true"></i><span> 页面管理 </span></a>
-                    </li>
 
                     <li th:class="${active}=='commentList'?'active':''">
                         <a th:href="@{/admin/commentList}" th:class="${active}=='commentList'?'waves-effect active':'waves-effect'">
@@ -137,6 +133,13 @@
                             <i class="fa fa-tags" aria-hidden="true"></i><span> 分类/标签 </span>
                         </a>
                     </li>
+
+                    <li th:class="${active}=='page'?'active':''">
+                        <a th:href="@{/admin/plan}" th:class="${active}=='page'?'waves-effect active':'waves-effect'"><i
+                                class="fa fa-file-text" aria-hidden="true"></i><span> 学习目标 </span></a>
+                    </li>
+
+
                     <li th:class="${active}=='attach'?'active':''">
                         <a th:href="@{/admin/attach}"
                            th:class="${active}=='attach'?'waves-effect active':'waves-effect'"><i

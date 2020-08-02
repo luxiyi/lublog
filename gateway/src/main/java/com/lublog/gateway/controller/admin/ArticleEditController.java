@@ -14,11 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Description: 博客编辑操作
@@ -38,7 +36,8 @@ public class ArticleEditController {
     @RequestMapping(value = "/pushArticle", method = RequestMethod.POST)
     public String saveOrUpdateBlog(@RequestParam("title") String title, @RequestParam("content") String content,
                                    @RequestParam("categoryId") String categoryIdStr, @RequestParam("tagId") String tagIdStr,
-                                   @RequestParam("author") String author,  @RequestParam("introduce") String introduce) {
+                                   @RequestParam("author") String author,  @RequestParam("introduce") String introduce,
+                                   @RequestParam("blogCover") MultipartFile blogCover, HttpServletRequest request) {
         int categoryId = Integer.parseInt(categoryIdStr);
         int tagId = Integer.parseInt(tagIdStr);
         BlogContent blogContent = new BlogContent();
@@ -49,6 +48,23 @@ public class ArticleEditController {
         blogContent.setTagid(tagId);
         blogContent.setAuthor(author);
         blogContent.setIntroduce(introduce);
+        // 上传图片
+        String fileName = blogCover.getName();
+        String path = request.getServletContext().getRealPath("/admin/img");
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        fileName = UUID.randomUUID().toString() + fileName;
+        path = path + File.separator + fileName;
+        file = new File(path);
+        log.info("file is {}", file);
+        try {
+            blogCover.transferTo(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        blogContent.setBlogcover(path);
         JSONObject result = new JSONObject();
         try {
             this.blogService.insertBlog(blogContent);
@@ -64,7 +80,7 @@ public class ArticleEditController {
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     @ResponseBody
     public String uploadFile(HttpServletRequest request, HttpServletResponse response,
-                             @RequestParam(value = "editormd-image-file", required = false) MultipartFile attach){
+                             @RequestParam(value = "editormd-image-file", required = false) MultipartFile file){
         JSONObject jsonObject=new JSONObject();
 
         try {
@@ -83,16 +99,20 @@ public class ArticleEditController {
             }
 
             // 最终文件名
-            File realFile = new File(rootPath + File.separator + attach.getOriginalFilename());
-            Files.copy(attach.getInputStream(),realFile.toPath());
-            //FileUtils.copyInputStreamToFile(attach.getInputStream(), realFile);
-
+            File realFile = new File(rootPath + File.separator + file.getOriginalFilename());
+            //保存
+            try {
+                file.transferTo(realFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             // 下面response返回的json格式是editor.md所限制的，规范输出就OK
             jsonObject.put("success", 1);
             jsonObject.put("message", "上传成功");
-            jsonObject.put("url", "/admin/img/"+attach.getOriginalFilename());
+            jsonObject.put("url", "/admin/img/"+file.getOriginalFilename());
         } catch (Exception e) {
             jsonObject.put("success", 0);
+            log.error("upload file fail is {}", e);
         }
         return jsonObject.toString();
     }

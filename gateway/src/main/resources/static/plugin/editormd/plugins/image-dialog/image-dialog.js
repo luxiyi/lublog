@@ -163,9 +163,9 @@
 
                             var body = (uploadIframe.contentWindow ? uploadIframe.contentWindow : uploadIframe.contentDocument).document.body;
                             var json = (body.innerText) ? body.innerText : ( (body.textContent) ? body.textContent : null);
-
                             json = (typeof JSON.parse !== "undefined") ? JSON.parse(json) : eval("(" + json + ")");
 
+                            //上传图片js
                             if(!settings.crossDomainUpload)
                             {
                               if (json.success === 1)

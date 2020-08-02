@@ -1,6 +1,6 @@
-function showLastArticle() {
+function showLastBlogs() {
     $.ajax({
-        url:"/admin/showLastArticle",
+        url:"/admin/showLastBlogs",
         type:"get",
         dataType:"json",
         success: function (data) {
@@ -24,12 +24,12 @@ function showLastArticle() {
         }
     });
 }
-showLastArticle();
+showLastBlogs();
 
 
-function showLastComment() {
+function showLastComments() {
     $.ajax({
-        url:"/admin/showLastComment",
+        url:"/admin/showLastComments",
         type:"get",
         dataType:"json",
         success: function (data) {
@@ -58,4 +58,4 @@ function showLastComment() {
         }
     });
 }
-showLastComment();
+showLastComments();

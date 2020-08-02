@@ -32,14 +32,23 @@
             cursor: pointer;
         }
 
+        .deleteBlog{
+            cursor: pointer;
+        }
+
+        .queryBlog{
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <header th:replace="admin/header::headerFragment(${title},${active})"></header>
 <body class="fixed-left">
     <div th:replace="admin/header::header-body"></div>
+
     <div class="content-page">
         <div class="content">
-            <div class="container" style="margin-top: 80px;height: 600px;" id="goodsbox" >
+            <div class="container" style="margin-top: 80px;height: 600px">
                 <div class="row">
                     <table class="table table-hover text-center">
                         <thead>
@@ -51,7 +60,7 @@
                             <th>操作</th>
                         </tr>
                         </thead>
-                        <tbody id="articleList">
+                        <tbody id="adminShowBlogs">
                         </tbody>
                     </table>
                 </div>
@@ -60,12 +69,12 @@
             <div class="container" id="totalpagebox" style="margin: 0 auto;width: 700px;height: 100px;" >
                 <div class="row" id="pagerow" style="padding-left: 150px;">
                     <ul class="pagination pagination-lg" id="pagebox">
-                        <li id="first" onclick="artilcleList(1)"><span>首页</span></li>
-                        <li id="top" onclick="prepage()"><span>上一页</span></li>
+                        <li id="first" onclick="showAdminAllBlogs(1)"><span>首页</span></li>
+                        <li id="top" onclick="prePage()"><span>上一页</span></li>
                         <li class="xifenye" id="xifenye"><span><span
-                                id="currentpage">1</span>/ <span id="totalpage">1</span></span></li>
-                        <li id="down" onclick="nextpage()"><span>下一页</span></li>
-                        <li id="last" onclick="endpage()"><span>末页</span></li>
+                                id="currentPage">1</span>/ <span id="totalPage">1</span></span></li>
+                        <li id="down" onclick="nextPage()"><span>下一页</span></li>
+                        <li id="last" onclick="endPage()"><span>末页</span></li>
                     </ul>
                 </div>
             </div>
@@ -76,6 +85,6 @@
 </body>
 <script th:src="@{/plugin/js/jquery2.1.4.min.js}"></script>
 <script th:src="@{/plugin/js/bootstrap.min.js}"></script>
-<script th:src="@{/admin/js/article_list.js}"></script>
+<script th:src="@{/admin/js/managerBlogs.js}"></script>
 <script th:src="@{/admin/js/login.js}"></script>
 </html>

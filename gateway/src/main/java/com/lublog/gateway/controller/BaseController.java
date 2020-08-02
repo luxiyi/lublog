@@ -8,6 +8,7 @@ import com.lublog.po.Tag;
 import com.lublog.po.User;
 import com.lublog.service.*;
 import com.lublog.utils.DateUtils;
+import com.lublog.vo.BlogShow;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,9 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Description: java类作用描述BaseController
@@ -33,6 +32,8 @@ import java.util.List;
 public class BaseController {
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private BlogService blogService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String frontIndex() {
@@ -52,16 +53,16 @@ public class BaseController {
         return "/admin/login";
     }
 
-    @RequestMapping("/admin/articleList")
-    public String articleList() {
-        log.info("-------admin-articleList-------");
-        return "admin/article_list";
+    @RequestMapping("/admin/blogList")
+    public String blogList() {
+        log.info("-------admin-blogList-------");
+        return "admin/blog_list";
     }
 
-    @RequestMapping(value = "/admin/articleEdit", method = RequestMethod.GET)
-    public String articleEdit() {
-        log.info("-------admin-articleEdit------");
-        return "/admin/article_edit";
+    @RequestMapping(value = "/admin/blogEdit", method = RequestMethod.GET)
+    public String blogEdit() {
+        log.info("-------admin-blogEdit------");
+        return "/admin/blog_edit";
     }
 
     @RequestMapping(value = "/admin/commentList")
@@ -102,6 +103,20 @@ public class BaseController {
     public String justDoIt() {
         log.info("-------------just do it -------------");
         return "/front/doPlan";
+    }
+
+    @RequestMapping(value = "/queryBlog", method = RequestMethod.GET)
+    public String queryArticle(@RequestParam("blogId") Integer blogIdStr, HttpServletRequest request) {
+        String msg = "查询成功";
+//        if (StringUtils.isEmpty(blogIdStr) || blogIdStr == "") {
+//            log.error("query blog fail, blogIdStr is {}", blogIdStr);
+//            msg = "查询失败";
+//            result.put("msg", msg);
+//            return result;
+//        }
+        BlogShow blogShow = blogService.findBlogById(blogIdStr);
+        request.setAttribute("blog", blogShow);
+        return "/admin/blog_update";
     }
 
 }

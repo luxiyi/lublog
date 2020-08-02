@@ -32,7 +32,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <ul class="nav navbar-nav navbar-header">
                         <li><a><span>欢迎来到YouLu管理</span></a></li>
-                        <li><a th:href="@{/admin/articleEdit}"><span>快来创作吧</span></a></li>
+                        <li><a th:href="@{/admin/blogEdit}"><span>快来创作吧</span></a></li>
                         <li style="width:40px;">
                             <div class="contentDiv" style="display:inline-block;margin:5px auto;
 							width:40px;height:40px;border-radius:100px;-webkit-border-radius:100px;-moz-border-radius:100px;
@@ -114,8 +114,8 @@
                     </li>
 
 
-                    <li th:class="${active}=='articleList'?'active':''">
-                        <a th:href="@{/admin/articleList}" th:class="${active}=='articleList'?'waves-effect active':'waves-effect'">
+                    <li th:class="${active}=='blogList'?'active':''">
+                        <a th:href="@{/admin/blogList}" th:class="${active}=='blogList'?'waves-effect active':'waves-effect'">
                             <i class="fa fa-list" aria-hidden="true"></i><span> 文章管理 </span></a>
                     </li>
 

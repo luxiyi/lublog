@@ -29,33 +29,47 @@
             cursor: pointer;
         }
 
-        #articleTitle {
+        #blogTitle {
             width: 75%;
             margin-top: 15px;
         }
 
-        #articleCategory {
+        #blogCategory {
             margin-top: 15px;
             width: 10%;
         }
 
-        #articleTag {
+        #blogTag {
             margin-top: 15px;
             width: 10%;
         }
 
-        #btnList {
-            position: relative;
-            float: right;
+        .input-blog-title{
+            float: left;
+            width: 700px;
+        }
+        .push-blog {
+            float: left;
             margin-top: 15px;
-            padding-right: 20px;
+            margin-right: 10px;
         }
 
-        #artileIndex {
-            position: relative;
-            float: right;
+        .manager-blog {
+            float: left;
             margin-top: 15px;
-            padding-right: 120px;
+            margin-right: 100px;
+        }
+
+        .textarea-blog-introduce{
+            height: 60px;
+            width: 90%;
+            resize: none;
+            border-radius: 25px;
+            border:2px solid #a1a1a1;
+            padding-left: 20px;
+            padding-top: 18px;
+            text-align: left;
+
         }
 
     </style>
@@ -67,40 +81,40 @@
         <div class="container">
             <div id="layout">
                 <div style="line-height: 40px;height: 70px;padding-left: 100px">
-                    <input type="text" id="articleTitle" placeholder="输入文章标题"
-                           style="border-radius: 25px;border:2px solid #a1a1a1;padding-left: 20px"/>
-                    <span id="artileIndex">
-                            <button type="button" class="btn btn-primary">
-                                 <a th:href="@{/admin/index}" style="color: white">文章管理</a>
-                            </button>
-                        </span>
-                    <span id="btnList">
-                            <button type="button" class="btn btn-danger" id="publishArticle"
-                                    onclick="writeArticle.doSubmit();">
+                    <div class="input-blog-title" style="float: left">
+                        <input type="text" id="blogTitle" placeholder="标题"
+                           style="border-radius: 25px;border:2px solid #a1a1a1;padding-left: 20px;width: 600px"/>
+                    </div>
+
+                    <div class="push-blog">
+                            <button type="button" class="btn btn-danger" id="publishBlog"
+                                    onclick="writeBlog.doSubmit();">
                                 发布文章
                             </button>
-                        </span>
+                        </div>
+                    <div class="manager-blog">
+                        <button type="button" class="btn btn-primary">
+                            <a th:href="@{/admin/index}" style="color: white; text-decoration:none">文章管理</a>
+                        </button>
+                    </div>
 
                 </div>
                 <div style="height: 60px;padding-left: 100px;">
-                             <textarea style="height: 60px;width: 90%;resize: none;
-                                    border-radius: 25px;border:2px solid #a1a1a1;padding-left: 20px;padding-top: 18px"
-                                       autocomplete="off" id="articleIntroduce"
-                                       name="text"
-                                       class="markdown-textarea" placeholder="输入文章简介">
-                             </textarea>
+                             <textarea placeholder="简介" autocomplete="on" id="blogIntroduce"
+                                       name="text" class="textarea-blog-introduce" ></textarea>
                 </div>
                 <div style="padding-left: 100px;margin-bottom: 10px">
-                    <label>分类：</label><select id="articleCategory"></select>
+                    <label>分类：</label><select id="blogCategory"></select>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <label>标签：</label><select id="articleTag"></select>
+                        <label>标签：</label><select id="blogTag"></select>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <label>署名：</label><input type="text" id="articleAuthor" placeholder="输入作者名字">
+                            <label>署名：</label><input type="text" id="blogAuthor" placeholder="输入作者名字">
 
 
-                    <div class="fileupload" style="margin-top: 13px;float: right">
-                        <div style="float: left;padding-top: 5px"><label>选择封面照片:</label></div>
-                        <div style="float: left;padding-top: 2px"><input type="file" id="articleCover" accept="image/*"
+                    <div class="fileupload" style="margin-top: 13px">
+                        <div style="float: left;padding-top: 5px"><label>选择封面图片:</label><input type="text" id="blogCover" name="blogCover" placeholder="图片地址" style="width: 300px"></div>
+                        <div style="float: left;padding-top: 5px;padding-left: 10px"><label>图片地址:</label></div>
+                        <div style="float: left;padding-top: 2px"><input type="file"  accept="image/*"
                                                      onchange="imgPreview(this)"></div>
                         <!--预览功能-->
                         <!--<img id="preview" style="width: 100px"/>-->
@@ -108,7 +122,7 @@
 
                 </div>
                 <div id="test-editormd">
-                    <textarea id="articleContent" style="display: none;"></textarea>
+                    <textarea id="blogContent" style="display: none;"></textarea>
                 </div>
             </div>
         </div>
@@ -169,7 +183,7 @@
         init: function () {//初始化数据
             $.ajax({
                 type: "GET",
-                url: '/admin/listArticleTag',
+                url: '/admin/listBlogTag',
                 dataType: 'json',
                 contentType: "application/json",
                 cache: false,
@@ -186,7 +200,7 @@
                 optionStr += data[i].tagname;
                 optionStr += "</option>";
             }
-            $("#articleTag").append(optionStr);
+            $("#blogTag").append(optionStr);
         }
     }
 
@@ -195,7 +209,7 @@
         init: function () {//初始化数据
             $.ajax({
                 type: "GET",
-                url: '/admin/listArticleCategory',
+                url: '/admin/listBlogCategory',
                 dataType: 'json',
                 contentType: "application/json",
                 cache: false,
@@ -212,24 +226,24 @@
                 optionStr += data[i].categoryname;
                 optionStr += "</option>";
             }
-            $("#articleCategory").append(optionStr);
+            $("#blogCategory").append(optionStr);
         }
     }
     /* 发送文章*/
-    var writeArticle = {
+    var writeBlog = {
         doSubmit: function () {//提交
-            if (writeArticle.doCheck()) {
+            if (writeBlog.doCheck()) {
                 //debugger;
-                var title = $("#articleTitle").val();
-                var content = $("#articleContent").val();
-                var tagId = $("#articleTag").val();
-                var categoryId = $("#articleCategory").val();
-                var author = $("#articleAuthor").val();
-                var introduce = $("#articleIntroduce").val();
-                var blogCover = $("#articleCover").val();
+                var title = $("#blogTitle").val();
+                var content = $("#blogContent").val();
+                var tagId = $("#blogTag").val();
+                var categoryId = $("#blogCategory").val();
+                var author = $("#blogAuthor").val();
+                var introduce = $("#blogIntroduce").val();
+                var blogCover = $("#blogCover").val();
                 $.ajax({
                     type: "POST",
-                    url: '/admin/pushArticle',
+                    url: '/admin/pushBlog',
                     data: {
                         'title': title,
                         'content': content,
@@ -239,26 +253,32 @@
                         'introduce': introduce,
                         'blogCover': blogCover
                     },
-                    dataType: 'json',
+                    dataType: 'text',
                     //contentType:"application/json",
                     cache: false,
                     success: function (data) {
-                        //debugger;
-                        if ("success" == data.result) {
-                            alert("保存成功!");
+                        if (data == "发布成功!") {
+                            alert(data);
                             location.reload();
+                        } else if(data == "标题已存在，请重新命名标题") {
+                            alert(data);
+                        } else {
+                            alert(data);
                         }
+                    },
+                    error:function () {
+                        alert("系统问题，请联系帅系的管理员");
                     }
                 });
             }
         },
         doCheck: function () {//校验
             //debugger;
-            var title = $("#articleTitle").val();
-            var content = $("#articleContent").val();
-            var author = $("#articleAuthor").val();
-            var introduce = $("#articleIntroduce").val();
-            var blogCover = $("#articleCover").val();
+            var title = $("#blogTitle").val();
+            var content = $("#blogContent").val();
+            var author = $("#blogAuthor").val();
+            var introduce = $("#blogIntroduce").val();
+            var blogCover = $("#blogCover").val();
             if (typeof (title) == undefined || title == null || title == "") {
                 alert("请填写文章标题!");
                 return false;
@@ -295,6 +315,7 @@
 
     //上传照片
     function imgPreview(fileDom) {
+
         //判断是否支持FileReader
         if (window.FileReader) {
             var reader = new FileReader();
@@ -310,24 +331,42 @@
             return;
         }
         //读取完成
-        reader.onload = function (e) {
-            //获取图片dom
-            var img = document.getElementById("preview");
-            //图片路径设置为读取的图片
-            img.src = e.target.result;
-        };
+        // reader.onload = function (e) {
+        //     //获取图片dom
+        //     var img = document.getElementById("preview");
+        //     //图片路径设置为读取的图片
+        //     alert(e.target.result);
+        // };
+        // alert(file.name);
+        // alert(file.type);
+        // $("#blogCover").val("/admin/img" + file.name);
         reader.readAsDataURL(file);
+        var formData = new FormData();
+        formData.append('blogCover', fileDom.files[0]);
+        $.ajax({
+            url:"/admin/uploadBlogCover",
+            type:"post",
+            data: formData,
+            /**
+             *必须false才会自动加上正确的Content-Type
+             */
+            contentType: false,
+            /**
+             * 必须false才会避开jQuery对 formdata 的默认处理
+             * XMLHttpRequest会对 formdata 进行正确的处理
+             */
+            processData: false,
+            success:function (data) {
+                if (data.success == 1) {
+                    alert(data.message);
+                    $("#blogCover").val(data.url);
+                } else {
+                    alert(data.message);
+                }
+            }
+        });
     }
 
-    function getFilename() {
-        var filename = document.getElementById("file").value;
-        if (filename == undefined || filename == "") {
-            document.getElementById("filename").innerHTML = "点击此处上传文件";
-        } else {
-            var fn = filename.substring(filename.lastIndexOf("\\") + 1);
-            document.getElementById("filename").innerHTML = fn; //将截取后的文件名填充到span中
-        }
-    }
 </script>
 
 

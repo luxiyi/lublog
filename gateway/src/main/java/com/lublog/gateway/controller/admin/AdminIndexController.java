@@ -37,12 +37,12 @@ public class AdminIndexController {
     private CommentService commentService;
 
 
-    @RequestMapping("/showLastArticle")
-    public Map<String, Object> showLastArticle(HttpSession session, BlogShow findBlogContent, String bbid) {
+    @RequestMapping("/showLastBlogs")
+    public Map<String, Object> showLastBlogs(HttpSession session, BlogShow findBlogContent, String bbid) {
         Map<String, Object> result = new HashMap<String, Object>();
         int index = 0;
         int count = 3;
-        List<BlogShow> blogContents = blogService.showLastArticle(index, count);
+        List<BlogShow> blogContents = blogService.showLastBlogs(index, count);
         BlogShow blogContent = blogService.findAllById(findBlogContent);
         log.info("totalPage = {}, page = {}, blogContents = {}", blogContents.toString());
         // 将所有书放入session
@@ -53,8 +53,8 @@ public class AdminIndexController {
         return result;
     }
 
-    @RequestMapping("/showLastComment")
-    public Map<String, Object> showLastComment() {
+    @RequestMapping("/showLastComments")
+    public Map<String, Object> showLastComments() {
         Map<String, Object> result = new HashMap<>();
         int index = 0;
         int count = 3;

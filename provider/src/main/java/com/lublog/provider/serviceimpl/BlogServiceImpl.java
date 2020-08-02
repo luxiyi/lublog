@@ -37,7 +37,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<BlogShow> showLastArticle(int index, int count) {
+    public List<BlogShow> showLastBlogs(int index, int count) {
         return blogMapper.findALLByIndex(index, count);
     }
 
@@ -123,6 +123,12 @@ public class BlogServiceImpl implements BlogService {
     public void reduceCommentCount(Integer blogId) {
         blogMapper.reduceCommentCount(blogId);
     }
+
+    @Override
+    public BlogShow queryBlogByTitle(String title) {
+        return blogMapper.queryBlogByTitle(title);
+    }
+
 
 
 

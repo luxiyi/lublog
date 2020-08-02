@@ -17,7 +17,7 @@ import java.util.List;
 public interface BlogService {
     List<BlogShow> findAllByIndex(int index, int count);
 
-    List<BlogShow> showLastArticle(int index, int count);
+    List<BlogShow> showLastBlogs(int index, int count);
 
     int findBlogTotalPage();
 
@@ -51,4 +51,5 @@ public interface BlogService {
 
     void reduceCommentCount(Integer blogId);
 
+    BlogShow queryBlogByTitle(String title);
 }

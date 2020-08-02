@@ -36,21 +36,22 @@
 <div th:replace="admin/header::header-body"></div>
 <div class="content-page">
     <div class="content">
-        <div style="text-align: left;padding-bottom: 10px"><h3 class="comments-open-header">评论（[[${commentAllCount}]]）条</h3></div>
-       <div>
-           <div style="padding-top: 20px;float: left;margin-left: 20px">
-               <button class="btn btn-primary" type="submit"
-                       onclick="insertComment()">发表评论
-               </button>
-           </div>
-           <div style="padding-top: 20px;margin-left: 20px;float: left">
+        <div style="text-align: left;padding-bottom: 10px"><h3 class="comments-open-header">
+            评论（[[${commentAllCount}]]）条</h3></div>
+        <div>
+            <div style="padding-top: 20px;float: left;margin-left: 20px">
+                <button class="btn btn-primary" type="submit"
+                        onclick="insertComment()">发表评论
+                </button>
+            </div>
+            <div style="padding-top: 20px;margin-left: 20px;float: left">
                 <textarea class="form-control" style="width: 800px; height: 60px; padding-bottom: 30px;resize: none;"
                           id="comment-content" type="text" placeholder="评论内容"></textarea>
-           </div>
-       </div>
+            </div>
+        </div>
 
 
-        <div class="container" style="padding-top: 150px;" >
+        <div class="container" style="padding-top: 150px;">
             <div class="row">
                 <table class="table table-hover text-center">
                     <thead>
@@ -60,20 +61,19 @@
                         <th>博客</th>
                         <th>评论时间</th>
                         <th style="text-align: left">评论内容</th>
-
-
                     </tr>
                     </thead>
-                    <tbody id="commentList">
+                    <tbody id="showAllComments">
+
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <div class="container" id="totalpagebox" style="margin: 0 auto;width: 700px;height: 100px;" >
+        <div class="container" id="totalpagebox" style="margin: 0 auto;width: 700px;height: 100px;">
             <div class="row" id="pagerow" style="padding-left: 150px;">
                 <ul class="pagination pagination-lg" id="pagebox">
-                    <li id="first" onclick="commentList(1)"><span>首页</span></li>
+                    <li id="first" onclick="showAllComments(1)"><span>首页</span></li>
                     <li id="top" onclick="prepage()"><span>上一页</span></li>
                     <li class="xifenye" id="xifenye"><span><span
                             id="currentpage">1</span>/ <span id="totalpage">1</span></span></li>

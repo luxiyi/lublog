@@ -39,9 +39,9 @@ public class CategoryController {
      *
      * @return tagJsonString
      */
-    @RequestMapping(value = "/listArticleCategory", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/listBlogCategory", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String listArticleCategory(HttpServletRequest request) {
+    public String listBlogCategory(HttpServletRequest request) {
         List<Category> categories = categoryService.findAllCategories();
         log.info("categories.size is {}", categories.size());
         String categoryJsonString = JSON.toJSONString(categories, SerializerFeature.DisableCircularReferenceDetect);

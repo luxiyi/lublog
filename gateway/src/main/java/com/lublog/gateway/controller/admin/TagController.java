@@ -37,9 +37,9 @@ public class TagController {
      *
      * @return tagJsonString
      */
-    @RequestMapping(value = "/listArticleTag", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/listBlogTag", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String listArticleTag() {
+    public String listBlogTag() {
         List<Tag> tags = tagService.findAllTags();
         log.info("tagList.size is {}", tags.size());
         String tagJsonString = JSON.toJSONString(tags, SerializerFeature.DisableCircularReferenceDetect);

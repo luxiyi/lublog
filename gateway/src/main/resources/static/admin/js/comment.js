@@ -1,5 +1,5 @@
 var id;
-function commentList(ppage) {
+function showAllComments(ppage) {
     $.ajax({
         url : "/admin/showAllComments",
         type : "get",
@@ -30,7 +30,8 @@ function commentList(ppage) {
                         + "<td class='infor' style='text-align: left;width: 400px' id='comment-quote-"+po.commentid+"'><div>" + po.commentcontent + "</div></td>"
                         + "</tr>";
                 }
-                $("#commentList").html(content);
+
+                $("#showAllComments").html(content);
                 $("#currentpage").html(ppage);
                 $("#totalpage").html(data.totalPage);
             }
@@ -42,12 +43,12 @@ function commentList(ppage) {
 
 
 
-commentList(1);
+showAllComments(1);
 function prepage() {
     // 获取当前页码
     var current = parseInt($("#currentpage").html());
     if (current > 1) {
-        commentList(current - 1);
+        showAllComments(current - 1);
     }
 }
 function nextpage() {
@@ -56,13 +57,13 @@ function nextpage() {
     // 获取总页码
     var totalpage = parseInt($("#totalpage").html());
     if (current < totalpage) {
-        commentList(current + 1);
+        showAllComments(current + 1);
     }
 }
 function endpage() {
     // 获取总页码
     var totalpage = parseInt($("#totalpage").html());
-    commentList(totalpage);
+    showAllComments(totalpage);
 }
 
 

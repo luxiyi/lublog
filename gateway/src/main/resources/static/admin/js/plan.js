@@ -6,16 +6,13 @@ function addPlan() {
     var palnHour = document.getElementById("hour").value;
     var palnMinute = document.getElementById("minute").value;
     var palnSecond = document.getElementById("second").value;
-    var planContent = document.getElementById("planContent").value;
+    var planThreeMonthContent = document.getElementById("planThreeMonthContent").value;
+    var tagName = $("#tagName").val();
     var planDetail = $("#planDetail").val();
     planDetail=planDetail.replace(/\n/g,'<br />');
-    // $("#planDetail").val(planDetail);
-
+alert(tagName)
     var planValue = $("#planValue").val();
     planValue=planValue.replace(/\n/g,'<br />');
-    // var planDetail = document.getElementById("planDetail").value;
-    // var planValue = document.getElementById("planValue").value;
-    alert(palnYear);
     if (typeof (palnYear) == undefined || palnYear == null || palnYear == ""
         || typeof (palnMonth) == undefined || palnMonth == null || palnMonth == ""
         || typeof (palnDay) == undefined || palnDay == null || palnDay == ""
@@ -25,7 +22,7 @@ function addPlan() {
         alert("请输入计划目标日期");
         return;
     }
-    if (typeof (planContent) == undefined || planContent == null || planContent == "") {
+    if (typeof (planThreeMonthContent) == undefined || planThreeMonthContent == null || planThreeMonthContent == "") {
         alert("请输入计划目标");
         return;
     }
@@ -44,7 +41,7 @@ function addPlan() {
         url: "/admin/addPlan",
         type: "post",
         data: {
-            "planContent":planContent,
+            "planContent":planThreeMonthContent,
             "planDetail":planDetail,
             "planValue":planValue,
             "planYear": palnYear,
@@ -52,7 +49,8 @@ function addPlan() {
             "planDay": palnDay,
             "planHour": palnHour,
             "planMinute": palnMinute,
-            "planSecond": palnSecond
+            "planSecond": palnSecond,
+            "tagName": tagName
         },
         dataType: "text",
         success: function (data) {
@@ -72,8 +70,11 @@ function addPlan() {
 
 function showLastPlan() {
     $.ajax({
-        url:"/admin/showLastPlan",
+        url:"/admin/showTagPlans",
         type:"get",
+        data:{
+            tagName:"近期计划"
+        },
         dataType:"json",
         success: function (data) {
             if (data.msg == "请先登录") {
@@ -97,15 +98,17 @@ function showLastPlan() {
                         planStatus = "未知错误";
                     }
                     content += "<tr>"
-                            + "<td style='width: 500px;line-height: 40px'><a href='/justDoIt?planId=" +po.planId + "'>" + po.planContent + "</a></td>"
+                            + "<td style='width: 500px;line-height: 40px'><a href='/justDoIt?planId=" +po.planId + "' style='text-decoration: none;color: #d43f3a'>" + po.planContent + "</a></td>"
                             +"<td style='line-height: 40px'>" + po.planYear + "年" + planMonth + "月" + po.planDay + "日</td>"
                             +"<td style='line-height: 40px'>" + planStatus + "</td>"
-                            +"<td style='line-height: 17px'><button class='btn btn-danger' type='submit' onclick='showPlan("
+                            +"<td style='line-height: 17px'><button class='btn btn-success' type='submit' onclick='showPlan("
                             + po.planId
                             + ")'>完成，点击!</button>&nbsp;"
-                            + "<button class='btn btn-default' type='submit' onclick='showPlan("
+                            + "<button class='btn btn-warning'> <a href='/creatDoPlan?planId="+ po.planId +"'style='text-decoration: none;color: white'>每天执行</a></button>&nbsp;"
+                            + "<button class='btn btn-danger' type='submit' onclick='deletePlan("
                             + po.planId
-                            + ")'>删除任务</button></td>"
+                            + ")'>删除任务</button>"
+                            + "</td>"
                             +"</tr>";
                 }
                 $("#showLastPlan").html(content);
@@ -116,35 +119,80 @@ function showLastPlan() {
 showLastPlan();
 
 
-function showLastComment() {
+
+function showThisYearPlan() {
     $.ajax({
-        url:"/admin/showLastComment",
+        url:"/admin/showTagPlans",
         type:"get",
+        data:{
+            tagName:"今年计划"
+        },
         dataType:"json",
         success: function (data) {
             if (data.msg == "请先登录") {
                 alert(data.msg);
                 window.location.href = "/loginPage";
             } else {
-                var arr = data.commentShows;
                 var content = "";
-                for (var i = 0; i < arr.length; i++) {
-                    var po = arr[i];
-                    content += " <tr>"
-                        + "<td><div  style='text-align: left'>"
-                        + po.observer
-                        + "&nbsp;&nbsp;&nbsp;"
-                        + po.commentdate
-                        + "&nbsp;&nbsp;&nbsp;评论了&nbsp;&nbsp;&nbsp;"
-                        + po.commenter+" ：</div><div style='padding-right: 800px'>"
-                        + "“"
-                        + po.commentcontent
-                        + "”</div></td>"
-                        + "</tr>";
+                for (var i = 0; i < data.length; i++) {
+                    var po = data[i];
+                    var planStatus;
+                    var planMonth = po.planMonth + 1;
+                    if (po.planStatus == 0) {
+                        planStatus = "未进行";
+                    } else if(po.planStatus == 1) {
+                        planStatus = "进行中";
+                    } else if(po.planStatus == 2) {
+                        planStatus = "已完成";
+                    } else if(po.planStatus == 3) {
+                        planStatus = "未完成";
+                    } else {
+                        planStatus = "未知错误";
+                    }
+                    content += "<tr>"
+                        + "<td style='width: 500px;line-height: 40px'><a href='/justDoIt?planId=" +po.planId + "' style='text-decoration: none;color: #d43f3a'>" + po.planContent + "</a></td>"
+                        +"<td style='line-height: 40px'>" + po.planYear + "年" + planMonth + "月" + po.planDay + "日</td>"
+                        +"<td style='line-height: 40px'>" + planStatus + "</td>"
+                        +"<td style='line-height: 17px'><button class='btn btn-success' type='submit' onclick='showPlan("
+                        + po.planId
+                        + ")'>完成，点击!</button>&nbsp;"
+                        + "<button class='btn btn-warning'> <a href='/creatDoPlan?planId="+ po.planId +"'style='text-decoration: none;color: white'>每天执行</a></button>&nbsp;"
+                        + "<button class='btn btn-danger' type='submit' onclick='deletePlan("
+                        + po.planId
+                        + ")'>删除任务</button>"
+                        + "</td>"
+                        +"</tr>";
                 }
-                $("#lastCommentList").html(content);
+                $("#showThisYearPlan").html(content);
             }
         }
     });
 }
-showLastComment();
+showThisYearPlan();
+
+
+function deletePlan(planId) {
+    var status = confirm("是否删除该计划？")
+    if (!status){
+        return false;
+    }
+    $.ajax({
+       url:"/admin/deletePlan",
+       type:"PUT",
+        data:{
+           planId:planId
+        },
+        dataType:"text",
+        success:function (data) {
+            if (data == "删除成功！"){
+                alert(data);
+                window.location.reload();
+            } else {
+                alert(data);
+            }
+        },
+        error:function () {
+            alert("系统错误，请找帅气的管理员！")
+        }
+    });
+}

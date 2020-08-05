@@ -4,6 +4,7 @@ import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.lublog.dto.BlogCategory;
 import com.lublog.dto.BlogTag;
 import com.lublog.po.BlogContent;
+import com.lublog.po.Plan;
 import com.lublog.po.Tag;
 import com.lublog.po.User;
 import com.lublog.service.*;
@@ -34,6 +35,8 @@ public class BaseController {
     private CommentService commentService;
     @Autowired
     private BlogService blogService;
+    @Autowired
+    private PlanService planService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String frontIndex() {
@@ -100,24 +103,31 @@ public class BaseController {
     }
 
     @RequestMapping(value = "/justDoIt")
-    public String justDoIt() {
+    public String justDoIt(Integer planId,HttpSession session) {
+        Plan plan = planService.getOnePlan(planId);
+        log.info("plan is {}", plan);
+        session.setAttribute("plan",plan);
         log.info("-------------just do it -------------");
         return "/front/doPlan";
     }
 
+    @RequestMapping(value = "/creatDoPlan")
+    public String creatDoPlan() {
+        log.info("-------------creat do plan -------------");
+        return "/admin/creatDoPlan";
+    }
+
     @RequestMapping(value = "/queryBlog", method = RequestMethod.GET)
-    public String queryArticle(@RequestParam("blogId") Integer blogIdStr, HttpServletRequest request) {
-        String msg = "查询成功";
-//        if (StringUtils.isEmpty(blogIdStr) || blogIdStr == "") {
-//            log.error("query blog fail, blogIdStr is {}", blogIdStr);
-//            msg = "查询失败";
-//            result.put("msg", msg);
-//            return result;
-//        }
-        BlogShow blogShow = blogService.findBlogById(blogIdStr);
+    public String queryArticle(Integer blogId, HttpServletRequest request) {
+        BlogShow blogShow = blogService.findBlogById(blogId);
         request.setAttribute("blog", blogShow);
         return "/admin/blog_update";
     }
 
+    @RequestMapping(value = "/aboutMe", method = RequestMethod.GET)
+    public String findMe() {
+        log.info("-------------about me -------------");
+        return "/front/about_me";
+    }
 }
 

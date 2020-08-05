@@ -97,8 +97,8 @@
                                 <div class="dropdown-content" id="tagDropdown"></div>
                             </div>
                         </li>
-                        <li><a th:href="@{/plan}"><span>奋斗目标</span></a></li>
-                        <li><a th:href="@{/about}"><span>关于我</span></a></li>
+                        <li><a th:href="@{/plan}"><span>计划</span></a></li>
+                        <li><a th:href="@{/aboutMe}"><span>关于我</span></a></li>
                         <li style="padding-top: 12px;padding-left:10px">
                             <input id="find" type="text"
                                    style="height: 30px;width: 190px;border-radius: 15px;font-size: 10px;border: none;outline: none;padding-left:20px;"
@@ -118,15 +118,16 @@
     </nav>
 
     <div style="height: 200px;padding-top: 30px">
-        <div class="indeximg" style="width: 300px;float: left;">
+        <div class="index-img" style="width: 300px;float: left;">
             <a th:href="@{/index}"><img th:src="@{/img/书logo.jpg}" height="100px"/></a>
         </div>
 
-
-        <div class="shopcar"
-             style="height: 100px;width: 250px;margin: 15px 0px 0px 50px;float: left">
-            <!-- 购物车 -->
-            <a href="/cart" style="text-decoration:none;font-size: 30px;color: #eea236">
+        <div style="float: left;padding-left: 250px">
+            <h1 style="color: #d43f3a">欢迎来到YouLu</h1>
+        </div>
+        <div class="my-world"
+             style="height: 100px;margin: 15px 0px 0px 50px;float: left;padding-left: 250px">
+            <a href="/myWorld" style="text-decoration:none;font-size: 30px;color: #eea236">
                 <img src='img/玩具.png' width='70px'/>&nbsp;&nbsp;&nbsp;秘密花园
             </a>
         </div>

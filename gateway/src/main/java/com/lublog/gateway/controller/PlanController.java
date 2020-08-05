@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description: java类作用描述LifeController
@@ -29,5 +31,14 @@ public class PlanController {
         List<Plan> plans = planService.getAllPlans();
         log.info("plans is {}", JSON.toJSONString(plans));
         return plans;
+    }
+
+
+
+    @RequestMapping(value = "/showDoDetailPlan", method = RequestMethod.GET)
+    public Plan showDoDetailPlan(Integer planId) {
+        Plan plan = planService.getOnePlan(planId);
+        log.info("plan is {}", JSON.toJSONString(plan));
+        return plan;
     }
 }

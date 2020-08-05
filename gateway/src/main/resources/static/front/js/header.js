@@ -1,6 +1,6 @@
 function categoryDropdown() {
     $.ajax({
-        url:"/admin/listArticleCategory",
+        url:"/admin/listBlogCategory",
         type:"get",
         dataType:"json",
         success:function (data) {
@@ -18,7 +18,7 @@ categoryDropdown();
 
 function tagDropdown() {
     $.ajax({
-        url:"/admin/listArticleTag",
+        url:"/admin/listBlogTag",
         type:"get",
         dataType:"json",
         success:function (data) {

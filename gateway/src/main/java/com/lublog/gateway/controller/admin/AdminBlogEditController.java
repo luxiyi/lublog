@@ -7,6 +7,8 @@ import com.lublog.service.BlogService;
 import com.lublog.vo.BlogShow;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ClassUtils;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -72,14 +74,31 @@ public class AdminBlogEditController {
         try {
             String fileName = blogCover.getOriginalFilename();
             log.info("blogCover is {}", fileName);
-            String path = request.getServletContext().getRealPath("/admin/img/");
+//            String path = request.getServletContext().getRealPath("/admin/img/");
+            String path = ClassUtils.getDefaultClassLoader().getResource("static/admin/img").getPath();
+//            File upload = new File(path.getAbsolutePath(),"static/images/upload/");
+            log.info("-------------path is {}", path);
+            String path1 = System.getProperty("user.dir");
+            log.info("***************path 1 is {}", path1);
+            String path2 = request.getSession().getServletContext().getRealPath("/");
+            log.info("(((((()))项目绝对路径 is {}", path2);
+            File path3 = new File(ResourceUtils.getURL("classpath:").getPath());
+            log.info("(((((()))项目绝2222222222对路径 is {}", path3);
+
+            File path4 = new File(ResourceUtils.getURL("classpath:static").getPath().replace("%20"," ").replace('/', '\\'));
+            File upload2 = new File(path4.getAbsolutePath(),"static/admin/img");
+            String path5=upload2.getAbsolutePath()+"/";
+
+            log.info("试试path4 is {}， path5 is {}",path4, path5);
             File file = new File(path);
             if (!file.exists()) {
                 file.mkdirs();
             }
             fileName = UUID.randomUUID().toString() + fileName;
             path = path + File.separator + fileName;
+            log.info("+++++++++++++++++path is {}", path);
             file = new File(path);
+            log.info("+++++++++++++++++file is {}", file.getAbsolutePath());
             blogCover.transferTo(file);
 
             reslut.put("success", 1);
@@ -110,7 +129,8 @@ public class AdminBlogEditController {
         try {
             request.setCharacterEncoding("utf-8");
             response.setHeader("Content-Type", "text/html");
-            String rootPath = request.getSession().getServletContext().getRealPath("/admin/img");
+//            String rootPath = request.getSession().getServletContext().getRealPath("/admin/img");
+            String rootPath = ClassUtils.getDefaultClassLoader().getResource("static/admin/img").getPath();
 
             log.info("editormd上传图片：{}", rootPath);
 
@@ -118,6 +138,7 @@ public class AdminBlogEditController {
              * 文件路径不存在则需要创建文件路径
              */
             File filePath = new File(rootPath);
+            log.info("filePath is {}", filePath.getAbsolutePath());
             if (!filePath.exists()) {
                 filePath.mkdirs();
             }
@@ -145,7 +166,7 @@ public class AdminBlogEditController {
 
 
     @RequestMapping(value = "/updateBlog", method = RequestMethod.PUT)
-    public String saveOrUpdateBlog(@RequestParam("title") String title, @RequestParam("content") String content,
+    public String updateBlog(@RequestParam("title") String title, @RequestParam("content") String content,
                                    @RequestParam("categoryId") String categoryIdStr, @RequestParam("tagId") String tagIdStr,
                                    @RequestParam("author") String author, @RequestParam("introduce") String introduce,
                                    @RequestParam("blogCover") String blogCover) {

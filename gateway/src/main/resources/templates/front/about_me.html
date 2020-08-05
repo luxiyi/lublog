@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=" UTF-8 />">
-    <title>YouLu</title>
+    <title>AboutLu</title>
     <link rel='shortcut icon' type='image/x-icon' th:href="@{/img/logo.jpg}"/>
     <link rel="stylesheet"
           th:href="@{https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css}">
@@ -112,13 +112,6 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
-
-        .background-intro{
-            color: #3E7087;
-            padding-top: 300px;
-            padding-left: 100px;
-            font-family: 'Comic Sans MS', cursive;
-        }
     </style>
 </head>
 
@@ -130,26 +123,26 @@
     <div id="secondOuter">
 
 
-    <!-- 文章列表 -->
-    <div class="container" id="booksbox" style="height:2500px;width:700px;margin: 0 auto;float:none">
-        <div class="row" id="blogContents" style="transition: all 1s;width:700px;height:130px;float:none">
+        <!-- 文章列表 -->
+        <div class="container" id="booksbox" style="height:2500px;width:700px;margin: 0 auto;float:none">
+            <!--<div class="row" id="blogContents" style="transition: all 1s;width:700px;height:130px;float:none">-->
+            <!--</div>-->
         </div>
-    </div>
     </div>
 
     <!-- 页码 -->
-    <div class="container" id="totalpagebox" style="margin: 0 auto;width: 700px;height: 100px">
-        <div class="row" id="pagerow" style="padding-left: 150px">
-            <ul class="pagination pagination-lg" id="pagebox" >
+    <!--<div class="container" id="totalpagebox" style="margin: 0 auto;width: 700px;height: 100px">-->
+        <!--<div class="row" id="pagerow" style="padding-left: 150px">-->
+            <!--<ul class="pagination pagination-lg" id="pagebox" >-->
                 <!--<li id="first" onclick="findAllBlog(1)" ><span style=" background-color:transparent">首页</span></li>-->
                 <!--<li id="top" onclick="prepage()"><span style=" background-color:transparent">上一页</span></li>-->
                 <!--<li class="xifenye" id="xifenye"><span style=" background-color:transparent"><span-->
                         <!--id="currentpage">1</span>/ <span id="totalpage">1</span></span></li>-->
                 <!--<li id="down" onclick="nextpage()"><span style=" background-color:transparent">下一页</span></li>-->
                 <!--<li id="last" onclick="endpage()"><span style=" background-color:transparent">末页</span></li>-->
-            </ul>
-        </div>
-    </div>
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</div>-->
 
     <div th:replace="/common/footer::footer"></div>
 </div>

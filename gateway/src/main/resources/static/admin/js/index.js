@@ -1,3 +1,4 @@
+var planThisYearDate = new Date();
 function showLastBlogs() {
     $.ajax({
         url:"/admin/showLastBlogs",
@@ -19,7 +20,9 @@ function showLastBlogs() {
                             +"<td>" + po.likes + "<br>点赞数</td>"
                             +"</tr>";
                 }
-                $("#lastArticleList").html(content);
+                $("#lastBlogList").html(content);
+
+                $("#planThisYearDate").html(planThisYearDate);
             }
         }
     });

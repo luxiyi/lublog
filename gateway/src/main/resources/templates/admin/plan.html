@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <header th:replace="admin/header::headerFragment(${title},${active})"></header>
-<script lanuage="javascript">
+<script type="text/javascript">
 
-    // $("#planValue").val(planValue);
 </script>
 <style>
     .plan-manager {
@@ -14,6 +13,7 @@
         font-size: 15px;
         border-radius: 50px;
         margin-left: 150px;
+        margin-top: 50px;
     }
 
     .timeDown {
@@ -22,26 +22,35 @@
         padding-left: 10px;
     }
 
-    #planContent {
+    #planThreeMonthContent {
         width: 150px;
         border-radius: 30px;
         padding-left: 10px;
     }
-    .th-planTitle{
+
+    #planThisYearContent {
+        width: 150px;
+        border-radius: 30px;
+        padding-left: 10px;
+    }
+
+    .th-planTitle {
         height: 50px;
         line-height: 50px
     }
-    .tbody-content{
+
+    .tbody-content {
         text-align: left;
     }
-    .td-content{
+
+    .td-content {
         height: 70px;
         line-height: 70px
     }
 
     .textarea-plan {
         resize: none;
-        width:400px;
+        width: 400px;
         border-radius: 30px;
         padding-left: 20px;
         margin-left: 10px;
@@ -53,9 +62,46 @@
     <div th:replace="admin/header::header-body"></div>
     <div class="content-page">
         <div class="content">
+            <div style="width: 400px;margin-left: 300px"><h2>近三个月计划</h2></div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="th-planTitle">目标内容</th>
+                    <th class="th-planTitle">截止日期</th>
+                    <th class="th-planTitle">完成状态</th>
+                    <th class="th-planTitle">操作按钮（关乎荣誉，不得作假）</th>
+                </tr>
+                </thead>
+                <tbody id="showLastPlan" class="tbody-content">
+                </tbody>
+            </table>
+
+
+            <div style="width: 400px;padding-top: 100px;margin-left: 300px"><h1>今年计划</h1></div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="th-planTitle">目标内容</th>
+                    <th class="th-planTitle">截止日期</th>
+                    <th class="th-planTitle">完成状态</th>
+                    <th class="th-planTitle">操作按钮（关乎荣誉，不得作假）</th>
+                </tr>
+                </thead>
+                <tbody id="showThisYearPlan" class="tbody-content">
+                </tbody>
+            </table>
+
             <div class="plan-manager">
-                <div style="padding-right: 480px;padding-bottom: 20px;padding-top: 20px"><label>目标：</label><input
-                        type="text" id="planContent"></div>
+                <div style="width: 400px;margin-left: 150px"><h2>计划操作平台</h2></div>
+                <div style="padding-right: 490px;padding-bottom: 20px;padding-top: 20px"><label>目标：</label><input
+                        type="text" id="planThreeMonthContent"></div>
+                <div style="padding-right: 540px;padding-bottom: 20px">
+                    <label>计划类型</label>
+                    <select id="tagName">
+                        <option value="近期计划">近期计划</option><!--如果参数type为 本选项类型value值1,则...-->
+                        <option value="今年计划">今年计划</option>
+                    </select>
+                </div>
                 <div style="padding-bottom: 20px;">
                     <label>目标日期：</label>
                     <input type="text" id="year" class="timeDown"><span>年</span>&nbsp;&nbsp;&nbsp;
@@ -65,43 +111,35 @@
                     <input type="text" id="minute" class="timeDown"><span>分</span>&nbsp;&nbsp;&nbsp;
                     <input type="text" id="second" class="timeDown"><span>秒</span>&nbsp;&nbsp;&nbsp;
                 </div>
-                <div style="padding-right: 210px;padding-bottom:20px;width: 800px"><label>目标详细内容：</label><textarea id="planDetail" class="textarea-plan"></textarea></div>
-                <div style="padding-right: 210px;padding-bottom:10px;width: 800px"><label>目标实现价值：</label><textarea id="planValue" class="textarea-plan" ></textarea></div>
+                <div style="padding-right: 210px;padding-bottom:20px;width: 800px"><label>目标详细内容：</label>
+                    <textarea id="planDetail" class="textarea-plan"></textarea></div>
+                <div style="padding-right: 210px;padding-bottom:10px;width: 800px"><label>目标实现价值：</label>
+                    <textarea id="planValue" class="textarea-plan"></textarea></div>
                 <div>
                     <button class="btn btn-primary" type="submit" onclick="addPlan()">添加计划</button>
                 </div>
             </div>
-            <div style="width: 400px;padding-top: 200px"><h2>近三个月目标排版</h2></div>
-            <table class="table">
-                <thead>
 
-                <tr>
-                    <th class="th-planTitle">目标内容</th>
-                    <th class="th-planTitle">截止日期</th>
-                    <th class="th-planTitle">完成状态</th>
-                    <th class="th-planTitle">操作按钮（关乎荣誉，不得作假）</th>
 
-                </tr>
-                </thead>
-                <tbody id="showLastPlan" class="tbody-content">
-                </tbody>
-            </table>
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th style="height: 50px;line-height: 50px">
-                        <div style="float: left">近期评论</div>
-                        <div style="float: left;padding-left: 960px">
-                            <a th:href="@{/admin/commentList}">更多</a>
-                        </div>
-                    </th>
-                </tr>
-                </thead>
-                <tbody id="lastCommentList">
-
-                </tbody>
-            </table>
+            <!--<div class="plan-manager">-->
+            <!--<div style="width: 400px;margin-left: 150px"><h2>今年计划操作平台</h2></div>-->
+            <!--<div style="padding-right: 480px;padding-bottom: 20px;padding-top: 20px"><label>目标：</label><input-->
+            <!--type="text" id="planThisYearContent"></div>-->
+            <!--<div style="padding-bottom: 20px;margin-right: 300px">-->
+            <!--<label>目标日期：</label>-->
+            <!--<input type="text" id="thisYear" class="timeDown"><span>年</span>&nbsp;&nbsp;&nbsp;-->
+            <!--<input type="text" id="thisMonth" class="timeDown"><span>月</span>&nbsp;&nbsp;&nbsp;-->
+            <!--<input type="text" id="thisDay" class="timeDown"><span>日</span>&nbsp;&nbsp;&nbsp;-->
+            <!--</div>-->
+            <!--<div style="padding-right: 210px;padding-bottom:20px;width: 800px"><label>目标详细内容：</label><textarea-->
+            <!--id="planThisYearDetail" class="textarea-plan"></textarea></div>-->
+            <!--<div style="padding-right: 210px;padding-bottom:10px;width: 800px"><label>目标实现价值：</label><textarea-->
+            <!--id="planThisYearValue" class="textarea-plan"></textarea></div>-->
+            <!--<div>-->
+            <!--<button class="btn btn-primary" type="submit" onclick="addThisYearPlan()">添加计划</button>-->
+            <!--</div>-->
+            <!--</div>-->
         </div>
     </div>
 

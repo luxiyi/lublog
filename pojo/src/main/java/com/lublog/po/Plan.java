@@ -14,6 +14,7 @@ public class Plan implements Serializable {
     private static final long serialVersionUID = 2880523033406207456L;
 
     private int planId;
+    private String doPlanDetail;
     private String planContent;
     private String planDetail;
     private String planValue;

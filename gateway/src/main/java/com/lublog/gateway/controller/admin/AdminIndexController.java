@@ -43,12 +43,7 @@ public class AdminIndexController {
         int index = 0;
         int count = 3;
         List<BlogShow> blogContents = blogService.showLastBlogs(index, count);
-        BlogShow blogContent = blogService.findAllById(findBlogContent);
         log.info("totalPage = {}, page = {}, blogContents = {}", blogContents.toString());
-        // 将所有书放入session
-        session.setAttribute("blogContents", blogContents);
-        session.setAttribute("blogContent", blogContent);
-        session.setAttribute("bbid", bbid);
         result.put("blogContents", blogContents);
         return result;
     }

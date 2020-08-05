@@ -26,7 +26,7 @@ function getAllPlans() {
                 var totalMin = Math.floor((timeDiff - totalDay * oneDay - totalHour * oneHour) / oneMin);
                 var totalSec = Math.floor((timeDiff - totalDay * oneDay - totalHour * oneHour - totalMin * oneMin));
                 content += "<tr style='border-bottom: #d43f3a 1px solid'>"
-                        + "<td class='time-down-td'>" + po.planContent +"</td>"
+                        + "<td class='time-down-td'><a href='/justDoIt?planId=" +po.planId + "'>" + po.planContent + "</a></td>"
                         + "<td class='time-down-td'>" + planYear + " <span>年</span> " + planRealMonth + " <span>月</span> " + planDay + " <span>日</span></td>"
                         + "<td class='time-down-td'>" + totalDay + " <span>天</span> " + totalHour + " <span>时</span> " + totalMin + " <span>分</span> " + totalSec + " <span>秒</span></td>"
                         + "<td class='time-down-td-planDetail'>" + po.planDetail + " </td>"

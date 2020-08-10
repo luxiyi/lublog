@@ -18,11 +18,6 @@ public class ProviderApplication {
         Logger logger = LoggerFactory.getLogger(ProviderApplication.class);
         SpringApplication.run(ProviderApplication.class, args);
         logger.info("服务端启动成功！！！");
-        try {
-            System.in.read();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }

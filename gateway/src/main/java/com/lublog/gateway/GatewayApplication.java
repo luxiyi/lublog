@@ -8,15 +8,20 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 @ImportResource("classpath:lublog-consumer.xml")
-public class GatewayApplication {
+public class GatewayApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {
         Logger logger = LoggerFactory.getLogger(GatewayApplication.class);
         SpringApplication.run(GatewayApplication.class, args);
         logger.info("消费端启动成功！！！");
     }
-
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/File/**")
+                .addResourceLocations("file:File/");
+    }
 }

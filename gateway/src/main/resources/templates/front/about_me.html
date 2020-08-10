@@ -118,7 +118,7 @@
 <body>
 <div id="outer" style="width: 100%;height: 3000px;float: none;margin: 0 auto">
     <!-- 头部导航栏 -->
-    <div th:replace="/front/header::header(title='首页',keywords=null)"></div>
+    <div th:replace="front/header::header(title='首页',keywords=null)"></div>
     <!--白云动画效果层-->
     <div id="secondOuter">
 
@@ -144,7 +144,7 @@
         <!--</div>-->
     <!--</div>-->
 
-    <div th:replace="/common/footer::footer"></div>
+    <div th:replace="common/footer::footer"></div>
 </div>
 </body>
 <script th:src="@{/plugin/js/jquery2.1.4.min.js}"></script>

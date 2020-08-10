@@ -9,7 +9,6 @@ function findAllBlog(ppage) {
         success: function (data) {
             var arr = data.blogContents;
             if (arr == "") {
-                var font= "华文彩云";
                 $("#blogContents").html("<div class='background-intro'>" +
                     "<h1>暂时还没有内容哦！敬请期待！</h1>" +
                     "<h1>不要着急走，先看看<a href='/aboutMe' style='text-decoration: none;color: #d43f3a'>博主</a>是谁呀！</h1>" +

@@ -195,7 +195,7 @@
                 } else if (data.msg == "查询失败，请联系帅气的管理员") {
                     alert(data.msg);
                 } else {
-                    $("#doPlanDetail").val(data.doPlanDetail);
+                    $("#doPlanDetail").html(data.doPlanDetail);
                 }
             },
             error:function () {

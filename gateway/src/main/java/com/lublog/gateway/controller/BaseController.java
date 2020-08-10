@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -53,7 +54,7 @@ public class BaseController {
     @RequestMapping("/loginPage")
     public String loginPage() {
         log.info("-------loginPage-------");
-        return "/admin/login";
+        return "admin/login";
     }
 
     @RequestMapping("/admin/blogList")
@@ -65,7 +66,7 @@ public class BaseController {
     @RequestMapping(value = "/admin/blogEdit", method = RequestMethod.GET)
     public String blogEdit() {
         log.info("-------admin-blogEdit------");
-        return "/admin/blog_edit";
+        return "admin/blog_edit";
     }
 
     @RequestMapping(value = "/admin/commentList")
@@ -74,32 +75,32 @@ public class BaseController {
         request.setAttribute("commentAllCount", commentAllCount);
         log.info("commentAllCount is {}", commentAllCount);
         log.info("-------admin-commentList------");
-        return "/admin/comment_list";
+        return "admin/comment_list";
     }
 
 
     @RequestMapping(value = "/admin/categoryList")
     public String categoryList() {
         log.info("-------admin-categoryList------");
-        return "/admin/category_list";
+        return "admin/category_list";
     }
 
     @RequestMapping(value = "/front/blog")
     public String blogDetail() {
         log.info("-------------blog detail-------------");
-        return "/front/blog";
+        return "front/blog";
     }
 
     @RequestMapping(value = "/plan")
     public String myLifeShow() {
         log.info("-------------into plan-------------");
-        return "/front/plan";
+        return "front/plan";
     }
 
     @RequestMapping(value = "/admin/plan")
     public String myLifeManager() {
         log.info("-------------manager plan-------------");
-        return "/admin/plan";
+        return "admin/plan";
     }
 
     @RequestMapping(value = "/justDoIt")
@@ -108,26 +109,26 @@ public class BaseController {
         log.info("plan is {}", plan);
         session.setAttribute("plan",plan);
         log.info("-------------just do it -------------");
-        return "/front/doPlan";
+        return "front/doPlan";
     }
 
     @RequestMapping(value = "/creatDoPlan")
     public String creatDoPlan() {
         log.info("-------------creat do plan -------------");
-        return "/admin/creatDoPlan";
+        return "admin/creatDoPlan";
     }
 
     @RequestMapping(value = "/queryBlog", method = RequestMethod.GET)
     public String queryArticle(Integer blogId, HttpServletRequest request) {
         BlogShow blogShow = blogService.findBlogById(blogId);
         request.setAttribute("blog", blogShow);
-        return "/admin/blog_update";
+        return "admin/blog_update";
     }
 
     @RequestMapping(value = "/aboutMe", method = RequestMethod.GET)
     public String findMe() {
         log.info("-------------about me -------------");
-        return "/front/about_me";
+        return "front/about_me";
     }
 }
 

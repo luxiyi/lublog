@@ -1,6 +1,6 @@
 function categoryList() {
     $.ajax({
-        url: "/admin/listArticleCategory",
+        url: "/admin/listBlogCategory",
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -87,7 +87,7 @@ function deleteCategory(categoryName) {
 
 function tagList() {
     $.ajax({
-        url: "/admin/listArticleTag",
+        url: "/admin/listBlogTag",
         type: "get",
         dataType: "json",
         success: function (data) {

@@ -122,7 +122,7 @@
                 <version>1.4.2.RELEASE</version>
                 <configuration>
                     <!--  指定该Main Class为全局的唯一入口 -->
-                    <mainClass>com.bookmanager.book.BookApplication</mainClass>
+                    <mainClass>com.lublog.provider.ProviderApplication</mainClass>
                     <layout>ZIP</layout>
                 </configuration>
                 <executions>

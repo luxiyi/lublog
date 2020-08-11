@@ -2,7 +2,6 @@ package com.lublog.gateway.controller;
 
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.lublog.po.Comment;
-import com.lublog.po.LoginUser;
 import com.lublog.service.BlogService;
 import com.lublog.service.CommentService;
 import com.lublog.utils.BlogStringUtils;

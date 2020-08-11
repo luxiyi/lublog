@@ -3,8 +3,8 @@ function login(){
 		url:"login",
 		type:"post",
 		data:{
-			"luser":$("#luser").val(),
-			"pass":$("#pass").val()
+			"userName":$("#luser").val(),
+			"password":$("#pass").val()
 		},
 		dataType:"text",
 		success:function(data){

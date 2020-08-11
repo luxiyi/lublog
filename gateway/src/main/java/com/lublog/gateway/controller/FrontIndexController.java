@@ -1,19 +1,14 @@
 package com.lublog.gateway.controller;
 
 import com.alibaba.dubbo.common.utils.StringUtils;
-import com.lublog.dto.BlogCategory;
-import com.lublog.po.BlogContent;
 import com.lublog.service.BlogService;
-import com.lublog.service.CartService;
 import com.lublog.service.CommentService;
 import com.lublog.service.UserService;
 import com.lublog.vo.BlogShow;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -31,8 +26,6 @@ public class FrontIndexController {
     private BlogService blogService;
     @Autowired
     private UserService userService;
-    @Autowired
-    private CartService cartService;
     @Autowired
     private CommentService commentService;
 

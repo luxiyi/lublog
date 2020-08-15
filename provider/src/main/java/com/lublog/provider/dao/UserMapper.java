@@ -33,4 +33,10 @@ public interface UserMapper {
 
     @Select("select * from t_user where user_name=#{param1}")
     User queryUserByUserName(String userName);
+
+    @Select("select * from t_user where user_phone=#{param1}")
+    User queryUserByUserPhone(String userContact);
+
+    @Select("select * from t_user where user_email=#{param1}")
+    User queryUserByUserEmail(String userContact);
 }

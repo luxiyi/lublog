@@ -97,7 +97,7 @@
                 </div>
 
                 <div id="test-editormd">
-                    <textarea id="doPlanDetail" style="display: none;"></textarea>
+                    <textarea id="doPlanDetail" style="display: none;" >[[${session.plan.doPlanDetail}]]</textarea>
                 </div>
             </div>
         </div>
@@ -108,9 +108,9 @@
 <script type="text/javascript" th:src="@{/plugin/js/jquery2.1.4.min.js}"></script>
 <script type="text/javascript" th:src="@{/plugin/editormd/editormd.js}"></script>
 <script type="text/javascript">
-    var url = window.location.href;
-    var planId = url.split("?planId=")[1];
+
     var testEditor;
+
     $(function () {
         testEditor = editormd("test-editormd", {//注意1：这里的就是上面的DIV的id属性值
             width: "96%",
@@ -178,32 +178,7 @@
                 });
     }
 
-    function showCreatDoPlanDetail() {
-        $.ajax({
-            url : "/admin/showCreatDoPlanDetail",
-            type : "GET",
-            data : {
-                "planId" : planId,
-            },
-            dataType : 'json',
-            success : function(data) {
-                // 将内容放进div中
-                if(data.msg=="你不是管理员，无法操作"){
-                    alert(data.msg);
-                } else if (data.msg == "请先登录") {
-                    alert(data.msg);
-                } else if (data.msg == "查询失败，请联系帅气的管理员") {
-                    alert(data.msg);
-                } else {
-                    $("#doPlanDetail").html(data.doPlanDetail);
-                }
-            },
-            error:function () {
-                alert("系统出错，请联系帅气的管理员");
-            }
-        });
-    }
-    showCreatDoPlanDetail();
+
 </script>
 
 

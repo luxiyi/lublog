@@ -24,7 +24,6 @@ import java.util.Map;
  */
 @RestController
 @Slf4j
-@RequestMapping("/admin")
 public class TagController {
     private int tagNameLimitLength = 8;
     @Autowired
@@ -47,7 +46,7 @@ public class TagController {
         return tagJsonString;
     }
 
-    @PostMapping(value = "/addTag")
+    @PostMapping(value = "/admin/addTag")
     public String addTag(@RequestParam("tagName") String tagName) {
         String msg = "添加 " + tagName + " 标签成功";
         if (StringUtils.isEmpty(tagName) || tagName == "") {
@@ -76,7 +75,7 @@ public class TagController {
         return msg;
     }
 
-    @PostMapping(value = "/deleteTag")
+    @PostMapping(value = "/admin/deleteTag")
     public Map<String, Object> deleteTag(@RequestParam("tagName") String tagName) {
         String msg = "删除 " + tagName + " 标签成功";
         Map<String, Object> result = new HashMap<>();

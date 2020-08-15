@@ -1,6 +1,6 @@
 function login(){	
 	$.ajax({
-		url:"login",
+		url:"/loginUser",
 		type:"post",
 		data:{
 			"userName":$("#luser").val(),
@@ -8,9 +8,13 @@ function login(){
 		},
 		dataType:"text",
 		success:function(data){
-		 	if(data =="提示：输入的字段有误，请输入正确字段"){
+		 	if(data =="提示：密码错误，请重新输入"){
 				$("#info").html(data);
-			}else{
+			}
+			if(data =="提示：用户不存在，请重新输入"){
+				$("#info").html(data);
+			}
+			if(data == "登录成功"){
 				window.location.href = "/admin/index"
 			}
 		},

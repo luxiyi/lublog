@@ -2,8 +2,14 @@ package com.lublog.gateway.controller;
 
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.alibaba.fastjson.JSON;
+import com.lublog.constant.SysConstant;
 import com.lublog.po.User;
 import com.lublog.service.UserService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,20 +38,28 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/loginUser", method = RequestMethod.POST)
     @ResponseBody
-    public String login(HttpSession session, String info, String userName, String password){
+    public String login(String userName, String password){
         LOG.info("userName = {}, password = {}", userName ,password);
-        User user = userService.queryUserLogin(userName, password);
-        session.setAttribute("info", info);
-        if (user != null) {
-            LOG.info("登陆成功");
-            session.setAttribute("user", user);
-            LOG.info("session.user = {}", session.getAttribute("user"));
-            info = "登录成功";
+        String info;
+        User user = userService.queryUserByUserEmail(userName);
+        LOG.info("user is {}", JSON.toJSONString(user));
+        if (user == null) {
+            info = "提示：用户不存在，请重新输入";
+            LOG.info("登录失败");
             return info;
-        } else {
-            info = "提示：输入的字段有误，请输入正确字段";
+        }
+        UsernamePasswordToken token=new UsernamePasswordToken(userName,password);
+        Subject subject = SecurityUtils.getSubject();
+        try{
+            subject.login(token);
+            info = "登录成功";
+            LOG.info("登录成功");
+            return info;
+        }catch (AuthenticationException e){
+            e.printStackTrace();
+            info = "提示：密码错误，请重新输入";
             LOG.info("登录失败");
             return info;
         }
@@ -177,10 +191,10 @@ public class UserController {
 //    }
 
     // 注销功能
-    @RequestMapping(value ="/loginout", method = RequestMethod.GET)
+    @RequestMapping(value ="admin/logout", method = RequestMethod.GET)
     public String loginout(HttpSession session) throws Exception {
-        LOG.info("loginout");
-        Object obj=session.getAttribute("user");
+        LOG.info("logout");
+        Object obj=session.getAttribute(SysConstant.CURRENT_USER);
         if (obj == null) {
             return "admin/login";
         }else {

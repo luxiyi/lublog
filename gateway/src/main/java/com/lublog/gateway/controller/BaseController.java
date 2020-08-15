@@ -1,28 +1,18 @@
 package com.lublog.gateway.controller;
 
-import com.alibaba.dubbo.common.utils.CollectionUtils;
-import com.lublog.dto.BlogCategory;
-import com.lublog.dto.BlogTag;
-import com.lublog.po.BlogContent;
+import com.lublog.constant.SysConstant;
 import com.lublog.po.Plan;
-import com.lublog.po.Tag;
-import com.lublog.po.User;
 import com.lublog.service.*;
-import com.lublog.utils.DateUtils;
 import com.lublog.vo.BlogShow;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 /**
  * @Description: java类作用描述BaseController
@@ -45,19 +35,38 @@ public class BaseController {
         return "front/index";
     }
 
-    @RequestMapping(value = "/admin/index", method = RequestMethod.GET)
-    public String adminIndex() {
-        log.info("-------admin-index------");
-        return "admin/index";
+    @RequestMapping(value = "/front/blog")
+    public String blogDetail() {
+        log.info("-------------blog detail-------------");
+        return "front/blog";
     }
 
-    @RequestMapping("/loginPage")
+    @RequestMapping(value = "/plan")
+    public String myLifeShow() {
+        log.info("-------------into plan-------------");
+        return "front/plan";
+    }
+
+
+    @RequestMapping(value = "/aboutMe", method = RequestMethod.GET)
+    public String findMe() {
+        log.info("-------------about me -------------");
+        return "front/about_me";
+    }
+
+    @RequestMapping("/login")
     public String loginPage() {
         log.info("-------loginPage-------");
         return "admin/login";
     }
 
-    @RequestMapping("/admin/blogList")
+    @RequestMapping(value = "admin/index", method = RequestMethod.GET)
+    public String adminIndex() {
+        log.info("-------admin-index------");
+        return "admin/index";
+    }
+
+    @RequestMapping("admin/blogList")
     public String blogList() {
         log.info("-------admin-blogList-------");
         return "admin/blog_list";
@@ -85,17 +94,6 @@ public class BaseController {
         return "admin/category_list";
     }
 
-    @RequestMapping(value = "/front/blog")
-    public String blogDetail() {
-        log.info("-------------blog detail-------------");
-        return "front/blog";
-    }
-
-    @RequestMapping(value = "/plan")
-    public String myLifeShow() {
-        log.info("-------------into plan-------------");
-        return "front/plan";
-    }
 
     @RequestMapping(value = "/admin/plan")
     public String myLifeManager() {
@@ -113,7 +111,10 @@ public class BaseController {
     }
 
     @RequestMapping(value = "/creatDoPlan")
-    public String creatDoPlan() {
+    public String creatDoPlan(Integer planId,HttpSession session) {
+        Plan plan = planService.getOnePlan(planId);
+        log.info("plan is {}", plan);
+        session.setAttribute("plan",plan);
         log.info("-------------creat do plan -------------");
         return "admin/creatDoPlan";
     }
@@ -125,10 +126,5 @@ public class BaseController {
         return "admin/blog_update";
     }
 
-    @RequestMapping(value = "/aboutMe", method = RequestMethod.GET)
-    public String findMe() {
-        log.info("-------------about me -------------");
-        return "front/about_me";
-    }
 }
 

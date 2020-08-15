@@ -10,6 +10,8 @@ import java.io.Serializable;
 public class User implements Serializable {
     private Integer userId;
 
+    private Integer roleId;
+
     private String userName;
 
     private String password;
@@ -26,23 +28,12 @@ public class User implements Serializable {
 
     private String userIcon;
 
+    private String salt;
+
     private Integer flag;
 
     public User() {
     }
-
-//    public User(Integer uid, String luser, String uname, String phone, String age, String sex, String addr, String usericon, Integer flag) {
-//        this.uid = uid;
-//        this.luser = luser;
-//        this.uname = uname;
-//        this.phone = phone;
-//        this.age = age;
-//        this.sex = sex;
-//        this.addr = addr;
-//        this.usericon = usericon;
-//        this.flag = flag;
-//    }
-
 
     public User(Integer userId, String userName, String password, String nickName, String userPhone, String age, String sex, String userAddr, String userIcon, Integer flag) {
         this.userId = userId;

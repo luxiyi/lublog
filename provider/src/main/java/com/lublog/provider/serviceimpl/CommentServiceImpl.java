@@ -3,7 +3,6 @@ package com.lublog.provider.serviceimpl;
 import com.lublog.provider.dao.CommentMapper;
 import com.lublog.po.Comment;
 import com.lublog.service.CommentService;
-import com.lublog.vo.CommentShow;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

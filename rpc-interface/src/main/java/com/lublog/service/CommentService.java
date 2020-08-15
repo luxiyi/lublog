@@ -1,8 +1,6 @@
 package com.lublog.service;
 
 import com.lublog.po.Comment;
-import com.lublog.vo.BlogShow;
-import com.lublog.vo.CommentShow;
 
 import java.util.Date;
 import java.util.List;

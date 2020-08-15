@@ -19,5 +19,9 @@ public interface UserService {
 
     void updataUsericon(String usericon, String luser);
 
-    User queryUserByUserName(String luser);
+    User queryUserByUserName(String userName);
+
+    User queryUserByUserPhone(String userContact);
+
+    User queryUserByUserEmail(String userContact);
 }

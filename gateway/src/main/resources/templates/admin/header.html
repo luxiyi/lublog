@@ -37,14 +37,14 @@
                             <div class="contentDiv" style="display:inline-block;margin:5px auto;
 							width:40px;height:40px;border-radius:100px;-webkit-border-radius:100px;-moz-border-radius:100px;
 								border:2px solid #fff;box-shadow:0 0 4px #ccc;overflow:hidden;">
-                                <img th:src="@{${session.user.userIcon}}"
+                                <img th:src="@{${session.currentUser.userIcon}}"
                                      style="width:100%;min-height:100%;"/></div>
                         </li>
                         <li><a href="#" style="padding-left:1px;" data-toggle="modal" data-target="#userinfoform"
                                onclick="queryuser()">
-                            [[${session.user.userName}]]</a></li>
+                            [[${session.currentUser.userName}]]</a></li>
                         <li><a th:href="@{/index}">进入YouLu</a></li>
-                        <li id="logoutbox"><a th:href="@{/loginout}"><span
+                        <li id="logoutbox"><a th:href="@{logout}"><span
                                 class="glyphicon glyphicon-off"></span> 注销</a></li>
                     </ul>
                 </ul>

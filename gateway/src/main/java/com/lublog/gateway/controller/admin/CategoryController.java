@@ -26,7 +26,6 @@ import java.util.regex.Pattern;
  */
 @RestController
 @Slf4j
-@RequestMapping("/admin")
 public class CategoryController {
     private int tagNameLimitLength = 11;
     @Autowired
@@ -55,7 +54,7 @@ public class CategoryController {
      * @param categoryName
      * @return
      */
-    @PostMapping(value = "/addCategory")
+    @PostMapping(value = "/admin/addCategory")
     public String addCategory(@RequestParam("categoryName") String categoryName) {
         String msg = "添加 " + categoryName + " 分类成功";
         if (StringUtils.isEmpty(categoryName) || categoryName == "") {
@@ -86,7 +85,7 @@ public class CategoryController {
         return msg;
     }
 
-    @PostMapping(value = "/deleteCategory")
+    @PostMapping(value = "/admin/deleteCategory")
     public Map<String, Object> deleteCategory(@RequestParam("categoryName") String categoryName) {
         Map<String, Object> result = new HashMap<>();
         Category currentCategory = categoryService.findOneCategoryByName(categoryName);

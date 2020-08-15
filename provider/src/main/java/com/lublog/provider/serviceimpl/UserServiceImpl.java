@@ -50,4 +50,14 @@ public class UserServiceImpl implements UserService {
         return userMapper.queryUserByUserName(userName);
     }
 
+    @Override
+    public User queryUserByUserPhone(String userContact) {
+        return userMapper.queryUserByUserPhone(userContact);
+    }
+
+    @Override
+    public User queryUserByUserEmail(String userContact) {
+        return userMapper.queryUserByUserEmail(userContact);
+    }
+
 }

@@ -70,6 +70,7 @@ public class PasswordRealm extends AuthorizingRealm {
         }
         Session session = SecurityUtils.getSubject().getSession();
         session.setAttribute(SysConstant.CURRENT_USER,user);
+        session.setAttribute(SysConstant.ONLINE_VISITOR_SESSION,user.getUserName());
         info.setCredentialsSalt(ByteSource.Util.bytes(user.getSalt()));
         log.info("info is {}", info);
         return info;

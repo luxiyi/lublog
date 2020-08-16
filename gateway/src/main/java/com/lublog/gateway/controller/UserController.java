@@ -40,7 +40,7 @@ public class UserController {
 
     @RequestMapping(value = "/loginUser", method = RequestMethod.POST)
     @ResponseBody
-    public String login(String userName, String password){
+    public String login(String userName, String password,HttpServletRequest request){
         LOG.info("userName = {}, password = {}", userName ,password);
         String info;
         User user = userService.queryUserByUserEmail(userName);

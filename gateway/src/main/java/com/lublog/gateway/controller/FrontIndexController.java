@@ -1,6 +1,8 @@
 package com.lublog.gateway.controller;
 
 import com.alibaba.dubbo.common.utils.StringUtils;
+import com.lublog.constant.SysConstant;
+import com.lublog.po.User;
 import com.lublog.service.BlogService;
 import com.lublog.service.CommentService;
 import com.lublog.service.UserService;
@@ -32,6 +34,8 @@ public class FrontIndexController {
     @RequestMapping(value = "findAllBlog", method = RequestMethod.GET)
     public Map<String, Object> findAllBlog(HttpSession session, Integer page, Integer totalPage, BlogShow findBlogContent, String bbid) {
         Map<String, Object> result = new HashMap<String, Object>();
+        User user = (User) session.getAttribute(SysConstant.CURRENT_USER);
+        log.info("user is {}", user);
         session.setAttribute("page", page);
         session.setAttribute("totalPage", totalPage);
         // 获取页码、总页码

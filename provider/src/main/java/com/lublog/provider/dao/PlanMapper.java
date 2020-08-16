@@ -18,8 +18,6 @@ public interface PlanMapper {
     @Insert("insert into plan (planContent, planDetail, planValue, planYear, planMonth, planDay, planHour, planMinute,planSecond,tagName) value (#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10})")
     void addPlan(String planContent, String planDetail, String planValue, int planYear, int planMonth, int planDay, int planHour, int planMinute, int planSecond, String tagName);
 
-
-
     @Select("select * from plan where flag = 0 and tagName = #{param1}")
     List<Plan> getTagPlans(String tagName);
 

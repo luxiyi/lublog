@@ -196,3 +196,44 @@ function deletePlan(planId) {
         }
     });
 }
+
+function addPlanQuestion() {
+    $.ajax({
+        url:"/admin/addPlanQuestion",
+        type:"post",
+        data:{
+            "planFirstQuestion":$("#plan-first-question").val(),
+            "planSecondQuestion":$("#plan-second-question").val(),
+            "planThirdQuestion":$("#plan-third-question").val(),
+            "planFirstAnswer":$("#plan-first-answer").val(),
+            "planSecondAnswer":$("#plan-second-answer").val()
+        },
+        dataType:"text",
+        success:function (data) {
+            if (data == "设置问题答案成功!") {
+                alert(data);
+                window.location.reload();
+            } else if (data == "已设置问题，不用再添加了!"){
+                alert(data);
+            } else {
+                alert(data);
+            }
+        }
+    });
+}
+
+function queryPlanQuestion() {
+    $.ajax({
+        url:"/queryPlanQuestion",
+        type:"get",
+        dataType:"json",
+        success:function (data) {
+                $("#plan-first-question").val(data.planFirstQuestion);
+                $("#plan-second-question").val(data.planSecondQuestion);
+                $("#plan-third-question").val(data.planThirdQuestion);
+                $("#plan-first-answer").val(data.planFirstAnswer);
+                $("#plan-second-answer").val(data.planSecondAnswer);
+        }
+    });
+}
+queryPlanQuestion();

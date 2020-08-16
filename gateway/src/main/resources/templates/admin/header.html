@@ -139,12 +139,18 @@
                                 class="fa fa-file-text" aria-hidden="true"></i><span> 学习目标 </span></a>
                     </li>
 
+                    <li th:class="${active}=='aboutMe'?'active':''">
+                        <a th:href="@{/admin/aboutMe}" th:class="${active}=='aboutMe'?'waves-effect active':'waves-effect'"><i
+                                class="fa fa-file-text" aria-hidden="true"></i><span> 个人介绍 </span></a>
+                    </li>
 
                     <li th:class="${active}=='attach'?'active':''">
                         <a th:href="@{/admin/attach}"
                            th:class="${active}=='attach'?'waves-effect active':'waves-effect'"><i
                                 class="fa fa-cloud-upload" aria-hidden="true"></i><span> 文件管理 </span></a>
                     </li>
+
+
                     <li th:class="${active}=='links'?'active':''">
                         <a th:href="@{/admin/links}" th:class="${active}=='links'?'waves-effect active':'waves-effect'">
                             <i class="fa fa-link" aria-hidden="true"></i>

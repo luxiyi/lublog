@@ -1,6 +1,7 @@
 package com.lublog.gateway.controller.admin;
 
 import com.alibaba.fastjson.JSONObject;
+import com.lublog.gateway.utils.getObjectUtils;
 import com.lublog.po.BlogContent;
 import com.lublog.service.BlogService;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +38,7 @@ public class AdminBlogEditController {
                                    @RequestParam("blogCover") String blogCover, HttpServletRequest request) {
         String msg = "发布成功!";
         BlogContent blogContent = new BlogContent();
-        blogContent = setBlogContent(blogContent, categoryIdStr, tagIdStr, title, content, author, introduce, blogCover);
+        blogContent = getObjectUtils.geyBlogContent(blogContent, categoryIdStr, tagIdStr, title, content, author, introduce, blogCover);
         if (blogService.queryBlogByTitle(title) != null) {
             log.error("publish is fail, blog has existed");
             msg = "标题已存在，请重新命名标题";
@@ -122,7 +123,7 @@ public class AdminBlogEditController {
                                    @RequestParam("blogCover") String blogCover) {
         String msg = "更新成功!";
         BlogContent blogContent = new BlogContent();
-        blogContent = setBlogContent(blogContent, categoryIdStr, tagIdStr, title, content, author, introduce, blogCover);
+        blogContent = getObjectUtils.geyBlogContent(blogContent, categoryIdStr, tagIdStr, title, content, author, introduce, blogCover);
         try {
             this.blogService.updateById(blogContent);
         } catch (Exception e) {
@@ -133,20 +134,7 @@ public class AdminBlogEditController {
         return msg;
     }
 
-    private BlogContent setBlogContent(BlogContent blogContent, String categoryIdStr, String tagIdStr, String title, String content, String author,
-                                String introduce, String blogCover){
-        int categoryId = Integer.parseInt(categoryIdStr);
-        int tagId = Integer.parseInt(tagIdStr);
-        blogContent.setTitle(title);
-        blogContent.setContent(content);
-        blogContent.setPubdate(new Date());
-        blogContent.setCategoryid(categoryId);
-        blogContent.setTagid(tagId);
-        blogContent.setAuthor(author);
-        blogContent.setIntroduce(introduce);
-        blogContent.setBlogcover(blogCover);
-        return blogContent;
-    }
+
 
     private File getNewFile(MultipartFile blogCover,String fileDirPath){
         log.info("fileDirPath is {}", fileDirPath);

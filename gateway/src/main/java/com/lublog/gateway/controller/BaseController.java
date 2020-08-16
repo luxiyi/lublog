@@ -1,7 +1,9 @@
 package com.lublog.gateway.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.lublog.constant.SysConstant;
 import com.lublog.po.Plan;
+import com.lublog.po.Profile;
 import com.lublog.service.*;
 import com.lublog.vo.BlogShow;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,8 @@ public class BaseController {
     private BlogService blogService;
     @Autowired
     private PlanService planService;
+    @Autowired
+    private ProfileService profileService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String frontIndex() {
@@ -48,9 +52,12 @@ public class BaseController {
     }
 
 
-    @RequestMapping(value = "/aboutMe", method = RequestMethod.GET)
-    public String findMe() {
-        log.info("-------------about me -------------");
+    @RequestMapping(value ="/aboutMe", method = RequestMethod.GET)
+    public String findProfile(HttpSession session) {
+        String title = SysConstant.PROFILE_SPACE;
+        Profile profile = profileService.queryProfileByTitle(title);
+        log.info("profile is {}", JSON.toJSONString(profile));
+        session.setAttribute("profile", profile);
         return "front/about_me";
     }
 
@@ -125,6 +132,14 @@ public class BaseController {
         request.setAttribute("blog", blogShow);
         return "admin/blog_update";
     }
+
+    @RequestMapping(value = "/admin/aboutMe", method = RequestMethod.GET)
+    public String aboutMeEdit() {
+        log.info("-------------aboutMe edit-------------");
+        return "admin/about_me";
+    }
+
+
 
 }
 

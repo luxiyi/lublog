@@ -8,7 +8,7 @@ function showCreatDoPlanDetail() {
         url : "/admin/showCreatDoPlanDetail",
         type : "GET",
         data : {
-            "planId" : planId,
+            "planId" : planId
         },
         dataType : 'json',
         success : function(data) {

@@ -84,7 +84,7 @@
             <div class="article" style="padding-top: 20px">
                 <!--<div class="content" id="layer" style="border: #d43f3a solid 1px">-->
                     <div id="test-editormd-view" style="">
-                        <textarea id="append-test" style="display:none;">[[${session.blogShow.content}]]</textarea>
+                        <textarea id="append-test" style="display:none;">[[${session.blogShow!=null?session.blogShow.content:''}]]</textarea>
                     </div>
                 <!--</div>-->
             </div>

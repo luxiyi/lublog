@@ -108,7 +108,8 @@
 <script type="text/javascript" th:src="@{/plugin/js/jquery2.1.4.min.js}"></script>
 <script type="text/javascript" th:src="@{/plugin/editormd/editormd.js}"></script>
 <script type="text/javascript">
-
+    var url = window.location.href;
+    var planId = url.split("?planId=")[1];
     var testEditor;
 
     $(function () {
@@ -160,7 +161,7 @@
                     url: '/admin/updateDoDetailPlan',
                     data: {
                         'doPlanDetail': doPlanDetail,
-                        'planId': planId,
+                        'planId': planId
                     },
                     dataType: 'text',
                     cache: false,

@@ -88,103 +88,12 @@ function endpage() {
     findAllBlog(totalpage);
 }
 
-function queryPlanQuestion() {
-    $.ajax({
-        url:"/queryPlanQuestion",
-        type:"get",
-        dataType:"json",
-        success:function (data) {
-            $("#plan-first-question").val(data.planFirstQuestion);
-            $("#plan-second-question").val(data.planSecondQuestion);
-            $("#plan-third-question").val(data.planThirdQuestion);
-        }
-    });
-}
-queryPlanQuestion();
-
-//添加plan访客
-function addOrUpdatePlanVisitor() {
-    $.ajax({
-        url:"/addOrUpdatePlanVisitor",
-        type:"post",
-        data:{
-            "planVisitorCount": 1,
-            "planFirstAnswer":$("#plan-first-answer").val(),
-            "planSecondAnswer":$("#plan-second-answer").val(),
-            "planThirdAnswer":$("#plan-third-answer").val()
-        },
-        dataType:"text",
-        success:function (data) {
-            if (data == "操作成功"){
-                window.location.href = "/plan";
-            } else {
-                alert(data)
-            }
-        }
-    });
-}
 
 
 
-// 添加新书
-function addbook() {
-    $.ajax({
-        url: "addBooks",
-        type: "post",
-        data: {
-            "title": $("#bname").val(),
-            "author": $("#author").val(),
-            "price": $("#price").val(),
-            "bcount": $("#bcount").val(),
-            "pubdate": $("#pubdate").val(),
-            "press": $("#press").val(),
-            "blogcover": $("#img").val(),
-            "introduce": $("#intro").val()
-        },
-        dataType: "text",
-        success: function (data) {
-            alert(data);
-            if (data == "你不是管理员，无法操作") {
-                alert(data);
-            } else {
-                if (data == "添加图书失败，字段不能为空") {
-                    $("#addbookinfo").html(data);
-                } else if (data == "添加图书失败，请输入正确字段") {
-                    $("#addbookinfo").html(data);
-                } else {
-                    alert(data);
-                    window.location.reload();
-                }
-            }
-        },
-        error: function () {
-            alert("error")
-        }
-    });
-}
 
-// 删除书籍
-// function removebook(pgid) {
-// 	$.ajax({
-// 		url : "deleteBooks",
-// 		type : "post",
-// 		data : {
-// 			"bid" : pgid,
-// 			"bcount" : 1
-// 		},
-// 		dataType : "text",
-// 		success : function(data) {
-// 			if(data=="请先登录"){
-// 				alert(data);
-// 			}else if (data == "你不是管理员，无法操作") {
-// 				alert(data);
-// 			} else {
-// 				alert(data);
-// 				window.location.reload();
-// 			}
-// 		}
-// 	});
-// }
+
+
 
 // 找到一本书的内容
 function querybook(bid) {

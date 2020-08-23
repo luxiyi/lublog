@@ -1,6 +1,7 @@
 package com.lublog.provider.dao;
 
 import com.lublog.po.Statistics;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
@@ -15,7 +16,7 @@ public interface StatisticsMapper {
     Statistics queryStatistics(int statisticsId);
 
     @UpdateProvider(type = DynamicProvider.class,method = "updateStatisticsNum")
-    void updateStatisticsNum(Statistics statistics, int statisticsId);
+    void updateStatisticsNum(@Param("statistics") Statistics statistics, @Param("statisticsId") int statisticsId);
 
     @Select("select count(blog_id) from t_blogContent")
     int queryBlogTotalNum();

@@ -1,6 +1,7 @@
 package com.lublog.service;
 
 import com.lublog.po.Statistics;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @Description: StatisticsServicejava类作用描述
@@ -18,5 +19,5 @@ public interface StatisticsService {
 
     int queryBlogCommentsNum();
 
-    void updateStatisticsNum(Statistics statistics, int statisticsId);
+    void updateStatisticsNum(@Param("statistics")Statistics statistics, @Param("statisticsId")int statisticsId);
 }

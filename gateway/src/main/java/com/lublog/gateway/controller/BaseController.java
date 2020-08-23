@@ -88,9 +88,10 @@ public class BaseController {
         statistics.setBlogTotalNum(blogTotalNum);
         statistics.setBlogShowNum(blogShowNum);
         statistics.setBlogDeleteNum(blogDeleteNum);
+        log.info("statistics = {}", JSON.toJSONString(statistics));
         statisticsService.updateStatisticsNum(statistics, SysConstant.NUM_1);
         Statistics newStatistics = statisticsService.queryStatistics(SysConstant.NUM_1);
-        log.info("统计数据 statistics = {}", JSON.toJSONString(statistics));
+        log.info("统计数据 statistics = {}", JSON.toJSONString(newStatistics));
         request.setAttribute("statistics", newStatistics);
         return "admin/index";
     }

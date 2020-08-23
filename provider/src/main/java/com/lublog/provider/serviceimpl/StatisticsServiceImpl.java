@@ -3,6 +3,7 @@ package com.lublog.provider.serviceimpl;
 import com.lublog.po.Statistics;
 import com.lublog.provider.dao.StatisticsMapper;
 import com.lublog.service.StatisticsService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -41,7 +42,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     }
 
     @Override
-    public void updateStatisticsNum(Statistics statistics, int statisticsId) {
+    public void updateStatisticsNum(@Param("statistics")Statistics statistics, @Param("statisticsId")int statisticsId) {
         statisticsMapper.updateStatisticsNum(statistics, statisticsId);
     }
 }

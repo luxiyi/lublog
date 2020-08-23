@@ -15,26 +15,33 @@ import org.apache.ibatis.jdbc.SQL;
 public class DynamicProvider {
     private static final String TABLE_NAME = "t_statistics";
 
-    public String updateStatisticsNum(@Param("statistics") Statistics statistics, int statisticsId) {
+    public String updateStatisticsNum(@Param("statistics") Statistics statistics, @Param("statisticsId")int statisticsId) {
         SQL sql = new SQL().UPDATE(TABLE_NAME);
         if (statistics.getPageViewNum() != 0) {
+            log.info("statistics.getPageViewNum()");
             sql.SET("page_view_num = " + statistics.getPageViewNum() +"");
         }
         if (statistics.getBlogLikesNum() != 0) {
+            log.info("statistics.getBlogLikesNum()");
             sql.SET("blog_likes_num = " + statistics.getBlogLikesNum() +"");
         }
         if (statistics.getBlogCommentsNum() != 0) {
+            log.info("statistics.getBlogCommentsNum()");
             sql.SET("blog_comments_num = " + statistics.getBlogCommentsNum() +"");
         }
         if (statistics.getBlogTotalNum() != 0) {
+            log.info("statistics.getBlogTotalNum()");
             sql.SET("blog_total_num = " + statistics.getBlogTotalNum() +"");
         }
         if (statistics.getBlogShowNum() != 0) {
+            log.info("statistics.getBlogShowNum()");
             sql.SET("blog_show_num = " + statistics.getBlogShowNum() +"");
         }
         if (statistics.getBlogDeleteNum() != 0) {
+            log.info("statistics.getBlogDeleteNum()");
             sql.SET("blog_delete_num = " + statistics.getBlogDeleteNum() +"");
         }
+        log.info("sql.WHERE");
         sql.WHERE("statistics_id = "+ statisticsId +" and flag = 0");
         log.info("sql = {}", sql.toString());
         return sql.toString();

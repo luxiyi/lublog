@@ -1,11 +1,9 @@
 package com.lublog.provider.serviceimpl;
 
 import com.lublog.provider.dao.UserMapper;
-import com.lublog.po.LoginUser;
 import com.lublog.po.User;
 import com.lublog.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,25 +15,19 @@ import org.springframework.stereotype.Component;
  */
 @SuppressWarnings("all")
 @Component
+@Slf4j
 public class UserServiceImpl implements UserService {
-    private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-
     @Autowired
     private UserMapper userMapper;
 
     @Override
-    public LoginUser findLoginByluser(LoginUser loginuser) {
-        return userMapper.findLoginByluser(loginuser);
+    public User queryUserLogin(String userName, String password) {
+        return userMapper.findLoginByluser(userName, password);
     }
 
     @Override
-    public void updateData(LoginUser loginuser) {
-        userMapper.updateData(loginuser);
-    }
-
-    @Override
-    public void insertUser(String luser) {
-        userMapper.insertUser(luser);
+    public void insertUser(String userName, String password, String userPhone) {
+        userMapper.insertUser(userName, password, userPhone);
     }
 
     @Override
@@ -54,8 +46,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public LoginUser testUser(String luser) {
-        return userMapper.testuser(luser);
+    public User queryUserByUserName(String userName) {
+        return userMapper.queryUserByUserName(userName);
+    }
+
+    @Override
+    public User queryUserByUserPhone(String userContact) {
+        return userMapper.queryUserByUserPhone(userContact);
+    }
+
+    @Override
+    public User queryUserByUserEmail(String userContact) {
+        return userMapper.queryUserByUserEmail(userContact);
     }
 
 }

@@ -1,6 +1,5 @@
 package com.lublog.service;
 
-import com.lublog.po.LoginUser;
 import com.lublog.po.User;
 
 /**
@@ -10,11 +9,19 @@ import com.lublog.po.User;
  */
 
 public interface UserService {
-    LoginUser findLoginByluser(LoginUser loginuser);
-    void updateData(LoginUser loginuser);
-    void insertUser(String luser);
+    User queryUserLogin(String userName, String password);
+
+    void insertUser(String userName, String password, String luser);
+
     User findUserByluser(String userinfo);
+
     void updateUser(User userinfo);
+
     void updataUsericon(String usericon, String luser);
-    LoginUser testUser(String luser);
+
+    User queryUserByUserName(String userName);
+
+    User queryUserByUserPhone(String userContact);
+
+    User queryUserByUserEmail(String userContact);
 }

@@ -52,23 +52,15 @@
             <version>2.2.6.RELEASE</version>
         </dependency>
 
-        <!--jsp依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-        </dependency>
+
 
         <!--热部署-->
         <dependency>
@@ -78,6 +70,11 @@
         </dependency>
 
         <!--依赖模块-->
+        <dependency>
+            <groupId>com.lxy</groupId>
+            <artifactId>basecommon</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>com.lublog</groupId>
             <artifactId>pojo</artifactId>
@@ -100,6 +97,43 @@
             <version>5.6.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+            <version>1.9.22</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>5.2.6.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.14</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.theborakompanioni</groupId>
+            <artifactId>thymeleaf-extras-shiro</artifactId>
+            <version>2.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -111,7 +145,7 @@
                 <version>1.4.2.RELEASE</version>
                 <configuration>
                     <!--  指定该Main Class为全局的唯一入口 -->
-                    <mainClass>com.bookmanager.web.WebApplication</mainClass>
+                    <mainClass>com.lublog.gateway.GatewayApplication</mainClass>
                     <!--<layout>ZIP</layout>-->
                 </configuration>
                 <executions>
@@ -131,16 +165,6 @@
             </plugin>
         </plugins>
         <resources>
-            <!-- 打包时将jsp文件拷贝到META-INF目录下-->
-            <resource>
-                <!-- 指定resources插件处理哪个目录下的资源文件 -->
-                <directory>src/main/webapp</directory>
-                <!--注意此次必须要放在此目录下才能被访问到-->
-                <targetPath>META-INF/resources</targetPath>
-                <includes>
-                    <include>**/**</include>
-                </includes>
-            </resource>
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>

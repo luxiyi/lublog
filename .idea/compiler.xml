@@ -2,10 +2,12 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="basecommon" />
         <module name="gateway" />
         <module name="pojo" />
         <module name="provider" />
@@ -13,6 +15,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="basecommon" target="1.8" />
       <module name="gateway" target="1.8" />
       <module name="lublog" target="1.8" />
       <module name="pojo" target="1.8" />
@@ -22,6 +25,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="basecommon" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="lublog" options="" />
       <module name="pojo" options="-parameters" />

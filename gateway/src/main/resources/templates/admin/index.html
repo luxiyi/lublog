@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<header th:replace="admin/header::headerFragment(${title},${active})"></header>
+
+<style>
+    .blogInroduceLimit {
+        height: 40px;
+        display: -webkit-box; /** 对象作为伸缩盒子模型显示 **/
+        -webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+        overflow: hidden; /** 隐藏超出的内容 **/
+        text-overflow: ellipsis; /** 省略号 **/
+        -webkit-line-clamp: 2; /** 显示的行数 **/
+        font-size: 15px;
+        float: left;
+        padding-left: 30px;
+    }
+    .blogInroduceLimit {
+        float: left;
+        width: 450px;
+        margin-left: 30px;
+    }
+    .show-blog-left {
+        float: left;
+        margin-top: 10px;
+        width: 50px;
+    }
+    .show-blog-right {
+        width: 150px;
+    }
+</style>
+<body class="fixed-left">
+<div id="wrapper">
+    <div th:replace="admin/header::header-body"></div>
+    <div class="content-page">
+        <div class="content">
+            <div class="container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>数据情况</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td style="text-align: left">截止目前统计您一共发表博客[[${statistics!=null?statistics.blogTotalNum:0}]]篇，删除[[${statistics!=null?statistics.blogDeleteNum:0}]]篇博客，首页展示有[[${statistics!=null?statistics.blogShowNum:0}]]篇博客</td></tr>
+                    <tr><td style="text-align: left">截止目前统计您的博客访问量为[[${statistics!=null?statistics.pageViewNum:0}]]</td></tr>
+                    <tr><td style="text-align: left">截止目前统计您的博客评论数为[[${statistics!=null?statistics.blogCommentsNum:0}]]</td></tr>
+                    <tr><td style="text-align: left">截止目前统计您的博客点赞数为[[${statistics!=null?statistics.blogLikesNum:0}]]</td></tr>
+                    </tbody>
+                </table>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th style="height: 50px;line-height: 50px" colspan="4">
+                            <div style="float: left">近期发布文章</div>
+                            <div style="float: left;padding-left: 925px">
+                                <a th:href="@{/admin/blogList}">更多</a>
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody id="lastBlogList">
+                    </tbody>
+                </table>
+
+                <table class="table">
+                    <thead >
+                    <tr >
+                        <th style="height: 50px;line-height: 50px">
+                            <div style="float: left">近期评论</div>
+                            <div style="float: left;padding-left: 960px">
+                                <a th:href="@{/admin/commentList}">更多</a>
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody id="lastCommentList">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script th:src="@{/plugin/js/jquery2.1.4.min.js}"></script>
+<script th:src="@{/admin/js/index.js}"></script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

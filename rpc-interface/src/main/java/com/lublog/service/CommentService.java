@@ -2,6 +2,7 @@ package com.lublog.service;
 
 import com.lublog.po.Comment;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,9 +13,25 @@ import java.util.List;
 public interface CommentService {
     List<Comment> allCommentsById(int blogId);
 
-    void insertCommentById(String user, int blogId, String ccont);
+    void insertCommentById(int blogId, String observer, String commenter, String contact, String commentContent, Date commentDate);
 
     int findBidNum(int blogId);
 
     void deleteCommentsOfBlog(int blogId);
+
+    int queryAllCommentsTotalPage();
+
+    List<Comment> findAllByIndex(int index, int count);
+
+    List<Comment> queryOneBlogCommentByIndex(Integer blogId, int index, int i);
+
+    int queryOneBlogCommentTotalPage(int blogId);
+
+    void deleteOneComment(Integer commentId);
+
+    int queryOneBlogOfComment(Integer commentId);
+
+    int queryOneBlogCommentsCount(int blogId);
+
+    int queryCommentAllCount();
 }

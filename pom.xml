@@ -21,6 +21,7 @@
         <module>rpc-interface</module>
         <module>pojo</module>
         <module>gateway</module>
+        <module>basecommon</module>
     </modules>
 
     <properties>

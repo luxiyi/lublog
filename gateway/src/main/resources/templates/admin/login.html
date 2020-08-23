@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset=" UTF-8 />">
+	<title>YouLu</title>
+	<link rel='shortcut icon' type='image/x-icon'  th:href="@{img/logo.jpg}" />
+	<!-- 新 Bootstrap4 核心 CSS 文件 -->
+	<link rel="stylesheet" th:href="@{https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css}">
+
+	<!-- 移动设备优先 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<style type="text/css">
+		body {
+			margin: 0;
+			text-align: center;
+			background-image: url(img/background.jpg);
+			background-size: cover;
+			overflow:hidden;
+		}
+		.middle {
+			margin-top: 50px;
+			margin-bottom: 50px;
+			padding: 100px 50px 50px 50px;
+			background-color: white;
+			border-radius: 15px;
+			box-shadow: 10px 10px 5px rgb(0,0,0,0.1);
+
+		}
+		.login {
+			margin-left: 20px;
+		}
+		.font2 {
+			font-size: 0.6em;
+		}
+		.btn {
+			border-radius: 28px;
+		}
+
+		/*  登录提示错误的输入字段框 */
+		#info {
+			width: 270px;
+			height: 20px;
+			margin: 0 auto;
+			font-weight: 600;
+			color: red;
+			font-size: 15px;
+		}
+		.lofooter {
+			text-align: center;
+			line-height: 60px;
+			height: 60px;
+			font-size: 15px;
+			color: #ac2925;
+			font-weight: 600;
+			padding-left: 430px;
+		}
+
+	</style>
+
+</head>
+<body>
+<div class="container" id="outer">
+	<div class="middle mx-auto h-75 w-75">
+		<div class="row">
+			<div class="col col-12 col-md-6">
+				<img class="rounded img-fluid" src="./img/background.jpg">
+			</div>
+			<div class="col col-12 col-md-6">
+				<div class="login">
+					<h3 class="font-weight-bold"dxs><font style="color: #9475cb">YouAndLu</font></h3>
+					<h5 class="font-weight-light font2">Into my heart</h5>
+
+
+						<div class="form-group">
+							<label for="luser" class="sr-only">Email address:</label>
+
+							<input class="form-control" type="text" id="luser" placeholder="账号">
+						</div>
+
+						<div class="form-group">
+							<label for="pass" class="sr-only">密码</label>
+							<input class="form-control" type="password" id="pass" placeholder="Password">
+						</div>
+						<div class="xuan custom-control custom-checkbox">
+							<input type="checkbox"  id="customCheck" name="example1">
+							<label for="customCheck">记住我</label>
+						</div>
+						<div id="info"></div><br>
+
+						<button type="button" class="btn btn-primary btn-block w-75 mx-auto" onclick="login()">登 录</button>
+
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+	<footer class="lofooter">
+
+		<div class="row" id="downrow">
+			<p>©2020-OnLu <a href="http://icp.chinaz.com/info?q=luxiyi.top" target="_blank"
+						  style="display:inline-block;text-decoration:none;height:20px;line-height:20px;color: red;">
+			蜀ICP备20008951号</a>
+
+			<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51012402000457"
+			   style="display:inline-block;text-decoration:none;height:20px;line-height:20px;color: red;">
+				<img src="img/beian.png" style="float:left;"/>
+				川公网安备51012402000457号</a></p>
+		</div>
+
+	</footer>
+</div>
+</body>
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script th:src="@{https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js}"></script>
+<!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+<script th:src="@{https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js}"></script>
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script th:src="@{https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js}"></script>
+<script th:src="@{/admin/js/love-move.js}"></script>
+<script th:src="@{/admin/js/login.js}"></script>
+</html>

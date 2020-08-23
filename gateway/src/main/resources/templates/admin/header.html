@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:fragment="headerFragment(title,active)">
+    <meta charset="utf-8"/>
+    <title>YouLu后台管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta content="Coderthemes" name="author"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel='shortcut icon' type='image/x-icon' th:href="@{img/logo.jpg}"/>
+    <link rel="stylesheet" th:href="@{https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/plugin/editormd/css/editormd.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/plugin/editormd/css/style.css}" />
+    <link th:href="@{/admin/css/style.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/admin/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
+    <link th:href="@{/admin/css/sweetalert2.min.css}" rel="stylesheet"/>
+
+    <style>
+        #example-navbar-collapse li {
+            padding-right: 50px;
+        }
+    </style>
+</head>
+<div th:fragment="header-body">
+    <!-- 头部导航栏 -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="height: 70px">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/admin/index}" style="font-size: 30px;padding-top: 20px">YouLu</a>
+            </div>
+            <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-header">
+                        <li><a><span>欢迎来到YouLu管理</span></a></li>
+                        <li><a th:href="@{/admin/blogEdit}"><span>快来创作吧</span></a></li>
+                        <li style="width:40px;">
+                            <div class="contentDiv" style="display:inline-block;margin:5px auto;
+							width:40px;height:40px;border-radius:100px;-webkit-border-radius:100px;-moz-border-radius:100px;
+								border:2px solid #fff;box-shadow:0 0 4px #ccc;overflow:hidden;">
+                                <img th:src="@{${session.currentUser.userIcon}}"
+                                     style="width:100%;min-height:100%;"/></div>
+                        </li>
+                        <li><a href="#" style="padding-left:1px;" data-toggle="modal" data-target="#userinfoform"
+                               onclick="queryuser()">
+                            [[${session.currentUser.userName}]]</a></li>
+                        <li><a th:href="@{/index}">进入YouLu</a></li>
+                        <li id="logoutbox"><a th:href="@{logout}"><span
+                                class="glyphicon glyphicon-off"></span> 注销</a></li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- 个人信息 -->
+    <div id="userinfoform" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-title">
+                    <h1 class="text-center">个人信息</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>更改头像</label><input id="userhead" type="file" name="userhead"/>
+                    </div>
+                    <div class="form-group">
+                        <label>用户名</label> <input class="form-control"
+                                                  id="userinfo" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>姓名</label> <input class="form-control"
+                                                 id="uname" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>手机号</label> <input class="form-control"
+                                                  id="phone" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>年龄</label> <input class="form-control"
+                                                 id="age" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>性别</label> <input class="form-control"
+                                                 id="sex" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>住址</label> <input class="form-control"
+                                                 id="addr" type="text">
+                    </div>
+                    <div id="queryuserinfo" style="width: 270px;height: 50px;margin: 0 auto;color: red;"></div>
+                    <div class="text-right">
+                        <button class="btn btn-primary" type="submit" onclick="updateuser()">提交</button>
+                        <button class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="left side-menu">
+        <div class="sidebar-inner slimscrollleft">
+            <div id="sidebar-menu">
+                <ul>
+                    <li th:class="${active}=='home'?'active':''">
+                        <a th:href="@{/admin/index}" th:class="${active}=='home'?'waves-effect active':'waves-effect'">
+                            <i class="fa fa-dashboard" aria-hidden="true"></i>
+                            <span> 仪表盘 </span>
+                        </a>
+                    </li>
+
+
+                    <li th:class="${active}=='blogList'?'active':''">
+                        <a th:href="@{/admin/blogList}" th:class="${active}=='blogList'?'waves-effect active':'waves-effect'">
+                            <i class="fa fa-list" aria-hidden="true"></i><span> 文章管理 </span></a>
+                    </li>
+
+
+                    <li th:class="${active}=='commentList'?'active':''">
+                        <a th:href="@{/admin/commentList}" th:class="${active}=='commentList'?'waves-effect active':'waves-effect'">
+                            <i class="fa fa-comments" aria-hidden="true"></i><span> 评论管理 </span>
+                        </a>
+                    </li>
+
+
+
+                    <li th:class="${active}=='categoryList'?'active':''">
+                        <a th:href="@{/admin/categoryList}" th:class="${active}=='categoryList'?'waves-effect active':'waves-effect'">
+                            <i class="fa fa-tags" aria-hidden="true"></i><span> 分类/标签 </span>
+                        </a>
+                    </li>
+
+                    <li th:class="${active}=='page'?'active':''">
+                        <a th:href="@{/admin/plan}" th:class="${active}=='page'?'waves-effect active':'waves-effect'"><i
+                                class="fa fa-file-text" aria-hidden="true"></i><span> 学习目标 </span></a>
+                    </li>
+
+                    <li th:class="${active}=='aboutMe'?'active':''">
+                        <a th:href="@{/admin/aboutMe}" th:class="${active}=='aboutMe'?'waves-effect active':'waves-effect'"><i
+                                class="fa fa-file-text" aria-hidden="true"></i><span> 个人介绍 </span></a>
+                    </li>
+
+                    <li th:class="${active}=='attach'?'active':''">
+                        <a th:href="@{/admin/attach}"
+                           th:class="${active}=='attach'?'waves-effect active':'waves-effect'"><i
+                                class="fa fa-cloud-upload" aria-hidden="true"></i><span> 文件管理 </span></a>
+                    </li>
+
+
+                    <li th:class="${active}=='links'?'active':''">
+                        <a th:href="@{/admin/links}" th:class="${active}=='links'?'waves-effect active':'waves-effect'">
+                            <i class="fa fa-link" aria-hidden="true"></i>
+                            <span> 友链管理 </span>
+                        </a>
+                    </li>
+
+                    <!--<li shiro:hasRole="admin" th:class="${active}=='settings'?'active':''">-->
+                    <!--<a th:href="@{/admin/setting}" th:class="${active}=='settings'?'waves-effect active':'waves-effect'">-->
+                    <!--<i class="fa fa-gear" aria-hidden="true"></i><span> 系统设置 </span>-->
+                    <!--</a>-->
+                    <!--</li>-->
+
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/plugin/js/jquery2.1.4.min.js}"></script>
+<script th:src="@{/plugin/js/bootstrap.min.js}"></script>
+<script th:src="@{https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js}"></script>
+<script th:src="@{https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js}"></script>
+</html>

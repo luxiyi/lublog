@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset=" UTF-8 />">
+    <title>YouLu-标签分类管理</title>
+    <link rel='shortcut icon' type='image/x-icon' th:href="@{img/logo.jpg}"/>
+</head>
+
+<style>
+    .container{
+        margin-top: 80px;
+
+    }
+    .categoryTitleBox{
+        float: left;
+        width: 500px;
+        padding: 30px;
+        background-color: #eea236;
+        font-size: 30px;
+    }
+
+    .tagTitleBox{
+        float: left;
+        width: 500px;
+        padding: 30px;
+        margin-left: 50px;
+        background-color: #fbbaec;
+        font-size: 30px;
+    }
+
+    .categoryBox{
+        float: left;
+        width: 500px;
+        padding: 10px;
+        background-color: lightblue;
+    }
+
+    .tagBox{
+        float: left;
+        width: 500px;
+        padding: 10px;
+        background-color: lightblue;
+        margin-left: 50px;
+    }
+
+    .categoryDiv{
+        float: left;
+        height: 40px;
+        border: 1px solid lightblue;
+        border-radius: 30px;
+        text-align: center;
+        padding: 8px;
+        font-size: 16px;
+        color: #eea236;
+        margin: 10px;
+        background-color: white;
+        font-weight: bold;
+    }
+
+    .tagDiv{
+        float: left;
+        height: 40px;
+        border: 1px solid lightblue;
+        border-radius: 30px;
+        text-align: center;
+        padding: 8px;
+        font-size: 16px;
+        color: rosybrown;
+        margin: 10px;
+        background-color: white;
+        font-weight: bold;
+    }
+</style>
+<header th:replace="admin/header::headerFragment(${title},${active})"></header>
+<body class="fixed-left">
+<div th:replace="admin/header::header-body"></div>
+<div class="content-page">
+    <div class="content">
+        <div class="container" >
+                <div style="width: 1050px;height:100px;margin-bottom: 20px;">
+                    <div style="float: left;padding-left: 100px">
+                        <input style="width: 200px;height:38px;float: left" type="text" class="form-control" id="categoryName" placeholder="请输入分类名称"/>
+                        <button  style="float: left;" onclick="addCategory()" class="btn btn-success waves-effect waves-light m-l-10">添加分类</button>
+                    </div>
+                    <div style="float: left;padding-left: 250px">
+                        <input style="width: 200px;height:38px;float: left" type="text" class="form-control" id="tagName" placeholder="请输入标签名称"/>
+                        <button  style="float: left" onclick="addTag()" class="btn btn-success waves-effect waves-light m-l-10">添加标签</button>
+                    </div>
+                </div>
+
+            <div class="categoryTitleBox">分类列表</div>
+            <div class="tagTitleBox">标签列表</div>
+            <div class="categoryBox" id="categoryBox"></div>
+            <div class="tagBox" id="tagBox"></div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script th:src="@{/plugin/js/jquery2.1.4.min.js}"></script>
+<script th:src="@{/plugin/js/bootstrap.min.js}"></script>
+<script th:src="@{/admin/js/category.js}"></script>
+<script th:src="@{/admin/js/login.js}"></script>
+</html>

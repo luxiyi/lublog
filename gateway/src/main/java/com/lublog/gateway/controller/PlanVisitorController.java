@@ -45,7 +45,7 @@ public class PlanVisitorController {
         String msg = "操作成功";
         if (planVisitorCount == 0 || StringUtils.isBlank(planFirstAnswer) ||
                 StringUtils.isBlank(planSecondAnswer) || StringUtils.isBlank(planVisitorName)) {
-            msg = "添加失败";
+            msg = "请先回答！";
             log.error("addPlanVisitor fail, planVisitorName is {}, planVisitorCount is {}");
             return msg;
         }
@@ -55,7 +55,7 @@ public class PlanVisitorController {
         }
         Question question = questionService.queryPlanQuestion();
         if ((!question.getPlanFirstAnswer().equals(planFirstAnswer)) || (!question.getPlanSecondAnswer().equals(planSecondAnswer))){
-            msg = "添加失败";
+            msg = "回答错误，请见网站底部博主联系方式，联系博主吧";
             log.error("addPlanVisitor fail, planFirstAnswer is {}, planSecondAnswer is {}",planFirstAnswer, planSecondAnswer);
             return msg;
         }
@@ -65,7 +65,7 @@ public class PlanVisitorController {
             request.setAttribute(SysConstant.ONLINE_VISITOR,planVisitorName);
             return msg;
         } catch (Exception e) {
-            msg = "添加失败";
+            msg = "系统出错，请联系博主";
             log.error("addPlanVisitor fail, exception is {}",e);
             return msg;
         }

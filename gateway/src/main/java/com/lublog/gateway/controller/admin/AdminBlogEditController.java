@@ -1,5 +1,6 @@
 package com.lublog.gateway.controller.admin;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.lublog.gateway.utils.getObjectUtils;
 import com.lublog.po.BlogContent;
@@ -33,12 +34,12 @@ public class AdminBlogEditController {
      */
     @RequestMapping(value = "/pushBlog", method = RequestMethod.POST)
     public String pushBlog(@RequestParam("title") String title, @RequestParam("content") String content,
-                                   @RequestParam("categoryId") String categoryIdStr, @RequestParam("tagId") String tagIdStr,
+                                   @RequestParam("categoryId") Integer categoryId, @RequestParam("tagId") Integer tagId,
                                    @RequestParam("author") String author, @RequestParam("introduce") String introduce,
                                    @RequestParam("blogCover") String blogCover, HttpServletRequest request) {
         String msg = "发布成功!";
         BlogContent blogContent = new BlogContent();
-        blogContent = getObjectUtils.geyBlogContent(blogContent, categoryIdStr, tagIdStr, title, content, author, introduce, blogCover);
+        blogContent = geyBlogContent(blogContent, categoryId, tagId, title, content, author, introduce, blogCover);
         if (blogService.queryBlogByTitle(title) != null) {
             log.error("publish is fail, blog has existed");
             msg = "标题已存在，请重新命名标题";
@@ -118,12 +119,13 @@ public class AdminBlogEditController {
 
     @RequestMapping(value = "/updateBlog", method = RequestMethod.PUT)
     public String updateBlog(@RequestParam("title") String title, @RequestParam("content") String content,
-                                   @RequestParam("categoryId") String categoryIdStr, @RequestParam("tagId") String tagIdStr,
+                                   @RequestParam("categoryId") Integer categoryId, @RequestParam("tagId") Integer tagId,
                                    @RequestParam("author") String author, @RequestParam("introduce") String introduce,
-                                   @RequestParam("blogCover") String blogCover) {
+                                   @RequestParam("blogCover") String blogCover, Integer blogId) {
         String msg = "更新成功!";
         BlogContent blogContent = new BlogContent();
-        blogContent = getObjectUtils.geyBlogContent(blogContent, categoryIdStr, tagIdStr, title, content, author, introduce, blogCover);
+        blogContent = geyBlogContent(blogContent, categoryId, tagId, title, content, author, introduce, blogCover);
+        blogContent.setBlogId(blogId);
         try {
             this.blogService.updateById(blogContent);
         } catch (Exception e) {
@@ -157,5 +159,18 @@ public class AdminBlogEditController {
         String uuid = UUID.randomUUID().toString();
         String fileName = uuid + suffix;
         return fileName;
+    }
+
+    public static BlogContent geyBlogContent(BlogContent blogContent, Integer categoryId, Integer tagId, String title, String content, String author,
+                                             String introduce, String blogCover){
+        blogContent.setTitle(title);
+        blogContent.setContent(content);
+        blogContent.setPublishTime(new Date());
+        blogContent.setCategoryId(categoryId);
+        blogContent.setTagId(tagId);
+        blogContent.setAuthor(author);
+        blogContent.setIntroduce(introduce);
+        blogContent.setBlogCover(blogCover);
+        return blogContent;
     }
 }

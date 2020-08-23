@@ -92,10 +92,10 @@
                             </div>
                         </li>
 
-                        <li th:switch="${onlineVisitor != null?onlineVisitor:''}">
+                        <li th:switch="${session.onlineVisitor != null?session.onlineVisitor:''}">
                             <a th:case="''" href="#" style="color: red;" data-toggle="modal"
                                data-target="#into-plan-form"><span>重要事件</span></a>
-                            <a th:case="${onlineVisitor}" th:href="@{/plan}" style="color: red;"><span>重要事件</span></a>
+                            <a th:case="${session.onlineVisitor}" th:href="@{/plan}" style="color: red;"><span>重要事件</span></a>
                             <a th:case="*" href="#" style="color: red;" data-toggle="modal"
                                data-target="#into-plan-form"><span>重要事件</span></a>
                         </li>

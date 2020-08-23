@@ -83,13 +83,13 @@
             <div id="layout">
                 <div style="line-height: 40px;height: 70px;padding-left: 100px">
                     <div class="input-blog-title" style="float: left">
-                        <input type="text" id="blogTitle" placeholder="标题" readonly="readonly"
+                        <input type="text" id="blogTitle" placeholder="标题"
                                style="border-radius: 25px;border:2px solid #a1a1a1;padding-left: 20px;width: 600px"/>
                     </div>
 
                     <div class="push-blog">
                         <button type="button" class="btn btn-danger" id="publishBlog"
-                                onclick="writeBlog.doSubmit();">
+                                onclick="writeBlog()">
                             更新文章
                         </button>
                     </div>
@@ -188,93 +188,8 @@
     });
 
 
-    /* 修改发送文章*/
-    var writeBlog = {
-        doSubmit: function () {//提交
-            if (writeBlog.doCheck()) {
-                //debugger;
-                var title = $("#blogTitle").val();
-                var content = $("#blogContent").val();
-                var tagId = $("#blogTag").val();
-                var categoryId = $("#blogCategory").val();
-                var author = $("#blogAuthor").val();
-                var introduce = $("#blogIntroduce").val();
-                var blogCover = $("#blogCover").val();
-                $.ajax({
-                    type: "PUT",
-                    url: '/admin/updateBlog',
-                    data: {
-                        'title': title,
-                        'content': content,
-                        'tagId': tagId,
-                        'categoryId': categoryId,
-                        'author': author,
-                        'introduce': introduce,
-                        'blogCover': blogCover
-                    },
-                    dataType: 'text',
-                    //contentType:"application/json",
-                    cache: false,
-                    success: function (data) {
-                        if (data == "更新成功!") {
-                            alert(data);
-                            window.location.href = "/admin/index";
-                        } else if (data == "标题已存在，请重新命名标题") {
-                            alert(data);
-                        } else {
-                            alert(data);
-                        }
-                    },
-                    error: function () {
-                        alert("系统问题，请联系帅系的管理员");
-                    }
-                });
-            }
-        },
-        doCheck: function () {//校验
-            //debugger;
-            var title = $("#blogTitle").val();
-            var content = $("#blogContent").val();
-            var author = $("#blogAuthor").val();
-            var introduce = $("#blogIntroduce").val();
-            var blogCover = $("#blogCover").val();
-            if (typeof (title) == undefined || title == null || title == "") {
-                alert("请填写文章标题!");
-                return false;
-            }
-
-            if (typeof (content) == undefined || content == null || content == "") {
-                alert("请填写文章内容!");
-                return false;
-            }
-
-            if (typeof (author) == undefined || author == null || author == "") {
-                alert("请填写文章作者署名!");
-                return false;
-            }
-
-            if (typeof (author) == undefined || author == null || author == "") {
-                alert("请填写文章作者署名!");
-                return false;
-            }
-
-            if (typeof (introduce) == undefined || introduce == null || introduce == "") {
-                alert("请填写文章简介!");
-                return false;
-            }
-
-            if (typeof (blogCover) == undefined || blogCover == null || blogCover == "") {
-                alert("请上传封面图片!");
-                return false;
-            }
-
-            return true;
-        }
-    }
-
     //上传照片
     function imgPreview(fileDom) {
-
         //判断是否支持FileReader
         if (window.FileReader) {
             var reader = new FileReader();
@@ -289,16 +204,7 @@
             alert("请选择图片！");
             return;
         }
-        //读取完成
-        // reader.onload = function (e) {
-        //     //获取图片dom
-        //     var img = document.getElementById("preview");
-        //     //图片路径设置为读取的图片
-        //     alert(e.target.result);
-        // };
-        // alert(file.name);
-        // alert(file.type);
-        // $("#blogCover").val("/admin/img" + file.name);
+
         reader.readAsDataURL(file);
         var formData = new FormData();
         formData.append('blogCover', fileDom.files[0]);

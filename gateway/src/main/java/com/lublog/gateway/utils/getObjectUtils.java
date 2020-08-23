@@ -11,20 +11,7 @@ import java.util.Date;
  * @time: 2020/8/16 18:49
  */
 public class getObjectUtils {
-    public static BlogContent geyBlogContent(BlogContent blogContent, String categoryIdStr, String tagIdStr, String title, String content, String author,
-                                                String introduce, String blogCover){
-        int categoryId = Integer.parseInt(categoryIdStr);
-        int tagId = Integer.parseInt(tagIdStr);
-        blogContent.setTitle(title);
-        blogContent.setContent(content);
-        blogContent.setPublishTime(new Date());
-        blogContent.setCategoryId(categoryId);
-        blogContent.setTagId(tagId);
-        blogContent.setAuthor(author);
-        blogContent.setIntroduce(introduce);
-        blogContent.setBlogCover(blogCover);
-        return blogContent;
-    }
+
 
     public static Profile geyProfile(String profileContent, String profileCover, String profileIntroduce,
                                      String profileTitle, Profile profile){

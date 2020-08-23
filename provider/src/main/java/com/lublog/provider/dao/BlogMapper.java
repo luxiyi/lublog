@@ -35,7 +35,7 @@ public interface BlogMapper {
 
     //增加新博客
     @Insert("insert into t_blogContent (title,author,publish_time,blog_cover,introduce,content,tag_id,category_id) values (#{title},#{author},#{publishTime},#{blogCover},#{introduce},#{content},#{tagId},#{categoryId})")
-    void insertBook(BlogContent blogContent);
+    void insertBlog(BlogContent blogContent);
 
     //根据blog_id查找博客
     @Select("SELECT b.blog_id,b.title,b.author,b.content,b.publish_time,b.blog_cover,b.introduce,b.likes,b.views,b.comment_count,t.tag_name,c.category_name " +
@@ -62,7 +62,7 @@ public interface BlogMapper {
     List<BlogShow> findAllBook();
 
     //修改博客信息
-    @Update("update t_blogContent set title=#{title},author=#{author},content=#{content},introduce=#{introduce},category_id=#{categoryId},tag_id=#{tagId},blog_cover=#{blogCover} ,publish_time=#{publishTime}  where blog_id=#{blogId} and flag = 0")
+    @Update("update t_blogContent set title=#{title},author=#{author},content=#{content},introduce=#{introduce},category_id=#{categoryId},tag_id=#{tagId},blog_cover=#{blogCover}  where blog_id=#{blogId} and flag = 0")
     void updateById(BlogContent blogContent);
 
     //模糊查询

@@ -98,3 +98,87 @@ function buildCategoryOption(data) {//构建下拉框数据
     }
     $("#blogCategory").append(optionStr);
 }
+
+
+/* 修改发送文章*/
+function writeBlog() {//提交
+    if (doCheck()) {
+        //debugger;
+        var title = $("#blogTitle").val();
+        var content = $("#blogContent").val();
+        var tagId = $("#blogTag").val();
+        var categoryId = $("#blogCategory").val();
+        var author = $("#blogAuthor").val();
+        var introduce = $("#blogIntroduce").val();
+        var blogCover = $("#blogCover").val();
+        $.ajax({
+            type: "PUT",
+            url: '/admin/updateBlog',
+            data: {
+                'blogId': blogId,
+                'title': title,
+                'content': content,
+                'tagId': tagId,
+                'categoryId': categoryId,
+                'author': author,
+                'introduce': introduce,
+                'blogCover': blogCover
+            },
+            dataType: 'text',
+            cache: false,
+            success: function (data) {
+                if (data == "更新成功!") {
+                    alert(data);
+                    window.location.href = "/admin/index";
+                } else if (data == "标题已存在，请重新命名标题") {
+                    alert(data);
+                } else {
+                    alert(data);
+                }
+            },
+            error: function () {
+                alert("系统问题，请联系帅系的管理员");
+            }
+        });
+    }
+}
+
+
+function doCheck() {//校验
+    var title = $("#blogTitle").val();
+    var content = $("#blogContent").val();
+    var author = $("#blogAuthor").val();
+    var introduce = $("#blogIntroduce").val();
+    var blogCover = $("#blogCover").val();
+    if (typeof (title) == undefined || title == null || title == "") {
+        alert("请填写文章标题!");
+        return false;
+    }
+
+    if (typeof (content) == undefined || content == null || content == "") {
+        alert("请填写文章内容!");
+        return false;
+    }
+
+    if (typeof (author) == undefined || author == null || author == "") {
+        alert("请填写文章作者署名!");
+        return false;
+    }
+
+    if (typeof (author) == undefined || author == null || author == "") {
+        alert("请填写文章作者署名!");
+        return false;
+    }
+
+    if (typeof (introduce) == undefined || introduce == null || introduce == "") {
+        alert("请填写文章简介!");
+        return false;
+    }
+
+    if (typeof (blogCover) == undefined || blogCover == null || blogCover == "") {
+        alert("请上传封面图片!");
+        return false;
+    }
+
+    return true;
+}

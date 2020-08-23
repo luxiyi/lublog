@@ -44,7 +44,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public void insertBlog(BlogContent blogContent) {
-        blogMapper.insertBook(blogContent);
+        blogMapper.insertBlog(blogContent);
     }
 
     @Override

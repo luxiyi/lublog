@@ -21,14 +21,14 @@ function showUpdateBlog() {
                 alert(data.msg);
             } else {
                 $("#blogTitle").val(data.title);
-                $("#blogIntroduce").val(data.introduce);
+                // $("#blogIntroduce").val(data.introduce);
                 $("#blogAuthor").val(data.author);
-                $("#blogCover").val(data.blogcover);
-                $("#blogTag").val(data.tagname);
-                $("#blogCategory").val(data.categoryname);
-                $("#blogContent").val(data.content);
-                tagName = data.tagname;
-                categoryName = data.categoryname;
+                $("#blogCover").val(data.blogCover);
+                $("#blogTag").val(data.tagName);
+                $("#blogCategory").val(data.categoryName);
+                // $("#blogContent").val(data.content);
+                tagName = data.tagName;
+                categoryName = data.categoryName;
             }
         },
         error:function () {
@@ -44,7 +44,7 @@ showUpdateBlog();
 function tagSelect() {//初始化数据
     $.ajax({
         type: "GET",
-        url: '/admin/listBlogTag',
+        url: '/listBlogTag',
         dataType: 'json',
         contentType: "application/json",
         cache: false,
@@ -57,12 +57,12 @@ function tagSelect() {//初始化数据
 function buildTagOption(data) {//构建下拉框数据
     var optionStr = "";
     for (var i = 0; i < data.length; i++) {
-        if (data[i].tagname == tagName) {
-            optionStr += "<option value='" + data[i].tagid + "' selected='selected'>";
+        if (data[i].tagName == tagName) {
+            optionStr += "<option value='" + data[i].tagId + "' selected='selected'>";
         } else {
-            optionStr += "<option value='" + data[i].tagid + "'>";
+            optionStr += "<option value='" + data[i].tagId + "'>";
         }
-        optionStr += data[i].tagname;
+        optionStr += data[i].tagName;
         optionStr += "</option>";
     }
     $("#blogTag").append(optionStr);
@@ -74,7 +74,7 @@ function buildTagOption(data) {//构建下拉框数据
 function categorySelect() {//初始化数据
     $.ajax({
         type: "GET",
-        url: '/admin/listBlogCategory',
+        url: '/listBlogCategory',
         dataType: 'json',
         contentType: "application/json",
         cache: false,
@@ -87,13 +87,13 @@ function categorySelect() {//初始化数据
 function buildCategoryOption(data) {//构建下拉框数据
     var optionStr = "";
     for (var i = 0; i < data.length; i++) {
-        if (data[i].categoryname == categoryName) {
-            optionStr += "<option value='" + data[i].categoryid + "' selected='selected'>";
+        if (data[i].categoryName == categoryName) {
+            optionStr += "<option value='" + data[i].categoryId + "' selected='selected'>";
         } else {
-            optionStr += "<option value='" + data[i].categoryid + "'>";
+            optionStr += "<option value='" + data[i].categoryId + "'>";
         }
 
-        optionStr += data[i].categoryname;
+        optionStr += data[i].categoryName;
         optionStr += "</option>";
     }
     $("#blogCategory").append(optionStr);

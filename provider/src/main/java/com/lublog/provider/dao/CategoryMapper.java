@@ -13,22 +13,22 @@ import java.util.List;
  * @time: 2020/5/26 1:57
  */
 public interface CategoryMapper {
-    @Select("select categoryid, categoryname from category where flag = 0")
+    @Select("select category_id, category_name from t_category where flag = 0")
     List<Category> findAllCategories();
 
-    @Insert("insert into category (categoryname) value (#{param1}) ")
+    @Insert("insert into t_category (category_name) value (#{param1}) ")
     void addCategory(String categoryName);
 
     //todo 不能真的删，将flag改为1
-    @Delete("update category set flag = 1 where categoryname = #{param1}")
+    @Delete("update t_category set flag = 1 where category_name = #{param1}")
     void deleteCategoryByName(String categoryName);
 
-    @Select("select categoryid, categoryname from category where categoryid = #{param1} and flag = 0")
+    @Select("select category_id, category_name from t_category where category_id = #{param1} and flag = 0")
     Category findOneCategoryById(int categoryId);
 
-    @Select("select categoryid, categoryname from category where categoryname = #{param1} and flag = 0")
+    @Select("select category_id, category_name from t_category where category_name = #{param1} and flag = 0")
     Category findOneCategoryByName(String categoryName);
 
-    @Select("select categoryname from category where categoryid = #{param1} and flag = 0")
+    @Select("select category_name from t_category where category_id = #{param1} and flag = 0")
     String findNameById(int categoryId);
 }

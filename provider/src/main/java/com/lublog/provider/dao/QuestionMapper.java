@@ -17,17 +17,17 @@ public interface QuestionMapper {
                          String planThirdQuestion, String planFirstAnswer,
                          String planSecondAnswer, String questionUser);
 
-    @Select("select * from t_question where question_flag = 0")
+    @Select("select * from t_question where flag = 0")
     Question queryPlanQuestion();
 
     @Insert("update t_question set plan_first_question = #{param1},plan_second_question = #{param2}," +
             "plan_third_question = #{param3},plan_first_answer = #{param4},plan_second_answer = #{param5}" +
-            "where question_user = #{param6} and question_flag = 0")
+            "where question_user = #{param6} and flag = 0")
     void updatePlanQuestion(String planFirstQuestion, String planSecondQuestion,
                             String planThirdQuestion, String planFirstAnswer,
                             String planSecondAnswer, String questionUser);
 
-    @Select("select * from t_question where question_user = #{param1} and question_flag = 0")
+    @Select("select * from t_question where question_user = #{param1} and flag = 0")
     Question queryPlanQuestionByUser(String questionUser);
 
 }

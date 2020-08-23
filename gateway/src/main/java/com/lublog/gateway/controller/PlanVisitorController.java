@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -40,7 +41,7 @@ public class PlanVisitorController {
 
     @RequestMapping("/addOrUpdatePlanVisitor")
     public String addOrUpdatePlanVisitor(int planVisitorCount, String planFirstAnswer, String planSecondAnswer,
-                                         @RequestParam("planThirdAnswer") String planVisitorName, HttpSession session) {
+                                         @RequestParam("planThirdAnswer") String planVisitorName, HttpServletRequest request) {
         String msg = "操作成功";
         if (planVisitorCount == 0 || StringUtils.isBlank(planFirstAnswer) ||
                 StringUtils.isBlank(planSecondAnswer) || StringUtils.isBlank(planVisitorName)) {
@@ -50,7 +51,7 @@ public class PlanVisitorController {
         }
         PlanVisitor planVisitor = planVisitorService.queryPlanVisitor(planVisitorName);
         if (planVisitor != null){
-            return updatePlanVisitor(planVisitorName,session);
+            return updatePlanVisitor(planVisitorName,request);
         }
         Question question = questionService.queryPlanQuestion();
         if ((!question.getPlanFirstAnswer().equals(planFirstAnswer)) || (!question.getPlanSecondAnswer().equals(planSecondAnswer))){
@@ -61,7 +62,7 @@ public class PlanVisitorController {
         try {
             planVisitorService.addPlanVisitor(planVisitorCount, planVisitorName);
             log.info("addPlanVisitor success");
-            session.setAttribute(SysConstant.ONLINE_VISITOR_SESSION,planVisitorName);
+            request.setAttribute(SysConstant.ONLINE_VISITOR,planVisitorName);
             return msg;
         } catch (Exception e) {
             msg = "添加失败";
@@ -71,11 +72,11 @@ public class PlanVisitorController {
 
     }
 
-    private String updatePlanVisitor(String planVisitorName, HttpSession session) {
+    private String updatePlanVisitor(String planVisitorName, HttpServletRequest request) {
         String msg = "操作成功";
         try {
             planVisitorService.updatePlanVisitor(planVisitorName);
-            session.setAttribute(SysConstant.ONLINE_VISITOR_SESSION,planVisitorName);
+            request.setAttribute(SysConstant.ONLINE_VISITOR,planVisitorName);
             log.info("updatePlanVisitor success");
             return msg;
         } catch (Exception e) {

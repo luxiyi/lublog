@@ -17,7 +17,7 @@ import java.util.Date;
 public class CommentShow implements Serializable {
     private static final long serialVersionUID = -7644129769659661190L;
 
-    private Integer commentid;
+    private Integer commentId;
 
     private String observer;
 

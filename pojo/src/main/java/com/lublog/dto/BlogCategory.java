@@ -26,7 +26,7 @@ public class BlogCategory implements Serializable {
     // 文章数量
     private String count;
 
-    private int categoryid;
+    private int categoryId;
 
     // 文章集合
     private List<BlogContent> blogs;
@@ -50,12 +50,12 @@ public class BlogCategory implements Serializable {
         this.count = count;
     }
 
-    public int getCategoryid() {
-        return categoryid;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryid(int categoryid) {
-        this.categoryid = categoryid;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public List<BlogContent> getBlogs() {

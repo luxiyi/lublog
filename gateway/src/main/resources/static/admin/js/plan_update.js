@@ -42,12 +42,12 @@ function tagSelect() {//初始化数据
 function buildTagOption(data) {//构建下拉框数据
     var optionStr = "";
     for (var i = 0; i < data.length; i++) {
-        if (data[i].tagname == tagName) {
-            optionStr += "<option value='" + data[i].tagid + "' selected='selected'>";
+        if (data[i].tagName == tagName) {
+            optionStr += "<option value='" + data[i].tagId + "' selected='selected'>";
         } else {
-            optionStr += "<option value='" + data[i].tagid + "'>";
+            optionStr += "<option value='" + data[i].tagId + "'>";
         }
-        optionStr += data[i].tagname;
+        optionStr += data[i].tagName;
         optionStr += "</option>";
     }
     $("#blogTag").append(optionStr);
@@ -72,13 +72,13 @@ function categorySelect() {//初始化数据
 function buildCategoryOption(data) {//构建下拉框数据
     var optionStr = "";
     for (var i = 0; i < data.length; i++) {
-        if (data[i].categoryname == categoryName) {
-            optionStr += "<option value='" + data[i].categoryid + "' selected='selected'>";
+        if (data[i].categoryName == categoryName) {
+            optionStr += "<option value='" + data[i].categoryId + "' selected='selected'>";
         } else {
-            optionStr += "<option value='" + data[i].categoryid + "'>";
+            optionStr += "<option value='" + data[i].categoryId + "'>";
         }
 
-        optionStr += data[i].categoryname;
+        optionStr += data[i].categoryName;
         optionStr += "</option>";
     }
     $("#blogCategory").append(optionStr);

@@ -19,7 +19,7 @@ public class BlogTag implements Serializable {
     // 文章数量
     private String count;
 
-    private int tagid;
+    private int tagId;
 
     private List<BlogContent> blogs;
 
@@ -43,12 +43,12 @@ public class BlogTag implements Serializable {
         this.count = count;
     }
 
-    public int getTagid() {
-        return tagid;
+    public int getTagId() {
+        return tagId;
     }
 
-    public void setTagid(int tagid) {
-        this.tagid = tagid;
+    public void setTagId(int tagId) {
+        this.tagId = tagId;
     }
 
     public List<BlogContent> getBlogs() {

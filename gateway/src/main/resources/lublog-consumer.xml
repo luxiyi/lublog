@@ -24,4 +24,5 @@
     <dubbo:reference id="planVisitorService" check="false" interface="com.lublog.service.PlanVisitorService"/>
     <dubbo:reference id="questionService" check="false" interface="com.lublog.service.QuestionService"/>
     <dubbo:reference id="profileService" check="false" interface="com.lublog.service.ProfileService"/>
+    <dubbo:reference id="statisticsService" check="false" interface="com.lublog.service.StatisticsService"/>
 </beans>

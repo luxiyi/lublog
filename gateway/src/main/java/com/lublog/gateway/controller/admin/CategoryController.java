@@ -92,7 +92,7 @@ public class CategoryController {
         result.put("currentCategory", currentCategory);
         String msg = "删除 " + categoryName + " 分类成功";
         try {
-            List<BlogContent> blogContents = blogService.findAllByCategoryId(currentCategory.getCategoryid());
+            List<BlogContent> blogContents = blogService.findAllByCategoryId(currentCategory.getCategoryId());
             if (CollectionUtils.isNotEmpty(blogContents)) {
                 msg = categoryName + " 分类有博客使用，无法删除";
                 result.put("msg", msg);
@@ -105,10 +105,10 @@ public class CategoryController {
 
         try {
             categoryService.deleteCategoryByName(categoryName);
-            log.info("delete {} success", currentCategory.getCategoryname());
+            log.info("delete {} success", currentCategory.getCategoryName());
         } catch (Exception e) {
-            msg = "删除 " + currentCategory.getCategoryname() + " 分类失败";
-            log.error("delete {} failed,{}", currentCategory.getCategoryname(), e);
+            msg = "删除 " + currentCategory.getCategoryName() + " 分类失败";
+            log.error("delete {} failed,{}", currentCategory.getCategoryName(), e);
             result.put("msg", msg);
             return result;
         }

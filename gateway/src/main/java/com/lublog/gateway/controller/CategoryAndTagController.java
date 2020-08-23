@@ -79,7 +79,7 @@ public class CategoryAndTagController {
 
     private List<BlogContent> setBlogContentsPubdate(List<BlogContent> blogContents, String blogPattern) {
         for (BlogContent blogContent : blogContents) {
-            blogContent.setPubdate(DateUtils.formatDate(blogContent.getPubdate(), blogPattern));
+            blogContent.setPublishTime(DateUtils.formatDate(blogContent.getPublishTime(), blogPattern));
         }
         log.info("blogContents size = {},blogContents is {}", blogContents.size(), blogContents);
         return blogContents;

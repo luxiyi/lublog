@@ -570,8 +570,8 @@
 
   var cmpPos = CodeMirror.cmpPos;
 
-  function elt(tagname, cls /*, ... elts*/) {
-    var e = document.createElement(tagname);
+  function elt(tagName, cls /*, ... elts*/) {
+    var e = document.createElement(tagName);
     if (cls) e.className = cls;
     for (var i = 2; i < arguments.length; ++i) {
       var elt = arguments[i];

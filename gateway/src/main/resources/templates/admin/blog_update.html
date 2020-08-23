@@ -102,7 +102,7 @@
                 </div>
                 <div style="height: 60px;padding-left: 100px;">
                              <textarea placeholder="简介" autocomplete="on" id="blogIntroduce"
-                                       name="text" class="textarea-blog-introduce"></textarea>
+                                       name="text" class="textarea-blog-introduce">[[${blogShow!=null?blogShow.introduce:''}]]</textarea>
                 </div>
                 <div style="padding-left: 100px;margin-bottom: 10px">
                     <label>分类：</label><select id="blogCategory"></select>
@@ -128,7 +128,7 @@
 
                 </div>
                 <div id="test-editormd">
-                    <textarea id="blogContent" style="display: none;"></textarea>
+                    <textarea id="blogContent" style="display: none;">[[${blogShow!=null?blogShow.content:''}]]</textarea>
                 </div>
             </div>
         </div>

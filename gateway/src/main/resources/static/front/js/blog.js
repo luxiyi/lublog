@@ -13,24 +13,24 @@ function showBlog() {
             var content = "<h1 class='title'>"
                 + data.title
                 + "</h1><div class='meta'><i class='fa fa-calendar-o'>&nbsp;"
-                + data.pubdate
+                + data.publishTime
                 + "</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-user'>&nbsp;"
                 + data.author + "</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
                 + "<i class=\"fa fa-tag\"></i>&nbsp;<span class='tags'><a class='tag' href='/tag/"
-                + data.tagname
+                + data.tagName
                 + "' target='_blank' rel='tag'>"
-                + data.tagname
+                + data.tagName
                 + "</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class=\"fa fa-list\"></i>&nbsp;<span class='categorys'><a class='category' href='/category/"
-                + data.categoryname
+                + data.categoryName
                 + "' target='_blank' rel='category'>"
-                + data.categoryname
+                + data.categoryName
                 + "</a></span>"
                 + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-heart'>&nbsp;"
                 + data.likes
                 + "</i><blockquote class='introduce-style' style='text-align: left'><p>"
                 + data.introduce
                 + "</p></blockquote><img src='"
-                + data.blogcover
+                + data.blogCover
                 + "' class='img-responsive' alt='' data-action='zoom' style='height: 400px;margin-left: 200px'></div>";
 
             $("#blogIntroduce").html(content);
@@ -59,11 +59,11 @@ function findcomments(page) {
             var content = "";
             for (var i = 0; i < arr.length; i++) {
                 var po = arr[i];
-                content += "<div class='comment-inner' ><div class='comment-content' id='comment-quote-" + po.commentid + "'><div class='asset-meta'>"
+                content += "<div class='comment-inner' ><div class='comment-content' id='comment-quote-" + po.commentId + "'><div class='asset-meta'>"
                          + po.observer + "&nbsp;：" + po.commentcontent + "</div></div>"
                     + "<div class='comment-footer'><div class='comment-footer-inner'><p><abbr class='published' title='"
                     + po.commentdate + "'>" + po.commentdate + "</abbr>| <a href='#'>#</a>| <a href='#comment-content' title='回复" + po.observer + "的这条评论' "
-                    + "onclick=\"quote_comment('comment-quote-"+po.commentid+"','"+po.observer+"')\">回复</a></p></div></div></div>";
+                    + "onclick=\"quote_comment('comment-quote-"+po.commentId+"','"+po.observer+"')\">回复</a></p></div></div></div>";
             }
             $("#comment").html(content);
             $("#currentpage").html(page);
@@ -151,9 +151,6 @@ function insertComment() {
 
 
 
-
-
-
 function addReplyComment() {
 
     var div = "<div class='comment-inner' id='comment-quote-'><div class='comment-header'><div class='asset-meta'><p><span class='byline'><span class='vcard author'>评论者 &nbsp;&nbsp;</span>回复： 被评论者</span></p></div></div>"
@@ -162,36 +159,27 @@ function addReplyComment() {
     $('#asdasdasdasds').after(div)
 }
 
-function addcart(pgid, pgname, pimg, pprice) {
+function addLikes() {
     $.ajax({
-        url: "addCart",
+        url: "/addLikes",
         type: "post",
         data: {
-            "bid": pgid,
-            "bname": pgname,
-            "img": pimg,
-            "ccount": 1,
-            "price": pprice
-
+            "blogId": id
         },
-        dataType: 'json', // 期待的响应数据类型
+        dataType: "text",
         success: function (data) {
-            if (data.msg == "请先登录") {
-                alert(data.msg);
-                // window.location.reload();
-            } else if (data.msg == "谢谢点赞") {
-                alert(data.msg);
-                window.location.reload();
-            } else if (data.msg == "已经点过赞了哦") {
-                alert(data.msg);
-                window.location.reload();
-            } else {
-                alert(data.msg);
-                window.location.reload();
+            if (data == "谢谢您，已点过赞了！") {
+                alert(data);
+            }
+            if (data == "系统错误，点赞失败！") {
+                alert(data)
+            }
+            if (data == "点赞成功！") {
+                document.location.reload()
             }
         },
-        error: function () {
-            alert("系统错误，请联系帅气的管理员");
+        error:function () {
+            alert("系统错误，请联系帅气的管理员！")
         }
-    });
+    })
 }

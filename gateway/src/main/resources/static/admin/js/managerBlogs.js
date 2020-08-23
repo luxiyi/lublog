@@ -7,31 +7,30 @@ function showAdminAllBlogs(page) {
         },
         dataType : 'json', // 期待的响应数据类型
         success: function (data) {
-            if (data.msg == "请先登录") {
-                alert(data.msg);
-                window.location.href = "/loginPage";
-            } else {
                 var arr = data.blogShowList;
                 var content = "";
                 for (var i = 0; i < arr.length; i++) {
                     var po = arr[i];
                     content += "<tr>"
                         + "<td class='text-center' id='blog-title'>" + po.title + "</td>"
-                        + "<td class='infor'>" + po.pubdate + "</td>"
+                        + "<td class='infor'>" + po.publishTime + "</td>"
                         + "<td class='infor'>" + po.views + "</td>"
-                        + "<td class='infor'>" + po.categoryname + "</td>"
+                        + "<td class='infor'>" + po.categoryName + "</td>"
                         + "<td class='infor'>"
                         + "<img class='deleteBlog' src='../../img/删除.png' width='25px' onclick='deleteBlog("
-                        + po.blogid
+                        + po.blogId
                         + ")'/>&nbsp;&nbsp;删除&nbsp;&nbsp;"
-                        + "<a href='/queryBlog?blogId=" + po.blogid + "'><img class='queryBlog' src='../../img/修改.png' width='20px' /></a>&nbsp;&nbsp;修改"
+                        + "<a href='/queryBlog?blogId=" + po.blogId + "'><img class='queryBlog' src='../../img/修改.png' width='20px' /></a>&nbsp;&nbsp;修改"
                         + "</td>"
                         + "</tr>";
                 }
                 $("#adminShowBlogs").html(content);
                 $("#currentPage").html(page);
                 $("#totalPage").html(data.totalPage);
-            }
+
+        },
+        error:function () {
+            alert("系统出错，请联系帅气的管理员");
         }
     });
 }
@@ -97,34 +96,3 @@ function deleteBlog(blogId) {
 }
 
 
-// 修改图书内容
-function updatebook() {
-    // alert("你好");
-    $.ajax({
-        url : "updateBooks",
-        type : "post",
-        data : {
-            // 将input中内容赋值给bname
-            "bid" : $("#ubid").val(),
-            // 将修改后的赋值到input中
-            "bname" : $("#ubname").val(),
-            "author" : $("#uauthor").val(),
-            "price" : $("#uprice").val(),
-            "bcount" : $("#ubcount").val(),
-            "pubdate" : $("#upubdate").val(),
-            "press" : $("#upress").val(),
-            "img" : $("#uimg").val(),
-            "intro" : $("#uintro").val()
-        },
-        dataType : 'json',
-        success : function(data) {
-            // alert("修改");
-            if (data == "更新图书失败，请重新输入字段") {
-                $("#updatebookinfo").html(data);
-            } else {
-                alert(data);
-                window.location.reload();
-            }
-        }
-    })
-}

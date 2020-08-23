@@ -19,15 +19,15 @@ function showAllComments(ppage) {
                     content += "<tr>"
                         + "<td class='infor'>"
                         + "<img id='remove-comment' src='../../img/删除.png' width='25px' onclick='deleteComment("
-                        + po.commentid
+                        + po.commentId
                         + ")'/>&nbsp;&nbsp;删除&nbsp;&nbsp;<a href='#comment-content' title='回复" + po.observer + "的这条评论' "
-                        + "onclick=\"quote_comment('comment-quote-"+po.commentid+"','"+po.observer+"','"+po.blogid+"')\">"
+                        + "onclick=\"quote_comment('comment-quote-"+po.commentId+"','"+po.observer+"','"+po.blogId+"')\">"
                         + "<img id='reply-comment' src='../../img/修改.png' width='20px' /></a>&nbsp;&nbsp;回复"
                         + "</td>"
                         + "<td class='infor'>" + po.observer + "</td>"
                         + "<td class='infor'>" + po.commenter + "</td>"
                         + "<td class='infor'>" + po.commentdate + "</td>"
-                        + "<td class='infor' style='text-align: left;width: 400px' id='comment-quote-"+po.commentid+"'><div>" + po.commentcontent + "</div></td>"
+                        + "<td class='infor' style='text-align: left;width: 400px' id='comment-quote-"+po.commentId+"'><div>" + po.commentcontent + "</div></td>"
                         + "</tr>";
                 }
 
@@ -139,91 +139,5 @@ function insertComment() {
 }
 
 
-// 删除书籍
-function removeComment(pgid) {
-    $.ajax({
-        url : "deleteBooks",
-        type : "post",
-        data : {
-            "bid" : pgid,
-            "bcount" : 1
-        },
-        dataType : "text",
-        success : function(data) {
-            if(data=="请先登录"){
-                alert(data);
-            }else if (data == "你不是管理员，无法操作") {
-                alert(data);
-            } else if (data == "该博客已被点赞,不能被删除") {
-                alert(data);
-            } else {
-                alert(data);
-                window.location.reload();
-            }
-        }
-    });
-}
 
 
-// 找到一本书的内容
-function querybook(bid) {
-    $.ajax({
-        url : "queryBooks",
-        type : "post",
-        data : {
-            "bid" : bid,
-        },
-        dataType : 'json',
-        success : function(data) {
-            // 将内容放进div中
-            if(data.info=="你不是管理员，无法操作"){
-                alert(data.info);
-            }else if (data.info == "请先登录") {
-                alert(data.info);
-            } else {
-                $("#ubid").val(bid);
-                $("#ubname").val(data.book.bname);
-                $("#uauthor").val(data.book.author);
-                $("#uprice").val(data.book.price);
-                $("#ubcount").val(data.book.bcount);
-                $("#upubdate").val(data.book.pubdate);
-                $("#upress").val(data.book.press);
-                $("#uimg").val(data.book.img);
-                $("#uintro").val(data.book.intro);
-                $("#updatebookform").modal('show');
-            }
-        }
-    });
-}
-
-// 修改图书内容
-function updatebook() {
-    // alert("你好");
-    $.ajax({
-        url : "updateBooks",
-        type : "post",
-        data : {
-            // 将input中内容赋值给bname
-            "bid" : $("#ubid").val(),
-            // 将修改后的赋值到input中
-            "bname" : $("#ubname").val(),
-            "author" : $("#uauthor").val(),
-            "price" : $("#uprice").val(),
-            "bcount" : $("#ubcount").val(),
-            "pubdate" : $("#upubdate").val(),
-            "press" : $("#upress").val(),
-            "img" : $("#uimg").val(),
-            "intro" : $("#uintro").val()
-        },
-        dataType : 'json',
-        success : function(data) {
-            // alert("修改");
-            if (data == "更新图书失败，请重新输入字段") {
-                $("#updatebookinfo").html(data);
-            } else {
-                alert(data);
-                window.location.reload();
-            }
-        }
-    })
-}

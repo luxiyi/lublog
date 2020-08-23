@@ -72,8 +72,8 @@ public class AdminBlogController {
             return msg;
         }
         //如果有评论，则先删除评论后，再删文章
-        if (blogShow.getCommentcount() > 0) {
-            log.error("delete blog fail, blogShow.commentCount is {}", blogShow.getCommentcount());
+        if (blogShow.getCommentCount() > 0) {
+            log.error("delete blog fail, blogShow.commentCount is {}", blogShow.getCommentCount());
             msg = "删除失败，该文章已被评论，请先删除评论";
             return msg;
         }
@@ -89,7 +89,7 @@ public class AdminBlogController {
     }
 
     @RequestMapping(value = "/showUpdateBlog", method = RequestMethod.GET)
-    public BlogShow queryBlog(@RequestParam("blogId") Integer blogIdStr) {
+    public BlogShow queryBlog(@RequestParam("blogId") Integer blogIdStr, HttpServletRequest request) {
 //        if (StringUtils.isEmpty(blogIdStr) || blogIdStr == "") {
 //            log.error("query blog fail, blogIdStr is {}", blogIdStr);
 //            msg = "查询失败";
@@ -97,6 +97,7 @@ public class AdminBlogController {
 //            return result;
 //        }
         BlogShow blogShow = blogService.findBlogById(blogIdStr);
+        request.setAttribute("blogShow", blogShow);
         return blogShow;
     }
 }

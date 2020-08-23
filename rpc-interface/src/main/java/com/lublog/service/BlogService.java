@@ -52,4 +52,8 @@ public interface BlogService {
     void reduceCommentCount(Integer blogId);
 
     BlogShow queryBlogByTitle(String title);
+
+    void updateViewsById(Integer views, Integer blogId);
+
+    void updateLikes(Integer likeNums, Integer blogId);
 }

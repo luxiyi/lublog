@@ -96,7 +96,7 @@ public class TagController {
             result.put("msg", msg);
             return result;
         }
-        List<BlogContent> blogContents = blogService.findAllByTagId(currentTag.getTagid());
+        List<BlogContent> blogContents = blogService.findAllByTagId(currentTag.getTagId());
         if (CollectionUtils.isNotEmpty(blogContents)) {
             msg = tagName + " 标签有博客使用，无法删除";
             result.put("msg", msg);

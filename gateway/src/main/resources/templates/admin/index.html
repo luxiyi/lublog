@@ -14,6 +14,19 @@
         float: left;
         padding-left: 30px;
     }
+    .blogInroduceLimit {
+        float: left;
+        width: 450px;
+        margin-left: 30px;
+    }
+    .show-blog-left {
+        float: left;
+        margin-top: 10px;
+        width: 50px;
+    }
+    .show-blog-right {
+        width: 150px;
+    }
 </style>
 <body class="fixed-left">
 <div id="wrapper">
@@ -28,10 +41,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr><td style="text-align: left">截止目前统计您一共发表博客399篇，删除40篇博客，首页展示有354篇博客</td></tr>
-                    <tr><td style="text-align: left">截止目前统计您的博客访问量为399</td></tr>
-                    <tr><td style="text-align: left">截止目前统计您的博客评论数为399</td></tr>
-                    <tr><td style="text-align: left">截止目前统计您的博客点赞数为399</td></tr>
+                    <tr><td style="text-align: left">截止目前统计您一共发表博客[[${statistics!=null?statistics.blogTotalNum:0}]]篇，删除[[${statistics!=null?statistics.blogDeleteNum:0}]]篇博客，首页展示有[[${statistics!=null?statistics.blogShowNum:0}]]篇博客</td></tr>
+                    <tr><td style="text-align: left">截止目前统计您的博客访问量为[[${statistics!=null?statistics.pageViewNum:0}]]</td></tr>
+                    <tr><td style="text-align: left">截止目前统计您的博客评论数为[[${statistics!=null?statistics.blogCommentsNum:0}]]</td></tr>
+                    <tr><td style="text-align: left">截止目前统计您的博客点赞数为[[${statistics!=null?statistics.blogLikesNum:0}]]</td></tr>
                     </tbody>
                 </table>
                 <table class="table">

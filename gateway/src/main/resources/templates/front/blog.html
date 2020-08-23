@@ -64,11 +64,16 @@
         }
 
         #test-editormd-view {
-            background-color: white;
+            background-color: #abdec7;
             text-align: left;
             width: 800px;
             margin: 0 auto;
         }
+        #img-add-likes{
+            height: 30px;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
@@ -84,9 +89,13 @@
             <div class="article" style="padding-top: 20px">
                 <!--<div class="content" id="layer" style="border: #d43f3a solid 1px">-->
                     <div id="test-editormd-view" style="">
-                        <textarea id="append-test" style="display:none;">[[${session.blogShow!=null?session.blogShow.content:''}]]</textarea>
+                        <!--<textarea id="append-test" style="display:none;">[[${session.blogShow!=null?session.blogShow.content:''}]]</textarea>-->
+                        <textarea id="append-test" style="display:none;">[[${blogShow!=null?blogShow.content:''}]]</textarea>
                     </div>
                 <!--</div>-->
+            </div>
+            <div class="add_likes">
+                <h3>原创不易，麻烦帮忙点个赞吧<img src="/img/点赞.png" id="img-add-likes" onclick="addLikes()"><span>([[${blogShow!=null?blogShow.likes:''}]])</span></h3>
             </div>
             <div style="padding-top: 50px">
                 <nav class="ss-pagination-next">
@@ -108,7 +117,7 @@
 
     <div style="width: 1000px; font-size: 15px; padding-top: 50px;padding-left:50px;font-weight: bolder">
         <div class="comments-open" id="comments-open">
-            <div style="text-align: left;padding-bottom: 20px"><h3 class="comments-open-header">评论（[[${session.blogShow.commentcount}]]条&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;评论一下吧）</h3></div>
+            <div style="text-align: left;padding-bottom: 20px"><h3 class="comments-open-header">评论（[[${blogShow!=null?blogShow.commentCount:''}]]条&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;评论一下吧）</h3></div>
             <div class="comments-open-content">
 
                     <div style="float: left;width: 200px;margin-top: 8px">

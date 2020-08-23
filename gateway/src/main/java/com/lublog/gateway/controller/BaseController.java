@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.lublog.constant.SysConstant;
 import com.lublog.po.Plan;
 import com.lublog.po.Profile;
+import com.lublog.po.Statistics;
 import com.lublog.service.*;
 import com.lublog.vo.BlogShow;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,9 @@ import javax.servlet.http.HttpSession;
 @Controller
 @Slf4j
 public class BaseController {
+    private static final String QUERY_COMMENTS_NAME = "comment_count";
+    private static final String QUERY_LIKES_NAME = "likes";
+
     @Autowired
     private CommentService commentService;
     @Autowired
@@ -32,6 +36,8 @@ public class BaseController {
     private PlanService planService;
     @Autowired
     private ProfileService profileService;
+    @Autowired
+    private StatisticsService statisticsService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String frontIndex() {
@@ -53,11 +59,11 @@ public class BaseController {
 
 
     @RequestMapping(value ="/aboutMe", method = RequestMethod.GET)
-    public String findProfile(HttpSession session) {
+    public String findProfile(HttpServletRequest request) {
         String title = SysConstant.PROFILE_SPACE;
         Profile profile = profileService.queryProfileByTitle(title);
         log.info("profile is {}", JSON.toJSONString(profile));
-        session.setAttribute("profile", profile);
+        request.setAttribute("profile", profile);
         return "front/about_me";
     }
 
@@ -68,8 +74,24 @@ public class BaseController {
     }
 
     @RequestMapping(value = "admin/index", method = RequestMethod.GET)
-    public String adminIndex() {
+    public String adminIndex(HttpServletRequest request) {
         log.info("-------admin-index------");
+        int blogCommentsNum = statisticsService.queryBlogCommentsNum();
+        int blogLikesNum = statisticsService.queryBlogLikesNum();
+        log.info("blogLikesNum is {}", blogLikesNum);
+        int blogTotalNum = statisticsService.queryBlogTotalNum();
+        int blogShowNum = statisticsService.queryBlogShowOrDeleteNum(SysConstant.NUM_0);
+        int blogDeleteNum = statisticsService.queryBlogShowOrDeleteNum(SysConstant.NUM_1);
+        Statistics statistics = new Statistics();
+        statistics.setBlogCommentsNum(blogCommentsNum);
+        statistics.setBlogLikesNum(blogLikesNum);
+        statistics.setBlogTotalNum(blogTotalNum);
+        statistics.setBlogShowNum(blogShowNum);
+        statistics.setBlogDeleteNum(blogDeleteNum);
+        statisticsService.updateStatisticsNum(statistics, SysConstant.NUM_1);
+        Statistics newStatistics = statisticsService.queryStatistics(SysConstant.NUM_1);
+        log.info("统计数据 statistics = {}", JSON.toJSONString(statistics));
+        request.setAttribute("statistics", newStatistics);
         return "admin/index";
     }
 
@@ -109,27 +131,27 @@ public class BaseController {
     }
 
     @RequestMapping(value = "/justDoIt")
-    public String justDoIt(Integer planId,HttpSession session) {
+    public String justDoIt(Integer planId,HttpServletRequest request) {
         Plan plan = planService.getOnePlan(planId);
         log.info("plan is {}", plan);
-        session.setAttribute("plan",plan);
+        request.setAttribute("plan",plan);
         log.info("-------------just do it -------------");
         return "front/doPlan";
     }
 
     @RequestMapping(value = "/creatDoPlan")
-    public String creatDoPlan(Integer planId,HttpSession session) {
+    public String creatDoPlan(Integer planId,HttpServletRequest request) {
         Plan plan = planService.getOnePlan(planId);
         log.info("plan is {}", plan);
-        session.setAttribute("plan",plan);
+        request.setAttribute("plan",plan);
         log.info("-------------creat do plan -------------");
         return "admin/creatDoPlan";
     }
 
     @RequestMapping(value = "/queryBlog", method = RequestMethod.GET)
-    public String queryArticle(Integer blogId, HttpServletRequest request) {
+    public String queryBlog(Integer blogId, HttpServletRequest request) {
         BlogShow blogShow = blogService.findBlogById(blogId);
-        request.setAttribute("blog", blogShow);
+        request.setAttribute("blogShow", blogShow);
         return "admin/blog_update";
     }
 

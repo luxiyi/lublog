@@ -8,9 +8,9 @@ function categoryList() {
             for (var i = 0; i < data.length; i++) {
                 var po = data[i];
                 content += "<div class='categoryDiv'>"
-                    + po.categoryname
+                    + po.categoryName
                     + "<img id='deleteCategory' src='/admin/img/deleteIcon.png' "
-                    + "onclick=\"deleteCategory('" + po.categoryname + "')\" "
+                    + "onclick=\"deleteCategory('" + po.categoryName + "')\" "
                     + "style='width: 20px;padding-left: 5px;cursor: pointer' >"
                     + "</div>";
             }
@@ -95,9 +95,9 @@ function tagList() {
             for (var i = 0; i < data.length; i++) {
                 var po = data[i];
                 content += "<div class='tagDiv'>"
-                    + po.tagname
+                    + po.tagName
                     + "<img src='/admin/img/deleteIcon.png'"
-                    + "onclick=\"deleteTag('" + po.tagname + "')\" "
+                    + "onclick=\"deleteTag('" + po.tagName + "')\" "
                     + "style='width: 20px;padding-left: 5px;cursor: pointer'>"
                     + "</div>";
             }

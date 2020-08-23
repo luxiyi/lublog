@@ -18,10 +18,10 @@ public interface ProfileMapper {
     void insertProfile(String profileTitle,String profileContent,String profileCover,String profileIntroduce);
 
     //根据标题查找
-    @Select("select * from t_profile where profile_title=#{param1} and profile_flag = 0")
+    @Select("select * from t_profile where profile_title=#{param1} and flag = 0")
     Profile queryProfileByTitle(String profileTitle);
 
     //修改信息
-    @Update("update t_profile set profile_content=#{param1},profile_cover=#{param2},profile_introduce=#{param3} where profile_title=#{param4} and profile_flag = 0")
+    @Update("update t_profile set profile_content=#{param1},profile_cover=#{param2},profile_introduce=#{param3} where profile_title=#{param4} and flag = 0")
     void updateProfileByTitle(String profileContent,String profileCover,String profileIntroduce,String profileTitle);
 }

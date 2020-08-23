@@ -53,7 +53,7 @@ public class CommetController {
     }
 
     @RequestMapping(value = "/deleteComment", method = RequestMethod.DELETE)
-    public String deleteComment(@RequestParam("commentId") Integer commentId, HttpSession session) throws SQLException {
+    public String deleteComment(@RequestParam("commentId") Integer commentId) throws SQLException {
         String msg = "删除评论失败";
         if (commentId == 0 || commentId == null) {
             log.error("delete comment fail ,commentId is {}", commentId);

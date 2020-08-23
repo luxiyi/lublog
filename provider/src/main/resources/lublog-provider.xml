@@ -26,6 +26,7 @@
     <dubbo:service interface="com.lublog.service.PlanVisitorService" ref="planVisitorService"/>
     <dubbo:service interface="com.lublog.service.QuestionService" ref="questionService"/>
     <dubbo:service interface="com.lublog.service.ProfileService" ref="profileService"/>
+    <dubbo:service interface="com.lublog.service.StatisticsService" ref="statisticsService"/>
     <!-- 服务实现，与普通的本地bean一样-->
     <bean id="blogService" class="com.lublog.provider.serviceimpl.BlogServiceImpl"/>
     <bean id="commentService" class="com.lublog.provider.serviceimpl.CommentServiceImpl"/>
@@ -37,4 +38,5 @@
     <bean id="planVisitorService" class="com.lublog.provider.serviceimpl.PlanVisitorServiceImpl"/>
     <bean id="questionService" class="com.lublog.provider.serviceimpl.QuestionServiceImpl"/>
     <bean id="profileService" class="com.lublog.provider.serviceimpl.ProfileServiceImpl"/>
+    <bean id="statisticsService" class="com.lublog.provider.serviceimpl.StatisticsServiceImpl"/>
 </beans>

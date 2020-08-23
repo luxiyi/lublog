@@ -14,10 +14,10 @@ function showLastBlogs() {
                 for (var i = 0; i < arr.length; i++) {
                     var po = arr[i];
                     content += "<tr>"
-                            + "<td style='width: 500px;'><div style='float: left;'>文章</div><div  class='blogInroduceLimit'>" + po.title + "<br>" + po.introduce + "</div></td>"
-                            +"<td>" + po.views + "<br>阅读数</td>"
-                            +"<td>" + po.commentcount + "<br>评论数</td>"
-                            +"<td>" + po.likes + "<br>点赞数</td>"
+                            + "<td style='width: 500px;'><div class='show-blog-left'>文章</div><div class='blogInroduceLimit'>" + po.title + "<br>" + po.introduce + "</div></td>"
+                            +"<td class='show-blog-right'>" + po.views + "<br>阅读数</td>"
+                            +"<td class='show-blog-right'>" + po.commentCount + "<br>评论数</td>"
+                            +"<td class='show-blog-right'>" + po.likes + "<br>点赞数</td>"
                             +"</tr>";
                 }
                 $("#lastBlogList").html(content);

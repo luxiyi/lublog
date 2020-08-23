@@ -112,7 +112,9 @@
 
 
                     <div class="fileupload" style="margin-top: 13px">
-                        <div style="float: left;padding-top: 5px"><label>选择封面图片:</label><input type="text" id="blogCover" name="blogCover" placeholder="图片地址" style="width: 300px"></div>
+                        <div style="float: left;padding-top: 5px">
+                            <label>选择封面图片:</label>
+                            <input type="text" id="blogCover" name="blogCover" placeholder="图片地址" style="width: 300px" value="../../img/ideaCover.png"></div>
                         <div style="float: left;padding-top: 5px;padding-left: 10px"><label>图片地址:</label></div>
                         <div style="float: left;padding-top: 2px"><input type="file"  accept="image/*"
                                                      onchange="imgPreview(this)"></div>
@@ -196,8 +198,8 @@
         buildOption: function (data) {//构建下拉框数据
             var optionStr = "";
             for (var i = 0; i < data.length; i++) {
-                optionStr += "<option value=" + data[i].tagid + ">";
-                optionStr += data[i].tagname;
+                optionStr += "<option value=" + data[i].tagId + ">";
+                optionStr += data[i].tagName;
                 optionStr += "</option>";
             }
             $("#blogTag").append(optionStr);
@@ -222,8 +224,8 @@
         buildOption: function (data) {//构建下拉框数据
             var optionStr = "";
             for (var i = 0; i < data.length; i++) {
-                optionStr += "<option value=" + data[i].categoryid + ">";
-                optionStr += data[i].categoryname;
+                optionStr += "<option value=" + data[i].categoryId + ">";
+                optionStr += data[i].categoryName;
                 optionStr += "</option>";
             }
             $("#blogCategory").append(optionStr);

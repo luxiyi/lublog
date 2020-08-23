@@ -14,7 +14,7 @@ public class BlogShow implements Serializable {
 
     private static final long serialVersionUID = 6660510128007365374L;
 
-    private Integer blogid;
+    private Integer blogId;
 
     private String title;
 
@@ -22,21 +22,21 @@ public class BlogShow implements Serializable {
 
     private String content;
 
-    private String pubdate;
+    private String publishTime;
 
-    private String blogcover;
+    private String blogCover;
 
     private String introduce;
 
-    private String tagname;
+    private String tagName;
 
     private int views;
 
     private int likes;
 
-    private int commentcount;
+    private int commentCount;
 
-    private String categoryname;
+    private String categoryName;
 
     private int flag;
 

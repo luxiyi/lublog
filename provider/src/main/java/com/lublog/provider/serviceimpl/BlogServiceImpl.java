@@ -122,7 +122,16 @@ public class BlogServiceImpl implements BlogService {
         return blogMapper.queryBlogByTitle(title);
     }
 
+    @Override
+    public void updateViewsById(Integer views, Integer blogId) {
+        blogMapper.updateViewsById(views, blogId);
+    }
 
+
+    @Override
+    public void updateLikes(Integer likeNums, Integer blogId) {
+        blogMapper.updateLikes(likeNums, blogId);
+    }
 
 
 }

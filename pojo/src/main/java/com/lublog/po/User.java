@@ -6,7 +6,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Data
-@Table(name="t_student")
+@Table(name="t_user")
 public class User implements Serializable {
     private Integer userId;
 

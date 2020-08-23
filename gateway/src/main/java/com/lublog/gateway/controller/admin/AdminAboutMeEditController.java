@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
@@ -33,7 +34,7 @@ public class AdminAboutMeEditController {
      * 保存发布文章
      */
     @RequestMapping(value = "/pushProfile", method = RequestMethod.POST)
-    public String pushProfile(HttpSession session, String profileContent, String profileCover, String profileIntroduce, String profileTitle) {
+    public String pushProfile(HttpServletRequest request, String profileContent, String profileCover, String profileIntroduce, String profileTitle) {
         String msg = "发布成功!";
         Profile profile = getObjectUtils.geyProfile(profileContent,profileCover,profileIntroduce,profileTitle,new Profile());
         if (profileService.queryProfileByTitle(profileTitle) != null) {
@@ -41,7 +42,7 @@ public class AdminAboutMeEditController {
             try {
                 profileService.updateProfileByTitle(profileContent,profileCover,profileIntroduce,profileTitle);
                 msg = "更改成功";
-                session.setAttribute("profile", profile);
+                request.setAttribute("profile", profile);
                 return msg;
             } catch (Exception e) {
                 log.error("blog update failed is {}", e);
@@ -52,7 +53,7 @@ public class AdminAboutMeEditController {
 
         try {
             profileService.insertProfile(profileTitle,profileContent,profileCover,profileIntroduce);
-            session.setAttribute("profile", profile);
+            request.setAttribute("profile", profile);
             return msg;
         } catch (Exception e) {
             log.error("blog push failed is {}", e);

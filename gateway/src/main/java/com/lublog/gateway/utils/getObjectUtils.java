@@ -17,12 +17,12 @@ public class getObjectUtils {
         int tagId = Integer.parseInt(tagIdStr);
         blogContent.setTitle(title);
         blogContent.setContent(content);
-        blogContent.setPubdate(new Date());
-        blogContent.setCategoryid(categoryId);
-        blogContent.setTagid(tagId);
+        blogContent.setPublishTime(new Date());
+        blogContent.setCategoryId(categoryId);
+        blogContent.setTagId(tagId);
         blogContent.setAuthor(author);
         blogContent.setIntroduce(introduce);
-        blogContent.setBlogcover(blogCover);
+        blogContent.setBlogCover(blogCover);
         return blogContent;
     }
 

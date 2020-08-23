@@ -7,7 +7,7 @@ function categoryDropdown() {
             var content = "";
             for (var i = 0; i < data.length; i++) {
                 var po = data[i];
-                content += "<a href='blogCategories?categoryId="+po.categoryid+"'>" + po.categoryname + "</a>";
+                content += "<a href='blogCategories?categoryId="+po.categoryId+"'>" + po.categoryName + "</a>";
             }
             $("#categoryDropdown").html(content);
         }
@@ -25,7 +25,7 @@ function tagDropdown() {
             var content = "";
             for (var i = 0; i < data.length; i++) {
                 var po = data[i];
-                content += "<a href='blogTags?tagId="+po.tagid+"'>" + po.tagname + "</a>";
+                content += "<a href='blogTags?tagId="+po.tagId+"'>" + po.tagName + "</a>";
             }
             $("#tagDropdown").html(content);
         }

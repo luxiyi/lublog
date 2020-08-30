@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Objects;
 
 /**
  * @Description: java类作用描述BlogController
@@ -34,8 +35,11 @@ public class BlogController {
         Integer blogId = BlogStringUtils.getNum(blogIdStr);
         BlogShow blogShow = blogService.findBlogById(blogId);
         log.info("blogShow is {}", JSON.toJSONString(blogShow));
+        BlogContent lastBlog = blogService.queryLastBlog(blogId);
+        BlogContent nextBlog = blogService.queryNextBlog(blogId);
+        request.setAttribute("nextBlog", nextBlog);
+        request.setAttribute("lastBlog", lastBlog);
         request.setAttribute("blogShow", blogShow);
-//        log.info("checkHitsFrequency = {}", checkHitsFrequency(request, blogId));
         if (!checkHitsFrequency(request, blogId)) {
             // 更新文章点击量
             Integer views = blogShow.getViews();

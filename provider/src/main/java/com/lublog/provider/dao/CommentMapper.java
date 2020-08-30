@@ -44,7 +44,7 @@ public interface CommentMapper {
     @Select("SELECT COUNT(*) total FROM t_comment where blog_id=#{param1} and flag = 0")
     int queryOneBlogCommentsCount(int blogId);
 
-    @Update("update t_comment set flag = 1 where commentId = #{param1}")
+    @Update("update t_comment set flag = 1 where comment_id = #{param1}")
     void deleteOneComment(int commentId);
 
     @Select("SELECT blog_id FROM t_comment where comment_id=#{param1} and flag = 0")
@@ -53,4 +53,6 @@ public interface CommentMapper {
     @Select("select count(*) from t_comment where flag = 0")
     int queryCommentAllCount();
 
+    @Select("select * from t_comment where observer = #{param1} and flag = 0 ORDER BY comment_id DESC LIMIT 0,1")
+    Comment queryOneCommentByObserver(String observer);
 }

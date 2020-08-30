@@ -56,4 +56,8 @@ public interface BlogService {
     void updateViewsById(Integer views, Integer blogId);
 
     void updateLikes(Integer likeNums, Integer blogId);
+
+    BlogContent queryLastBlog(Integer blogId);
+
+    BlogContent queryNextBlog(Integer blogId);
 }

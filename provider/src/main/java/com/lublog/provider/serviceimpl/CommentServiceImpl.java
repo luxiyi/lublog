@@ -86,4 +86,9 @@ public class CommentServiceImpl implements CommentService {
     public int queryCommentAllCount() {
         return commentMapper.queryCommentAllCount();
     }
+
+    @Override
+    public Comment queryOneCommentByObserver(String observer) {
+        return commentMapper.queryOneCommentByObserver(observer);
+    }
 }

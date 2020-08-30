@@ -29,9 +29,7 @@ public class CommentController {
 
     //展现评论,list不能作为参数
     @RequestMapping(value = "/findComments", method = RequestMethod.GET)
-    public Map<String, Object> findComments(@RequestParam("blogId") String blogIdStr, HttpServletRequest request, Integer page, Integer totalPage) {
-        log.info("blogIdStr is {}", blogIdStr);
-        Integer blogId = BlogStringUtils.getNum(blogIdStr);
+    public Map<String, Object> findComments(@RequestParam("blogId") Integer blogId, HttpServletRequest request, Integer page, Integer totalPage) {
         Map<String, Object> result = new HashMap<String, Object>();
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
@@ -49,28 +47,31 @@ public class CommentController {
 
     //插入评论
     @RequestMapping(value = "/addBlogComment", method = RequestMethod.POST)
-    public String addBlogComment(String observer, String contact, String commentContent, @RequestParam("blogId") String blogIdStr) {
+    public String addBlogComment(@RequestParam("blogId") Integer blogId,String observer,
+                                 String contact, String commentContent,
+                                 HttpSession session) {
         String info = "评论成功";
-
-        if (StringUtils.isEmpty(blogIdStr) || blogIdStr == ""
-                || StringUtils.isEmpty(observer) || observer == ""
+        if (blogId == null || StringUtils.isEmpty(observer) || observer == ""
                 || StringUtils.isEmpty(contact) || contact == ""
                 || StringUtils.isEmpty(commentContent) || commentContent == "") {
             info = "评论失败，请联系管理员";
-            log.error("comment push fail, blogIdStr is {}", blogIdStr);
+            log.error("comment push fail, blogIdStr is {}", blogId);
             return info;
         }
-        Integer blogId = BlogStringUtils.getNum(blogIdStr);
         BlogShow blogShow = blogService.findBlogById(blogId);
         if (blogShow == null || StringUtils.isEmpty(blogShow.getAuthor()) || blogShow.getAuthor() == "") {
             info = "评论失败，请联系管理员";
             log.error("query blogShow fail，blogShow is {}", blogShow);
             return info;
         }
+        String sessionObserver = (String) session.getAttribute("observer");
+        log.info("contact = {}", contact.equals("已填写"));
+        if (contact.equals("已填写")){
+            Comment comment = commentService.queryOneCommentByObserver(sessionObserver);
+            contact = comment.getContact();
+        }
         String commenter = blogShow.getTitle();
         Date commentDate = new Date();
-        log.info("blogId is {}, observer is {}, contact is {}, commentContent is {}, commentDate is {}",
-                blogId, observer, contact, commentContent, commentDate);
         try {
             commentService.insertCommentById(blogId, observer, commenter, contact, commentContent, commentDate);
             blogService.updateComcount(blogId);
@@ -79,6 +80,7 @@ public class CommentController {
             log.error("comment push fail is {}", e);
             return info;
         }
+        session.setAttribute("observer", observer);
         log.info("insert comment success, contact is {}, commentContent is {}", contact, commentContent);
         return info;
     }

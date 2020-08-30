@@ -104,4 +104,10 @@ public interface BlogMapper {
 
     @Update("update t_blogContent set likes = #{param1} where blog_id=#{param2} and flag = 0")
     void updateLikes(Integer likeNums, Integer blogId);
+
+    @Select("select blog_id,title from t_blogContent WHERE blog_id < #{param1} and flag = 0 ORDER BY blog_id DESC LIMIT 0,1")
+    BlogContent queryLastBlog(Integer blogId);
+
+    @Select("select blog_id,title from t_blogContent WHERE blog_id > #{param1} and flag = 0 ORDER BY blog_id LIMIT 0,1")
+    BlogContent queryNextBlog(Integer blogId);
 }

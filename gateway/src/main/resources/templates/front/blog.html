@@ -70,8 +70,14 @@
             margin: 0 auto;
         }
         #img-add-likes{
-            height: 30px;
+            height: 25px;
             cursor: pointer;
+            padding-left: 20px;
+            padding-bottom: 5px;
+        }
+
+        .add_likes{
+            margin-top: 30px;
         }
 
     </style>
@@ -95,18 +101,18 @@
                 <!--</div>-->
             </div>
             <div class="add_likes">
-                <h3>原创不易，麻烦帮忙点个赞吧<img src="/img/点赞.png" id="img-add-likes" onclick="addLikes()"><span>([[${blogShow!=null?blogShow.likes:''}]])</span></h3>
+                <h3>原创不易，点个赞吧!<img src="/img/点赞.png" id="img-add-likes" onclick="addLikes()"><span>([[${blogShow!=null?blogShow.likes:''}]])</span></h3>
             </div>
-            <div style="padding-top: 50px">
+            <div style="padding-top: 20px">
                 <nav class="ss-pagination-next">
-                    <a class="link-prev" href="/blog/2020/04/28/n1k2gc12.html">
-                        <span class="text">上一篇: </span>
-                        <span class="text">Spring Boot 2.0实现基于Restful风格的文件上传与下载APIs</span>
-                    </a>
+                    <a class="link-prev" th:href="@{'/blog?blogId='+${lastBlog!=null?lastBlog.blogId:blogShow.blogId}}" style="text-decoration: none">
+                        <span class="text" style="font-size: 20px">[[${lastBlog!=null?'上一篇: ':'这是第一篇'}]]</span>
+                        <span class="text" style="font-size: 20px">[[${lastBlog!=null?lastBlog.title:''}]]</span>
+                    </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                    <a class="link-prev" href="javascript:void(0);">
-                        <span class="text">下一篇: </span>
-                        <span class="text">没有了</span>
+                    <a th:href="@{'/blog?blogId='+${nextBlog!=null?nextBlog.blogId:blogShow.blogId}}" style="text-decoration: none">
+                        <span class="text" style="font-size: 20px">[[${nextBlog!=null?'下一篇: ':'这是最后一篇'}]]</span>
+                        <span class="text" style="font-size: 20px">[[${nextBlog!=null?nextBlog.title:''}]]</span>
                     </a>
                 </nav>
             </div>
@@ -117,23 +123,16 @@
 
     <div style="width: 1000px; font-size: 15px; padding-top: 50px;padding-left:50px;font-weight: bolder">
         <div class="comments-open" id="comments-open">
-            <div style="text-align: left;padding-bottom: 20px"><h3 class="comments-open-header">评论（[[${blogShow!=null?blogShow.commentCount:''}]]条&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;评论一下吧）</h3></div>
+            <div style="text-align: left;padding-bottom: 20px"><h3 class="comments-open-header">评论（[[${blogShow!=null?blogShow.commentCount:''}]]）</h3></div>
             <div class="comments-open-content">
-
                     <div style="float: left;width: 200px;margin-top: 8px">
                         <label for="comment-observer">昵称：</label>
-                        <input id="comment-observer" size="30" style="width: 100px" type="text" placeholder="必填">
+                        <input id="comment-observer" size="30" style="width: 100px" type="text" placeholder="必填" th:value="${session.observer!=null?session.observer:''}">
                     </div>
                     <div style="float: left;width: 300px;margin-top: 8px">
                         <label for="comment-contact">微信或QQ：</label>
-                        <input id="comment-contact" size="30" style="width: 150px" type="text" placeholder="必填">
+                        <input id="comment-contact" size="30" style="width: 150px" type="text" placeholder="必填" th:value="${session.observer!=null?'已填写':''}">
                     </div>
-
-                    <div style="float: left;width: 400px">
-                        <label for="comment-bake-cookie">记住个人信息？</label>
-                        <input type="checkbox" id="comment-bake-cookie" name="bakecookie"
-                               onclick="!this.checked?forgetMe(document.comments_form):rememberMe(document.comments_form)"
-                               value="1" accesskey="r">
                     </div>
                 </div>
 

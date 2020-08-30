@@ -1,5 +1,6 @@
 package com.lublog.provider.serviceimpl;
 
+import com.lublog.constant.SysConstant;
 import com.lublog.dto.BlogCategory;
 import com.lublog.dto.BlogTag;
 import com.lublog.provider.dao.BlogMapper;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Description: java类作用描述BookServiceImpl
@@ -131,6 +133,23 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public void updateLikes(Integer likeNums, Integer blogId) {
         blogMapper.updateLikes(likeNums, blogId);
+    }
+
+    @Override
+    public BlogContent queryLastBlog(Integer blogId) {
+        BlogContent lastBlog = blogMapper.queryLastBlog(blogId);
+        if (Objects.isNull(lastBlog)) {
+            return null;
+        }
+        if (lastBlog.getBlogId() == SysConstant.NUM_1) {
+            return null;
+        }
+        return lastBlog;
+    }
+
+    @Override
+    public BlogContent queryNextBlog(Integer blogId) {
+        return blogMapper.queryNextBlog(blogId);
     }
 
 

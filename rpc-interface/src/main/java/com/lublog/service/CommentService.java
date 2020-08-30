@@ -34,4 +34,6 @@ public interface CommentService {
     int queryOneBlogCommentsCount(int blogId);
 
     int queryCommentAllCount();
+
+    Comment queryOneCommentByObserver(String sessionObserver);
 }

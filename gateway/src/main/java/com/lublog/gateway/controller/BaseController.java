@@ -45,12 +45,6 @@ public class BaseController {
         return "front/index";
     }
 
-    @RequestMapping(value = "/front/blog")
-    public String blogDetail() {
-        log.info("-------------blog detail-------------");
-        return "front/blog";
-    }
-
     @RequestMapping(value = "/plan")
     public String myLifeShow() {
         log.info("-------------into plan-------------");

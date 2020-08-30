@@ -72,7 +72,9 @@ public class CommetController {
          */
         try {
             commentService.deleteOneComment(commentId);
-            blogService.reduceCommentCount(blogId);
+            if (commentService.queryOneBlogCommentsCount(blogId) > 0) {
+                blogService.reduceCommentCount(blogId);
+            }
         } catch (Exception e) {
             log.error("delete comment or reduce commentNum fail is {}", e);
             return msg;

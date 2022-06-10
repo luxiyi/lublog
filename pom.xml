@@ -31,7 +31,7 @@
 
         <fastjson.version>1.2.46</fastjson.version>
         <dubbo-starter.version>2.0.0</dubbo-starter.version>
-        <dubbo.version>2.6.0</dubbo.version>
+        <dubbo.version>2.6.12</dubbo.version>
         <zkclient.version>0.10</zkclient.version>
         <zk.version>3.4.14</zk.version>
         <mybatis.version>2.1.2</mybatis.version>
